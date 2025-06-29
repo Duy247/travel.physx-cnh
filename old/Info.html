@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông Tin Liên Lạc</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #262626;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #dadada;
+            font-size: 36px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+        }
+        h2 {
+            text-align: center;
+            color: #999;
+            font-size: 18px;
+            margin-top: 0;
+        }
+        #map {
+            height: 600px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }       
+        .nav-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            background-color: #3c3c3c;
+            color: #a68af9;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .nav-link:hover {
+            background-color: #f1f1f1;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #a68af9;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 2px;
+        }
+        .contact-book {
+            background-color: #3c3c3c;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .contact-item {
+            background-color: #262626;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            color: #dadada;
+        }
+        .contact-item h3 {
+            margin: 0;
+            font-size: 20px;
+            color: #a68af9;
+        }
+        .contact-item p {
+            margin: 5px 0;
+        }
+        .filter-options {
+            margin-bottom: 10px;
+        }
+        .filter-option {
+            display: inline-block;
+            padding: 5px 5px;
+            margin-right: 5px;
+            background-color: #3c3c3c;
+            color: #a68af9;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .filter-option.active {
+            background-color: #a68af9;
+            color: #262626;
+        }
+        .contact-group {
+            display: none;
+        }
+        .contact-group.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Thông Tin Liên Lạc</h1>   
+    
+    <div class="filter-options">
+        <span class="filter-option active" data-group="all">All</span>
+        <span class="filter-option" data-group="friends">Các Fen</span>
+        <span class="filter-option" data-group="hotels">Khách sạn</span>    
+        <span class="filter-option" data-group="restaurants">Ăn trưa, tối</span>  
+        <span class="filter-option" data-group="emergency">Khẩn cấp</span>    
+    </div>
+    
+    <div class="contact-book">
+        <div class="contact-group hotels active">
+            <div class="contact-item">
+                <h3>Sun Sea Hotel</h3>
+                <p>Địa chỉ: 26 Núi Ngọc, TT. Cát Bà, Cát Hải, Hải Phòng</p>
+                <p>Số điện thoại: 0972123234</p>          
+            </div>
+        </div>
+        <div class="contact-group friends active">
+            <div class="contact-item">
+                <h3>Duy</h3>
+                <p>Số điện thoại: 0393718247</p>          
+            </div>
+            <div class="contact-item">
+                <h3>Trang</h3>
+                <p>Số điện thoại: 0389441863</p>
+            </div>
+            <div class="contact-item">
+                <h3>Phương Anh</h3>
+                <p>Số điện thoại: 0327623577</p>
+            </div>
+            <div class="contact-item">
+                <h3>Hà</h3>
+                <p>Số điện thoại: 0989984776</p>
+            </div>
+            <div class="contact-item">
+                <h3>Việt Anh</h3>
+                <p>Số điện thoại: 0349112082</p>
+            </div>
+        </div>
+        <div class="contact-group restaurants active">
+            <div class="contact-item">
+                <h3>Nhà hàng hải sản Viễn Dương</h3>
+                <p>Địa chỉ: 12 Núi Ngọc</p>
+                <p>Số điện thoại: 0383434443</p>         
+            </div>
+            <div class="contact-item">
+                <h3>Nhà hàng nổi Quang Anh</h3>
+                <p>Địa chỉ: 95 Cái Bèo</p>
+                <p>Số điện thoại: 0941851984</p>         
+            </div>
+            <div class="contact-item">
+                <h3>Buffet Ốc Ba Tàu</h3>
+                <p>Địa chỉ: 76, Cát Hải</p>
+                <p>Số điện thoại: 0899999866</p>         
+            </div>
+            <div class="contact-item">
+                <h3>Lẩu nướng anh em</h3>
+                <p>Địa chỉ: 65, Đường Tùng Dinh</p>
+                <p>Số điện thoại: 0767894888</p>         
+            </div>
+            <div class="contact-item">
+                <h3>Phi Nhung Quán</h3>
+                <p>Địa chỉ: Số 2, Cảng cá Cát Bà</p>
+                <p>Số điện thoại: 0988379000</p>         
+            </div>
+        </div>
+        <div class="contact-group emergency active">
+            <div class="contact-item">
+                <h3>Phản ánh dịch vụ nhà hàng khách sạn</h3>
+                <p>Số điện thoại: 0945132599</p>
+            </div>
+            <div class="contact-item">
+                <h3>Cứu hộ biển</h3>             
+                <p>Số điện thoại: 02253888718</p>
+            </div>
+            <div class="contact-item">
+                <h3>Trạm y tế Cát Bà</h3>
+                <p>Số điện thoại: 115</p>
+            </div>
+        </div>
+    </div>
+    
+    <a href="Main.html" class="back-link">Về Trang Chủ</a>
+    
+    <script>
+        const filterOptions = document.querySelectorAll('.filter-option');
+        const contactGroups = document.querySelectorAll('.contact-group');
+        
+        filterOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const selectedGroup = option.getAttribute('data-group');
+                
+                filterOptions.forEach(opt => opt.classList.remove('active'));
+                option.classList.add('active');
+                
+                contactGroups.forEach(group => {
+                    if (selectedGroup === 'all' || group.classList.contains(selectedGroup)) {
+                        group.classList.add('active');
+                    } else {
+                        group.classList.remove('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document id="1zWrXVuqMW62MQTZggq9nnpIhfEuaFs5_">
+	<name>Cafe</name>
+	<gx:CascadingStyle kml:id="__managed_style_7FE6494BC33206CDF84E">
+		<Style>
+			<IconStyle>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=5d4037&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<gx:displayMode>card</gx:displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_813E0969813206CDF84E">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=5d4037&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<gx:displayMode>card</gx:displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_6408756E743206CDF84E">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_7FE6494BC33206CDF84E</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_813E0969813206CDF84E</styleUrl>
+		</Pair>
+	</StyleMap>
+	<gx:CascadingStyle kml:id="__managed_style_550894FD143206CDF84E">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=5d4037&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<displayMode>hide</displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_42E4900BF83206CDF84E">
+		<Style>
+			<IconStyle>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=5d4037&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<displayMode>hide</displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_37CEBE5FAE3206CDF84E">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_42E4900BF83206CDF84E</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_550894FD143206CDF84E</styleUrl>
+		</Pair>
+	</StyleMap>
+	<gx:CascadingStyle kml:id="__managed_style_2B69E58AA93206CDF851">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=66bb6a&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<gx:displayMode>card</gx:displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_19F82F877E3206CDF851">
+		<Style>
+			<IconStyle>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=66bb6a&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<gx:displayMode>card</gx:displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_05016185393206CDF851">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_19F82F877E3206CDF851</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_2B69E58AA93206CDF851</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark id="0CADC731853204F9EEA3">
+		<name>Khách Sạn Sun - Sea</name>
+		<gx:mid>/g/11b67txbl1</gx:mid>
+		<gx:fid>0x314a4435a50eaf5d:0xf353e685962c8413</gx:fid>
+		<LookAt>
+			<longitude>107.0504225</longitude>
+			<latitude>20.7255022</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.5036148070611</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_05016185393206CDF851</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0504225,20.7255022,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="09C7BA137432062F4CDB">
+		<name>Lepont cafe</name>
+		<gx:mid>/g/11m2sslb3v</gx:mid>
+		<gx:fid>0x314a45166fc0b14d:0xec1be06dc64adf6e</gx:fid>
+		<LookAt>
+			<longitude>107.0473677</longitude>
+			<latitude>20.7177281</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.5596320858028</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_37CEBE5FAE3206CDF84E</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0473677,20.7177281,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="02BE4FF75F3206301613">
+		<name>Tsunami BBQ and Cafe</name>
+		<gx:mid>/g/11vr9zd1tz</gx:mid>
+		<gx:fid>0x314a45a2605c40e7:0x4118da889adb7cfe</gx:fid>
+		<LookAt>
+			<longitude>107.0587263</longitude>
+			<latitude>20.7323466</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.454280454221</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_6408756E743206CDF84E</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0587263,20.7323466,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0BFB61DF80320630F5E3">
+		<name>Tầng 11 - Hôtel Perle d&apos;Orient Cat Ba - MGallery</name>
+		<gx:mid>/g/11j0rv3kgh</gx:mid>
+		<gx:fid>0x314a45841b71f5e1:0x52df34f512ccce2f</gx:fid>
+		<LookAt>
+			<longitude>107.0488953</longitude>
+			<latitude>20.71544889999999</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.5760514568502</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_37CEBE5FAE3206CDF84E</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0488953,20.7154489,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0ADC9BB3573206319567">
+		<name>Lion Farm - Coffee &amp; Food</name>
+		<gx:mid>/g/11ptfkrd8b</gx:mid>
+		<gx:fid>0x314a43eee5f55ec3:0xf2a9538c22a56d39</gx:fid>
+		<LookAt>
+			<longitude>106.9979163</longitude>
+			<latitude>20.7701863</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.1812595320588</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_6408756E743206CDF84E</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>106.9979163,20.7701863,0</coordinates>
+		</Point>
+	</Placemark>
+</Document>
+</kml>

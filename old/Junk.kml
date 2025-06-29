@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document id="1Xo1vci2GyhVO2uymainspPQFH2lJxdfg">
+	<name>Junk</name>
+	<gx:CascadingStyle kml:id="__managed_style_51A67C0F4C3206CEEF3F">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=d9118c&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<displayMode>hide</displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_4F7C9AEF1F3206CEEF3F">
+		<Style>
+			<IconStyle>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=d9118c&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<displayMode>hide</displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_37D849EB5E3206CEEF3F">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_4F7C9AEF1F3206CEEF3F</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_51A67C0F4C3206CEEF3F</styleUrl>
+		</Pair>
+	</StyleMap>
+	<gx:CascadingStyle kml:id="__managed_style_21EA122D1D3206CEEF3F">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=d9118c&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<gx:displayMode>card</gx:displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_142DF1BFF73206CEEF3F">
+		<Style>
+			<IconStyle>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=d9118c&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<gx:displayMode>card</gx:displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_2E84FF4B9A3206CEEF42">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=66bb6a&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<gx:displayMode>card</gx:displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_1B6C98C8B73206CEEF42">
+		<Style>
+			<IconStyle>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=66bb6a&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<gx:displayMode>card</gx:displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_08E89FBA1A3206CEEF3F">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_142DF1BFF73206CEEF3F</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_21EA122D1D3206CEEF3F</styleUrl>
+		</Pair>
+	</StyleMap>
+	<StyleMap id="__managed_style_06EFAAFDBE3206CEEF42">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_1B6C98C8B73206CEEF42</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_2E84FF4B9A3206CEEF42</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark id="0CADC731853204F9EEA3">
+		<name>Khách Sạn Sun - Sea</name>
+		<gx:mid>/g/11b67txbl1</gx:mid>
+		<gx:fid>0x314a4435a50eaf5d:0xf353e685962c8413</gx:fid>
+		<LookAt>
+			<longitude>107.0504225</longitude>
+			<latitude>20.7255022</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.5036148070611</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_06EFAAFDBE3206CEEF42</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0504225,20.7255022,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="01C0EB606C32061ADFEA">
+		<name>Kem Dừa Bà Dung Cơ sở 7</name>
+		<gx:mid>/g/11y5ysd6hg</gx:mid>
+		<gx:fid>0x314a458ff163a5bb:0x7e6e1bc0f7699413</gx:fid>
+		<LookAt>
+			<longitude>107.0509081</longitude>
+			<latitude>20.7258408</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.5011745378304</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_08E89FBA1A3206CEEF3F</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0509081,20.7258408,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="017C5FBB77320621E6ED">
+		<name>Chè Sầu Liên 186 Đường 1/4</name>
+		<gx:mid>/g/11y682ff75</gx:mid>
+		<gx:fid>0x314a450028be3085:0x3386057431af9881</gx:fid>
+		<LookAt>
+			<longitude>107.0475659</longitude>
+			<latitude>20.7256263</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.5027204303424</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_08E89FBA1A3206CEEF3F</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0475679,20.7256493,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0552A2446B32062288DA">
+		<name>Chợ đêm Cát Bà</name>
+		<gx:mid>/g/11f0l1tk4g</gx:mid>
+		<gx:fid>0x314a44344c13e02d:0x5037d83510bebc8d</gx:fid>
+		<LookAt>
+			<longitude>107.0499474</longitude>
+			<latitude>20.7245261</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.5106492922123</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_08E89FBA1A3206CEEF3F</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0499474,20.7245261,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0933D2A6A7320626223B">
+		<name>Gà Tần / Trứng vịt lộn</name>
+		<gx:mid>/g/11hzxkm916</gx:mid>
+		<gx:fid>0x314a4435b4df0827:0xffb091931d7d6fae</gx:fid>
+		<LookAt>
+			<longitude>107.0506099</longitude>
+			<latitude>20.7257747</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.5016509193438</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_37D849EB5E3206CEEF3F</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0505784,20.7258086,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="02070843B032062A308C">
+		<name>Chè hiện đại 180 Hà Sen</name>
+		<gx:fid>0x314a444f30e4f6e5:0xe6afbbb47f1da385</gx:fid>
+		<LookAt>
+			<longitude>107.0439658</longitude>
+			<latitude>20.7346134</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.4379380542111</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_37D849EB5E3206CEEF3F</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0439658,20.7346134,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="00B775A2C132062C18D9">
+		<name>Nướng tê cay - cát bà</name>
+		<gx:mid>/g/11y4810rmc</gx:mid>
+		<gx:fid>0x314a450062527471:0xbf5010ce1ffb044c</gx:fid>
+		<LookAt>
+			<longitude>107.0497261</longitude>
+			<latitude>20.7250272</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.5070380402766</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_08E89FBA1A3206CEEF3F</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0497261,20.7250272,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0FDAC2D81032062D9EBF">
+		<name>Ốc 20 Tùng Dinh</name>
+		<gx:fid>0x314a4437d7335ebb:0xc1b217fb597b1c22</gx:fid>
+		<LookAt>
+			<longitude>107.046062</longitude>
+			<latitude>20.7278103</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.4869797396932</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_37D849EB5E3206CEEF3F</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.046062,20.7278103,0</coordinates>
+		</Point>
+	</Placemark>
+</Document>
+</kml>

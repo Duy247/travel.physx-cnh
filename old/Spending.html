@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theo Dõi Chi Tiêu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #262626;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #dadada;
+            font-size: 36px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+        }
+        h2 {
+            text-align: center;
+            color: #999;
+            font-size: 18px;
+            margin-top: 0;
+        }
+        #map {
+            height: 600px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }       
+        .nav-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            background-color: #3c3c3c;
+            color: #a68af9;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .nav-link:hover {
+            background-color: #f1f1f1;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #a68af9;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 2px;
+        }
+        label {
+            color: #a68af9;
+        }
+        #expense-form {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #expense-form input[type="text"],
+        #expense-form input[type="number"],
+        #expense-form select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+
+        #expense-form button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #filter-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #filter-container label {
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        #filter-container select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .expense-item {
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #formatted-amount {
+            margin-top: 0px;
+            padding-left: 75px;
+            text-align: left;
+            color: #a68af9;
+            font-size: 16px;
+        }
+        .expense-item span {
+            flex-grow: 1;
+        }
+
+        .expense-item button {
+            padding: 5px 10px;
+            font-size: 14px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        #expense-container {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        #payer-sum {
+            margin-top: 20px;
+            text-align: left;
+            color: #a68af9;
+            font-size: 14px;
+        }
+        
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+</head>
+<body>
+    <h1>Lưu trữ chi tiêu</h1>   
+    
+    <div id="expense-form">
+        <input type="text" id="content" placeholder="Nội dung">
+        <input type="number" id="amount" placeholder="Số tiền (VND)">
+        <div id="formatted-amount"></div>
+        <select id="payer">
+            <option value="">Người chi trả</option>
+            <option value="Hà">Hà</option>
+            <option value="Phương Anh">Phương Anh</option>
+            <option value="Trang">Trang</option>
+            <option value="Duy">Duy</option>
+            <option value="Việt Anh">Việt Anh</option>
+            <option value="Nam">Nam</option>
+        </select>
+        <button id="add-expense">Thêm chi tiêu</button>
+    </div>
+    
+    <div>
+        <label for="filter-payer">Lọc người chi trả:</label>
+        <select id="filter-payer">
+            <option value="">Tất cả</option>
+            <option value="Hà">Hà</option>
+            <option value="Phương Anh">Phương Anh</option>
+            <option value="Trang">Trang</option>
+            <option value="Duy">Duy</option>
+            <option value="Việt Anh">Việt Anh</option>
+            <option value="Nam">Nam</option>
+        </select>
+    </div>
+    
+    <div id="expense-container">
+        <div id="expense-list"></div>
+    </div>
+    <div id="payer-sum"></div>
+    <a href="Main.html" class="back-link">Về Trang Chủ</a>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCKgI4Juzw3DZxlp4y8oL9gUylC1KdEqCg",
+            authDomain: "laptop-ad80e.firebaseapp.com",
+            projectId: "laptop-ad80e",
+            storageBucket: "laptop-ad80e.appspot.com",
+            messagingSenderId: "446770877103",
+            appId: "1:446770877103:web:21665e3e0e39f9d370fa5a",
+            databaseURL: "https://laptop-ad80e-default-rtdb.asia-southeast1.firebasedatabase.app"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+        const database = firebase.database();
+
+        function addExpense(content, amount, payer) {
+            const expenseData = {
+                content: content,
+                amount: amount,
+                payer: payer
+            };
+
+            database.ref('expenses').push(expenseData)
+                .then(function() {
+                    console.log('Expense added successfully');
+                    loadExpenses();
+                    document.getElementById('content').value = '';
+                    document.getElementById('amount').value = '';
+                    document.getElementById('formatted-amount').textContent = '';
+                    document.getElementById('payer').value = '';
+                })
+                .catch(function(error) {
+                    console.error('Error adding expense:', error);
+                });
+        }
+        
+        function deleteExpense(expenseId) {
+            const confirmation = confirm("Are you sure you want to delete this expense?");
+            if (confirmation) {
+                database.ref('expenses/' + expenseId).remove()
+                    .then(function() {
+                        console.log('Expense deleted successfully');
+                        loadExpenses();
+                    })
+                    .catch(function(error) {
+                        console.error('Error deleting expense:', error);
+                    });
+            }
+        }
+
+        function loadExpenses() {
+            database.ref('expenses').once('value')
+                .then(function(snapshot) {
+                    const expenses = snapshot.val();
+                    displayExpenses(expenses);
+                })
+                .catch(function(error) {
+                    console.error('Error loading expenses:', error);
+                });
+        }
+
+        function displayExpenses(expenses) {
+            const expenseList = document.getElementById('expense-list');
+            expenseList.innerHTML = '';
+
+            const selectedPayer = document.getElementById('filter-payer').value;
+            const payerSums = {};
+
+            for (const key in expenses) {
+                const expense = expenses[key];
+
+                if (selectedPayer && expense.payer !== selectedPayer) {
+                    continue;
+                }
+
+                const formattedAmount = parseInt(expense.amount).toLocaleString();
+
+                const expenseItem = document.createElement('div');
+                expenseItem.classList.add('expense-item');
+                expenseItem.innerHTML = `
+                    <span>${expense.content}: ${formattedAmount} VND (${expense.payer})</span>
+                    <button class="delete-expense" data-id="${key}">Delete</button>
+                `;
+                expenseList.appendChild(expenseItem);
+
+                // Calculate sum for each payer
+                if (payerSums[expense.payer]) {
+                    payerSums[expense.payer] += parseInt(expense.amount);
+                } else {
+                    payerSums[expense.payer] = parseInt(expense.amount);
+                }
+            }
+
+            // Display sum for each payer
+            const payerSumElement = document.getElementById('payer-sum');
+            payerSumElement.innerHTML = '';
+
+            for (const payer in payerSums) {
+                const sum = payerSums[payer];
+                const formattedSum = sum.toLocaleString();
+                const sumItem = document.createElement('div');
+                sumItem.textContent = `${payer}: ${formattedSum} VND`;
+                payerSumElement.appendChild(sumItem);
+            }
+
+            // Attach event listeners to delete buttons
+            const deleteButtons = document.getElementsByClassName('delete-expense');
+            for (const button of deleteButtons) {
+                button.addEventListener('click', function() {
+                    const expenseId = this.getAttribute('data-id');
+                    deleteExpense(expenseId);
+                });
+            }
+        }
+
+        document.getElementById('add-expense').addEventListener('click', function () {
+            const content = document.getElementById('content').value;
+            const amount = document.getElementById('amount').value;
+            const payer = document.getElementById('payer').value;
+
+            addExpense(content, amount, payer);
+        });
+
+        document.getElementById('filter-payer').addEventListener('change', function () {
+            loadExpenses();
+        });
+
+        document.getElementById('amount').addEventListener('input', function (event) {
+            const input = event.target;
+            const value = input.value;
+            const formattedValue = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            document.getElementById('formatted-amount').textContent = formattedValue + ' VND';
+        });
+
+        loadExpenses();
+    </script>
+</body>
+</html>

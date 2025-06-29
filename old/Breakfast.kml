@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document id="1oda815seuJwKmFfjLEuRbgud9gRTMahf">
+	<name>Breakfast</name>
+	<gx:CascadingStyle kml:id="__managed_style_5CCBC753723206C11C77">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=ffa726&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<gx:displayMode>card</gx:displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_441C3506DF3206C11C77">
+		<Style>
+			<IconStyle>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=ffa726&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<gx:displayMode>card</gx:displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_2C6A59C6633206C11C77">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=ffa726&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<displayMode>hide</displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_0AD0F82CF63206C11C77">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_14F546AC913206C11C77</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_2C6A59C6633206C11C77</styleUrl>
+		</Pair>
+	</StyleMap>
+	<gx:CascadingStyle kml:id="__managed_style_2873A10BFD3206C11C7B">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=66bb6a&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<gx:displayMode>card</gx:displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_33513C73473206C11C77">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_441C3506DF3206C11C77</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_5CCBC753723206C11C77</styleUrl>
+		</Pair>
+	</StyleMap>
+	<gx:CascadingStyle kml:id="__managed_style_14F546AC913206C11C77">
+		<Style>
+			<IconStyle>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=ffa726&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<displayMode>hide</displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_115C5B58923206C11C7B">
+		<Style>
+			<IconStyle>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=66bb6a&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<gx:displayMode>card</gx:displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_044E54CCAA3206C11C7B">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_115C5B58923206C11C7B</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_2873A10BFD3206C11C7B</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark id="0CADC731853204F9EEA3">
+		<name>Khách Sạn Sun - Sea</name>
+		<gx:mid>/g/11b67txbl1</gx:mid>
+		<gx:fid>0x314a4435a50eaf5d:0xf353e685962c8413</gx:fid>
+		<LookAt>
+			<longitude>107.0504225</longitude>
+			<latitude>20.7255022</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.5036148070611</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_044E54CCAA3206C11C7B</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0504225,20.7255022,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0A691F4DC33206141006">
+		<name>Bánh đa cua / Bún hải sản - 4 Núi Ngọc</name>
+		<gx:mid>/g/11sj4v4v0c</gx:mid>
+		<gx:fid>0x314a4435b4c22ae9:0x2800aee512b9eb93</gx:fid>
+		<LookAt>
+			<longitude>107.0497675</longitude>
+			<latitude>20.7249163</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.5078372646611</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0AD0F82CF63206C11C77</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0497675,20.7249163,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="002D053DC8320615CD43">
+		<name>Bánh cuốn tôm thịt</name>
+		<gx:mid>/g/11b682t7d2</gx:mid>
+		<gx:fid>0x314a444f3992eb19:0x1eb223c32f45134b</gx:fid>
+		<LookAt>
+			<longitude>107.0439298</longitude>
+			<latitude>20.7348069</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.4365429472138</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0AD0F82CF63206C11C77</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0439171,20.7347976,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0B553F925C320616A07C">
+		<name>Bánh Mì Hội An 1991 - Cát Bà</name>
+		<gx:mid>/g/11vxhb1zpz</gx:mid>
+		<gx:fid>0x314a45a00bef23e3:0x7db5f02031c5a43f</gx:fid>
+		<LookAt>
+			<longitude>107.0484412</longitude>
+			<latitude>20.7318093</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.4581538530238</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_33513C73473206C11C77</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0484412,20.7318093,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0ADF24C0A9320618D6E6">
+		<name>Khánh Trang Quán</name>
+		<gx:mid>/g/11vwf2ngpg</gx:mid>
+		<gx:fid>0x314a45f031666fb1:0x263ea63f72c11b41</gx:fid>
+		<LookAt>
+			<longitude>107.0446566</longitude>
+			<latitude>20.7284731</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.4822024527008</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_33513C73473206C11C77</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0446566,20.7284731,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0211AA29D032061974D4">
+		<name>Phở 10 Nam Định</name>
+		<gx:mid>/g/11txpg71cg</gx:mid>
+		<gx:fid>0x314a4572c00d015b:0x51f2138415fadb8b</gx:fid>
+		<LookAt>
+			<longitude>107.0509894</longitude>
+			<latitude>20.7257063</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.5021438754308</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_33513C73473206C11C77</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0509894,20.7257063,0</coordinates>
+		</Point>
+	</Placemark>
+</Document>
+</kml>

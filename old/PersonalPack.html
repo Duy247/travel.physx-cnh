@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Pack Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #262626;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #dadada;
+            font-size: 36px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+        }
+        .nav-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            background-color: #3c3c3c;
+            color: #a68af9;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .nav-link:hover {
+            background-color: #f1f1f1;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #a68af9;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 2px;
+        }
+        label {
+            color: #a68af9;
+        }
+        #member-select {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #member-select select {
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #inventory-container {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .inventory-item {
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .inventory-item span {
+            flex-grow: 1;
+            font-size:14px;
+        }
+
+        #search-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #search-container input {
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 200px;
+        }
+        
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+</head>
+<body>
+    <h1>Theo Dõi Đồ Cá Nhân</h1>   
+    
+    <div id="member-select">
+        <select id="member">
+            <option value="">Báo Danh</option>
+            <option value="Hà">Hà</option>
+            <option value="Phương Anh">Phương Anh</option>
+            <option value="Trang">Trang</option>
+            <option value="Duy">Duy</option>
+            <option value="Việt Anh">Việt Anh</option>
+            <option value="Nam">Nam</option>
+        </select>
+    </div>
+    
+    <div id="search-container">
+        <input type="text" id="search-input" placeholder="Tìm Đồ...">
+    </div>
+    
+    <div id="inventory-container">
+        <div id="inventory-list"></div>
+    </div>
+    <a href="PackingList.html" class="back-link">Tới Danh Sách Đồ</a>
+    <a href="Main.html" class="back-link">Về Trang Chủ</a>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCKgI4Juzw3DZxlp4y8oL9gUylC1KdEqCg",
+            authDomain: "laptop-ad80e.firebaseapp.com",
+            projectId: "laptop-ad80e",
+            storageBucket: "laptop-ad80e.appspot.com",
+            messagingSenderId: "446770877103",
+            appId: "1:446770877103:web:21665e3e0e39f9d370fa5a",
+            databaseURL: "https://laptop-ad80e-packing.asia-southeast1.firebasedatabase.app/"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+        const database = firebase.database();
+        
+        function loadInventory() {
+            const selectedMember = document.getElementById('member').value;
+            const searchInput = document.getElementById('search-input').value.toLowerCase();
+            const inventoryList = document.getElementById('inventory-list');
+            inventoryList.innerHTML = '';
+
+            database.ref('inventory').once('value')
+                .then(function(snapshot) {
+                    const inventory = snapshot.val();
+                    const sortedInventory = sortInventoryAlphabetically(inventory);
+
+                    for (const item of sortedInventory) {
+                        if (selectedMember && item.carrier && !item.carrier.includes(selectedMember)) {
+                            continue;
+                        }
+
+                        if (searchInput && !item.name.toLowerCase().includes(searchInput)) {
+                            continue;
+                        }
+
+                        const inventoryItem = document.createElement('div');
+                        inventoryItem.classList.add('inventory-item');
+                        inventoryItem.innerHTML = `<span>${item.name}</span>`;
+                        inventoryList.appendChild(inventoryItem);
+                    }
+                })
+                .catch(function(error) {
+                    console.error('Error loading inventory:', error);
+                });
+        }
+
+        function sortInventoryAlphabetically(inventory) {
+            const sortedInventory = [];
+
+            for (const key in inventory) {
+                const item = inventory[key];
+                item.id = key;
+                sortedInventory.push(item);
+            }
+
+            sortedInventory.sort(function(a, b) {
+                const nameA = a.name.toLowerCase();
+                const nameB = b.name.toLowerCase();
+                if (nameA < nameB) {
+                    return -1;
+                }
+                if (nameA > nameB) {
+                    return 1;
+                }
+                return 0;
+            });
+
+            return sortedInventory;
+        }
+
+        const memberSelect = document.getElementById('member');
+        memberSelect.addEventListener('change', function() {
+            loadInventory();
+        });
+
+        const searchInput = document.getElementById('search-input');
+        searchInput.addEventListener('input', function() {
+            loadInventory();
+        });
+
+        loadInventory();
+    </script>
+</body>
+</html>

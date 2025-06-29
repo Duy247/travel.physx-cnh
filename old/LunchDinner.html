@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bản Đồ Tương Tác Cát Bà</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #262626;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #dadada;
+            font-size: 36px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+        }
+        h2 {
+            text-align: center;
+            color: #999;
+            font-size: 18px;
+            margin-top: 0;
+        }
+        #map {
+            height: 600px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .label {
+            background-color: white;
+            border: 1px solid black;
+            border-radius: 3px;
+            padding: 3px;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            width: auto;
+            position: absolute;
+        }
+        .map-options {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+        }
+        .map-options a {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #1e1e1e;
+            color: #a68af9;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 2px;
+            margin: 0 2px;
+            transition: background-color 0.3s;
+        }
+        .map-options a:hover {
+            background-color: #ddd;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #a68af9;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 2px;
+        }
+        .location-links {
+            color: #8c9db3;
+            font-weight: normal;
+        }
+        .location-links a {
+            color: #8c9db3;
+            text-decoration: none;
+        }
+        .location-links a:hover {
+            text-decoration: underline;
+        }
+        .locate-me {
+            
+            top: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            background-color: #1e1e1e;
+            color: #a68af9;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1;
+            transition: background-color 0.3s;
+        }
+        .locate-me:hover {
+            background-color: #ddd;
+        }
+        #directions-panel {
+            margin-top: 20px;
+            background-color: #1e1e1e;
+            color: #a68af9;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <h1>BẢN ĐỒ TƯƠNG TÁC CÁT BÀ</h1>
+    <H2>Made by Duy</H2>
+    <div class="map-options">
+        <a href="Map.html">Toàn Bộ</a>
+        <a href="Breakfast.html">Ăn sáng</a>
+        <a>Ăn trưa, tối</a>
+        <a href="Junk.html">Ăn vặt, đêm</a>
+        <a href="Cafe.html">Cà phê</a>
+        <a href="Touring_Map.html">Tour Lan Hạ</a>
+        <a href="Fuel.html">Xăng</a>
+    </div>
+    <div id="map"></div>
+    <div id="directions-panel"></div>
+    <div class="location-links">
+        <h3>Google Maps Links:</h3>
+        <ul>
+            <li><a href="https://maps.app.goo.gl/SiGkZcN1MiY2pMAL6" target="_blank">Nhà hàng Viễn Dương</a></li>
+            <li><a href="https://maps.app.goo.gl/xZFnA8JqSc93YKESA" target="_blank">Nhà hàng nổi Quang Anh</a></li>
+            <li><a href="https://maps.app.goo.gl/ES1nZXKMPUKsUBPk8" target="_blank">Ốc Ba Tàu</a></li>
+            <li><a href="https://maps.app.goo.gl/cdnzfhLGZJGEAP799" target="_blank">Lẩu nướng Anh Em</a></li>
+            <li><a href="https://maps.app.goo.gl/eVFEjbMJzHvXX7qM6" target="_blank">Phi Nhung Quán</a></li>
+            <li><a href="https://maps.app.goo.gl/MZN9yd8pgTmw4wkD9" target="_blank">Nhà hàng Trung Trang</a></li>
+        </ul>
+    </div>
+    <a href="Main.html" class="back-link">Về Trang Chủ</a>
+    
+    <script src="https://unpkg.com/@tmcw/togeojson@5.6.2/dist/togeojson.umd.js"></script>
+    <script>
+        let map;
+        let directionsService;
+        let directionsRenderer;
+        let userLocation;
+
+        function initMap() {
+            const initialCenter = {lat: 20.793583496388354, lng: 107.00525280160254};
+            const initialZoom = 10;
+
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: initialCenter,
+                zoom: initialZoom
+            });
+
+            loadKmlFile();
+            locateUser();
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer = new google.maps.DirectionsRenderer({
+                suppressMarkers: true,
+                polylineOptions: {
+                    strokeColor: '#a68af9',
+                    strokeWeight: 4
+                }
+            });
+            directionsRenderer.setMap(map);
+            const openWeatherMapApiKey = '8b99243a798d4263afdcc9d7fc26d5d7';
+            const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${initialCenter.lat}&lon=${initialCenter.lng}&units=metric&appid=${openWeatherMapApiKey}`;
+
+            fetch(weatherUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const weatherInfo = `
+                        <div>
+                            <strong>Vị trí:</strong> ${data.name}<br>
+                            <strong>Thời tiết:</strong> ${data.weather[0].description}<br>
+                            <strong>Nhiệt độ:</strong> ${data.main.temp}°C<br>
+                            <strong>Độ ẩm:</strong> ${data.main.humidity}%<br>
+                            <strong>Tốc độ gió:</strong> ${data.wind.speed} m/s
+                        </div>
+                    `;
+                    document.getElementById('directions-panel').innerHTML += weatherInfo;
+                })
+                .catch(error => {
+                    console.error('Error fetching weather data:', error);
+                });
+        }
+
+        function loadKmlFile() {
+            const kmlUrl = 'LunchDinner.kml';
+
+            fetch(kmlUrl)
+                .then(response => response.text())
+                .then(kmlText => {
+                    const kmlDom = new DOMParser().parseFromString(kmlText, 'text/xml');
+                    const geojson = toGeoJSON.kml(kmlDom);
+                    displayGeoJson(geojson);
+                })
+                .catch(error => {
+                    console.error('Error loading KML file:', error);
+                });
+        }
+
+        function displayGeoJson(geojson) {
+            map.data.addGeoJson(geojson);
+            map.data.setStyle(function(feature) {
+                return {
+                    icon: {
+                        url: feature.getProperty('icon'),
+                        scaledSize: new google.maps.Size(32, 32)
+                    },
+                    title: feature.getProperty('name')
+                };
+            });
+
+            const bounds = new google.maps.LatLngBounds();
+            map.data.forEach(function(feature) {
+                processPoints(feature.getGeometry(), bounds.extend, bounds);
+                createLabel(feature);
+            });
+            map.fitBounds(bounds);
+        }
+
+        function createLabel(feature) {
+            const name = feature.getProperty('name');
+            const position = feature.getGeometry().get();
+
+            const labelDiv = document.createElement('div');
+            labelDiv.className = 'label';
+            labelDiv.textContent = name;
+
+            const labelOverlay = new google.maps.OverlayView();
+            labelOverlay.onAdd = function() {
+                const pane = this.getPanes().overlayMouseTarget;
+                pane.appendChild(labelDiv);
+            };
+
+            labelOverlay.draw = function() {
+                const projection = this.getProjection();
+                const point = projection.fromLatLngToDivPixel(position);
+                labelDiv.style.left = point.x + 'px';
+                labelDiv.style.top = point.y + 'px';
+            };
+
+            labelOverlay.setMap(map);
+
+            labelDiv.addEventListener('click', function() {
+                if (userLocation) {
+                    const destinationName = name;
+                    const destinationLatLng = position;
+
+                    const request = {
+                        origin: userLocation,
+                        destination: destinationLatLng,
+                        travelMode: 'DRIVING'
+                    };
+
+                    directionsService.route(request, function(response, status) {
+                        if (status === 'OK') {
+                            directionsRenderer.setDirections(response);
+                            showDirectionsInfo(response, destinationName);
+                        } else {
+                            window.alert('Directions request failed due to ' + status);
+                        }
+                    });
+                } else {
+                    window.alert('User location not available. Please allow geolocation.');
+                }
+            });
+        }
+
+        function processPoints(geometry, callback, thisArg) {
+            if (geometry instanceof google.maps.LatLng) {
+                callback.call(thisArg, geometry);
+            } else if (geometry instanceof google.maps.Data.Point) {
+                callback.call(thisArg, geometry.get());
+            } else {
+                geometry.getArray().forEach(g => {
+                    processPoints(g, callback, thisArg);
+                });
+            }
+        }
+        function showDirectionsInfo(response, destinationName) {
+            const directionsData = response.routes[0].legs[0];
+            const distance = directionsData.distance.text;
+            const duration = directionsData.duration.text;
+
+            const directionsPanelDiv = document.getElementById('directions-panel');
+            directionsPanelDiv.innerHTML = `
+                <strong>Directions to ${destinationName}:</strong><br>
+                Distance: ${distance}<br>
+                Duration: ${duration}
+            `;
+        }
+        function locateUser() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        userLocation = new google.maps.LatLng(
+                            position.coords.latitude,
+                            position.coords.longitude
+                        );
+                        map.setCenter(userLocation);
+                        map.setZoom(15);
+
+                        new google.maps.Marker({
+                            position: userLocation,
+                            map: map,
+                            title: 'Vị trí hiện tại'
+                        });
+                    },
+                    error => {
+                        console.error('Error getting user location:', error);
+                        alert('Unable to retrieve your location');
+                    }
+                );
+            } else {
+                console.error('Geolocation is not supported by this browser');
+                alert('Geolocation is not supported by this browser');
+            }
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5FWSk8WhsOwElCn_5Lhj5h_uFBmv0uC4&callback=initMap" async defer></script>
+</body>
+</html>

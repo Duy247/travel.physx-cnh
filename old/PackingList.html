@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Inventory Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #262626;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #dadada;
+            font-size: 36px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+        }
+        h2 {
+            text-align: center;
+            color: #999;
+            font-size: 18px;
+            margin-top: 0;
+        }
+        .nav-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            background-color: #3c3c3c;
+            color: #a68af9;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .nav-link:hover {
+            background-color: #f1f1f1;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #a68af9;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 2px;
+        }
+        label {
+            color: #a68af9;
+        }
+        #member-select {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #member-select select {
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #inventory-container {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .inventory-item {
+            background-color: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .inventory-item span {
+            flex-grow: 1;
+            font-size:14px;
+        }
+
+        .inventory-item button {
+            padding: 4px 4px;
+            font-size: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            
+        }
+
+        .inventory-item button.edit {
+            background-color: #f5d907;
+        }
+        .inventory-item button.delete {
+            background-color: #ef0606;
+        }
+        #search-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #search-container input {
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 200px;
+        }
+        #add-item-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #add-item-container input {
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 200px;
+            margin-right: 10px;
+        }
+
+        #add-item-container button {
+            padding: 8px 8px;
+            margin-bottom:10px;
+            font-size: 14px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+</head>
+<body>
+    <h1>Group Inventory Tracker</h1>   
+    
+    <div id="member-select">
+        <select id="member">
+            <option value="">Báo Danh</option>
+            <option value="Hà">Hà</option>
+            <option value="Phương Anh">Phương Anh</option>
+            <option value="Trang">Trang</option>
+            <option value="Duy">Duy</option>
+            <option value="Việt Anh">Việt Anh</option>
+            <option value="Nam">Nam</option>
+        </select>
+    </div>
+    
+    <div id="search-container">
+        <input type="text" id="search-input" placeholder="Tìm đồ...">
+    </div>
+    
+    <div id="inventory-container">
+        <div id="inventory-list"></div>
+    </div>
+    <div id="add-item-container">
+        <button id="add-item-btn">Thêm Đồ</button>
+        <div id="add-item-form" style="display: none;">
+            <input type="text" id="new-item-name" placeholder="Item Name">
+            <button id="save-item-btn">Lưu</button>
+        </div>
+    </div>
+    <a href="PersonalPack.html" class="back-link">Theo Dõi Đồ Cá Nhân</a>
+    <a href="Main.html" class="back-link">Về Trang Chủ</a>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCKgI4Juzw3DZxlp4y8oL9gUylC1KdEqCg",
+            authDomain: "laptop-ad80e.firebaseapp.com",
+            projectId: "laptop-ad80e",
+            storageBucket: "laptop-ad80e.appspot.com",
+            messagingSenderId: "446770877103",
+            appId: "1:446770877103:web:21665e3e0e39f9d370fa5a",
+            databaseURL: "https://laptop-ad80e-packing.asia-southeast1.firebasedatabase.app/"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+
+        const database = firebase.database();
+
+        function assignCarrier(itemId, carrier) {
+            database.ref('inventory/' + itemId + '/carrier').once('value')
+                .then(function(snapshot) {
+                    const carriers = snapshot.val() || [];
+                    if (!carriers.includes(carrier)) {
+                        carriers.push(carrier);
+                        carriers.sort();
+                        database.ref('inventory/' + itemId).update({ carrier: carriers })
+                            .then(function() {
+                                console.log('Carrier assigned successfully');
+                                loadInventory();
+                            })
+                            .catch(function(error) {
+                                console.error('Error assigning carrier:', error);
+                            });
+                    }
+                })
+                .catch(function(error) {
+                    console.error('Error retrieving carriers:', error);
+                });
+        }
+
+        function removeCarrier(itemId, carrier) {
+            database.ref('inventory/' + itemId + '/carrier').once('value')
+                .then(function(snapshot) {
+                    const carriers = snapshot.val() || [];
+                    const index = carriers.indexOf(carrier);
+                    if (index > -1) {
+                        carriers.splice(index, 1);
+                        if (carriers.length === 0) {
+                            database.ref('inventory/' + itemId + '/carrier').remove()
+                                .then(function() {
+                                    console.log('Carrier removed successfully');
+                                    loadInventory();
+                                })
+                                .catch(function(error) {
+                                    console.error('Error removing carrier:', error);
+                                });
+                        } else {
+                            database.ref('inventory/' + itemId).update({ carrier: carriers })
+                                .then(function() {
+                                    console.log('Carrier removed successfully');
+                                    loadInventory();
+                                })
+                                .catch(function(error) {
+                                    console.error('Error removing carrier:', error);
+                                });
+                        }
+                    }
+                })
+                .catch(function(error) {
+                    console.error('Error retrieving carriers:', error);
+                });
+        }
+        function addItem() {
+            const newItemName = document.getElementById('new-item-name').value.trim();
+            const selectedMember = document.getElementById('member').value;
+
+            if (newItemName && selectedMember) {
+                const newItemRef = database.ref('inventory').push();
+                const newItemId = newItemRef.key;
+
+                const newItem = {
+                    name: newItemName,
+                    carrier: [selectedMember]
+                };
+
+                newItemRef.set(newItem)
+                    .then(function() {
+                        console.log('Item added successfully');
+                        document.getElementById('new-item-name').value = '';
+                        loadInventory();
+                    })
+                    .catch(function(error) {
+                        console.error('Error adding item:', error);
+                    });
+            } else {
+                alert('Please enter an item name and select a member');
+            }
+        }
+        function loadInventory() {
+            database.ref('inventory').once('value')
+                .then(function(snapshot) {
+                    const inventory = snapshot.val();
+                    const sortedInventory = sortInventoryAlphabetically(inventory);
+                    displayInventory(sortedInventory);
+                })
+                .catch(function(error) {
+                    console.error('Error loading inventory:', error);
+                });
+        }
+
+        function sortInventoryAlphabetically(inventory) {
+            const sortedInventory = [];
+
+            for (const key in inventory) {
+                const item = inventory[key];
+                item.id = key;
+                sortedInventory.push(item);
+            }
+
+            sortedInventory.sort(function(a, b) {
+                const nameA = a.name.toLowerCase();
+                const nameB = b.name.toLowerCase();
+                if (nameA < nameB) {
+                    return -1;
+                }
+                if (nameA > nameB) {
+                    return 1;
+                }
+                return 0;
+            });
+
+            return sortedInventory;
+        }
+        function deleteItem(itemId) {
+            const selectedMember = document.getElementById('member').value;
+            if (selectedMember === 'Duy') {
+                database.ref('inventory/' + itemId).remove()
+                    .then(function() {
+                        console.log('Item deleted successfully');
+                        loadInventory();
+                    })
+                    .catch(function(error) {
+                        console.error('Error deleting item:', error);
+                    });
+            } else {
+                alert('Only Duy is allowed to delete items');
+            }
+        }
+
+        function displayInventory(inventory) {
+            const inventoryList = document.getElementById('inventory-list');
+            inventoryList.innerHTML = '';
+
+            const searchInput = document.getElementById('search-input').value.toLowerCase();
+
+            for (const item of inventory) {
+                const carriers = item.carrier ? item.carrier.join(", ") : '';
+
+                if (searchInput && !item.name.toLowerCase().includes(searchInput)) {
+                    continue;
+                }
+
+                const inventoryItem = document.createElement('div');
+                inventoryItem.classList.add('inventory-item');
+                inventoryItem.innerHTML = `
+                    <span>${item.name} <br> ${carriers ? '(' + carriers + ')' : ''}</span>
+                    <div>
+                        <button class="assign" data-id="${item.id}">Nhận mang</button>
+                        <button class="edit" data-id="${item.id}">Bỏ</button>
+                        <button class="delete" data-id="${item.id}">Xóa</button>
+                    </div>
+                `;
+                inventoryList.appendChild(inventoryItem);
+            }
+
+            const assignButtons = document.getElementsByClassName('assign');
+            for (const button of assignButtons) {
+                button.addEventListener('click', function() {
+                    const itemId = this.getAttribute('data-id');
+                    const selectedMember = document.getElementById('member').value;
+                    if (selectedMember) {
+                        assignCarrier(itemId, selectedMember);
+                    } else {
+                        alert('Please select a member first');
+                    }
+                });
+            }
+
+            const editButtons = document.getElementsByClassName('edit');
+            for (const button of editButtons) {
+                button.addEventListener('click', function() {
+                    const itemId = this.getAttribute('data-id');
+                    const selectedMember = document.getElementById('member').value;
+                    if (selectedMember) {
+                        removeCarrier(itemId, selectedMember);
+                    } else {
+                        alert('Please select a member first');
+                    }
+                });
+            }
+            const deleteButtons = document.getElementsByClassName('delete');
+            for (const button of deleteButtons) {
+                button.addEventListener('click', function() {
+                    const itemId = this.getAttribute('data-id');
+                    deleteItem(itemId);
+                });
+            }
+        }
+        const addItemBtn = document.getElementById('add-item-btn');
+        addItemBtn.addEventListener('click', function() {
+            const addItemForm = document.getElementById('add-item-form');
+            addItemForm.style.display = addItemForm.style.display === 'none' ? 'block' : 'none';
+        });
+        const saveItemBtn = document.getElementById('save-item-btn');
+        saveItemBtn.addEventListener('click', addItem);
+        const searchInput = document.getElementById('search-input');
+        searchInput.addEventListener('input', function() {
+            loadInventory();
+        });
+
+        loadInventory();
+    </script>
+</body>
+</html>

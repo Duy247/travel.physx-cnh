@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kế Hoạch Di Chuyển</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #262626;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #dadada;
+            font-size: 36px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+        }
+        h2 {
+            text-align: center;
+            color: #999;
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 0px;
+        }
+        #map {
+            height: 600px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }       
+        .nav-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            background-color: #3c3c3c;
+            color: #a68af9;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .nav-link:hover {
+            background-color: #f1f1f1;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #a68af9;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 2px;
+        }
+        .table-container {
+            overflow-x: auto;
+            max-width: 100%;
+        }
+        table {            
+            border-collapse: collapse;
+            margin-top: 0px;
+            background-color: #3c3c3c;
+            color: #dadada;
+            width: 100%;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #262626;
+            word-wrap: break-word;
+            max-width: 0;
+        }
+        th {
+            background-color: #262626;
+            color: #a68af9;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        tr:nth-child(even) {
+            background-color: #333333;
+        }
+        
+        @media (max-width: 600px) {
+            table {
+                font-size: 14px;
+            }
+            th, td {
+                padding: 8px;
+            }
+            .table-container {
+                max-height: 80vh;
+                overflow-y: auto;
+            }
+        }
+        .highlight {
+            color: #00ff00 !important;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lịch Trình</h1>
+    <h2 id="currentTime"></h2>
+    <div class="table-container">
+        <table id="scheduleTable">
+            <thead>
+                <tr>
+                    <th style="width:18%">DAYS</th>
+                    <th style="width:12%">LOC</th>
+                    <th style="width:15%">MAP</th>
+                    <th style="width:15%">TIME</th>
+                    <th style="width:40%">TASKS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>21/07</td>
+                    <td>HÀ NỘI</td>
+                    <td></td>
+                    <td>00:00</td>
+                    <td>Lên kế hoạch</td>
+                </tr>
+                <tr>
+                    <td>02/08</td>
+                    <td>HÀ NỘI</td>
+                    <td>Nhà Trang</td>
+                    <td>05:00</td>
+                    <td>Duy, Hà, Phương Anh, Việt Anh di chuyển lên nhà Trang ăn sáng</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>06:00</td>
+                    <td>5 người thuê xe 7 chỗ đi lên Nhà Hát Lớn</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Nhà Hát Lớn</td>
+                    <td>07:00</td>
+                    <td>Xe đón tại Nhà Hát Lớn xuất phát đi Cát Hải.</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Ngã tư TB-CL</td>
+                    <td>07:45</td>
+                    <td>Xe đón tại Ngã tư Thạch Bàn - Cổ Linh (cách Aeon Long Biên 1,8km)</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>V23 Hưng Yên</td>
+                    <td>08:30</td>
+                    <td>Xe dừng ở Trạm dừng nghỉ Hưng Yên, có thể xuống mua đồ ăn sáng nhẹ ở đây.</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>CÁT BÀ</td>
+                    <td>KS Sun - Sea</td>
+                    <td>11:00</td>
+                    <td>Xe đến Cát Bà. Di chuyển đến KS Sun - Sea Cát Bà</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>12:00</td>
+                    <td>Gửi hành lý. Ăn trưa</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>13:30</td>
+                    <td>Nhận phòng KS Sun-Sea Cat Ba</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Tour Vịnh Lan Hạ</td>
+                    <td>14:00</td>
+                    <td>Tour Vịnh Lan Hạ ngắm Sunset</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>18:00</td>
+                    <td>Thuyền cập bến về TT Thị Trấn Cát Bà</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>18:30</td>
+                    <td>Ăn tối</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>20:00</td>
+                    <td>Option 1: Quảng trường Cát Bà, dạo chợ đêm,...<br> Option 2: Đi xe máy dạo Quảng trường, sau đó đi cung đường TT Cát Bà - Bến Phà (25km) ngắm sao (tuyến đường ven biển bên trái đảo)</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>23:00</td>
+                    <td>Trò chuyện đêm khuya, chơi Board Game</td>
+                </tr>
+                <tr>
+                    <td>03/08</td>
+                    <td>CÁT BÀ</td>
+                    <td></td>
+                    <td>06:00</td>
+                    <td>Tắm biển</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>07:00</td>
+                    <td>Tắm tráng, ăn sáng</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>08:00</td>
+                    <td>Xuất phát đi Rừng Quốc Gia Cát Bà</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>08:30</td>
+                    <td>Trekking Rừng Kim Giao - Đỉnh Ngự Lâm</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>12:30</td>
+                    <td>Hoàn thành trekking, ăn trưa tại NH Trung Trang - đối diện cổng. Nghỉ ngơi</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>14:00</td>
+                    <td>Khám phá động Trung Trang (khoảng 20p)</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>14:45</td>
+                    <td>Tham quan Động Hoa Cương, xem bến phà Gia Luận (kết nối Tuần Châu-Quảng Ninh và Cát Bà-Hải Phòng)</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>15:30</td>
+                    <td>Từ bến phà Gia Luận đi ngược về trung tâm, đi về đường Vũ Trọng Tiến rẻ vào đường bên trái đảo</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>16:30</td>
+                    <td>Về Khách sạn, lấy đồ đi tắm biển</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>17:00</td>
+                    <td>Tắm biển</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>18:00</td>
+                    <td>Về KS tắm tráng lại</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>19:00</td>
+                    <td>Ăn tối</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>20:00</td>
+                    <td>Cafe</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>21:00</td>
+                    <td>Đi ngắm sao (tuyến đường ven biển bên phải đảo)</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>23:30</td>
+                    <td>Trò chuyện đêm khuya, chơi Board Game</td>
+                </tr>
+                <tr>
+                    <td>04/08</td>
+                    <td></td>
+                    <td></td>
+                    <td>06:00</td>
+                    <td>Tắm biển</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>07:30</td>
+                    <td>Tắm tráng, ăn sáng</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>08:00</td>
+                    <td>Cafe</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>09:00</td>
+                    <td>Đi vòng quanh đảo xem có gì mua quà về không</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>11:30</td>
+                    <td>Trả phòng, gửi hành lý ở đó rồi đi ăn trưa</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>13:00</td>
+                    <td>Ăn trưa xong cbi đồ đón xe về HN, có thể đi Cafe chờ</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>15:00</td>
+                    <td>Xe đón</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>HÀ NỘI</td>
+                    <td></td>
+                    <td>19:00</td>
+                    <td>Xe trả về HN, bắt xe về nhà</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <a href="Main.html" class="back-link">Về Trang Chủ</a>
+    <script>
+        function updateCurrentTime() {
+            const now = new Date();
+            const vietnamTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }));
+            const currentDate = vietnamTime.getDate().toString().padStart(2, '0') + '/' + (vietnamTime.getMonth() + 1).toString().padStart(2, '0');
+            const currentTime = vietnamTime.getHours().toString().padStart(2, '0') + ':' + vietnamTime.getMinutes().toString().padStart(2, '0');
+            
+            document.getElementById('currentTime').textContent = `${currentDate} ${currentTime}`;
+        }
+
+        function highlightCurrentEvent() {
+            updateCurrentTime();
+
+            const now = new Date();
+            const vietnamTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }));
+            const currentDate = vietnamTime.getDate().toString().padStart(2, '0') + '/' + (vietnamTime.getMonth() + 1).toString().padStart(2, '0');
+            const currentTime = vietnamTime.getHours().toString().padStart(2, '0') + ':' + vietnamTime.getMinutes().toString().padStart(2, '0');
+
+            const rows = document.querySelectorAll('#scheduleTable tbody tr');
+            let currentDay = '';
+            let lastMatchingRow = null;
+
+            rows.forEach(row => {
+                const dayCell = row.cells[0];
+                const timeCell = row.cells[3];
+                
+                if (dayCell.textContent.trim() !== '') {
+                    currentDay = dayCell.textContent.trim();
+                }
+
+                if (currentDay === currentDate) {
+                    const eventTime = timeCell.textContent.trim();
+                    if (eventTime <= currentTime) {
+                        lastMatchingRow = row;
+                    }
+                }
+            });
+
+            if (lastMatchingRow) {
+                lastMatchingRow.classList.add('highlight');
+            }
+        }
+
+
+        window.onload = highlightCurrentEvent;
+        setInterval(updateCurrentTime, 60000); // Update time every minute
+    </script>
+</body>
+</html>

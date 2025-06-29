@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive App Cat Ba Trip</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #262626;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #dadada;
+            font-size: 36px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+        }
+        h2 {
+            text-align: center;
+            color: #999;
+            font-size: 18px;
+            margin-top: 0;
+        }
+        #map {
+            height: 600px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }       
+        .nav-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            background-color: #3c3c3c;
+            color: #a68af9;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .nav-link:hover {
+            background-color: #f1f1f1;
+        }
+        .countdown {
+            text-align: center;
+            margin-top: 30px;
+            color: #19e73c;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        #forecast {
+            text-align: center;
+            margin-top: 20px;
+            color: #a68af9;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Interactive WebApp Cát Bà Trip</h1>
+    <h2>Made by Duy</h2>
+    
+    <a href="Map.html" class="nav-link">Bản Đồ</a>
+    <a href="Weather.html" class="nav-link">Bản Đồ Thời Tiết</a>
+    <a href="Plan.html" class="nav-link">Lịch Trình</a>
+    <a href="Spending.html" class="nav-link">Chi Tiêu</a>
+    <a href="PackingList.html" class="nav-link">Danh Sách Lên Đồ</a>
+    <a href="PersonalPack.html" class="nav-link">Theo Dõi Đồ Cá Nhân</a>
+    <a href="Info.html" class="nav-link">Thông Tin Liên Lạc</a>
+    <a href="Gallery.html" class="nav-link">Ảnh</a>
+
+    <div class="countdown" id="countdown"></div>
+    <div id="forecast"></div>
+    
+
+    <script>
+        var countDownDate = new Date("Aug 2, 2024 00:00:00").getTime();
+
+        var countdownTimer = setInterval(function() {
+            var now = new Date().getTime();
+            var timeRemaining = countDownDate - now;
+
+            var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML = days + "d " + hours + "h "
+            + minutes + "m " + seconds + "s until the trip!";
+
+            if (timeRemaining < 0) {
+                clearInterval(countdownTimer);
+                document.getElementById("countdown").innerHTML = "The Cat Ba trip has arrived!";
+            }
+        }, 1000);
+
+        // OpenWeatherMap API forecast
+        const openWeatherMapApiKey = '8b99243a798d4263afdcc9d7fc26d5d7';
+        const catBaCoordinates = {lat: 20.793583496388354, lng: 107.00525280160254};
+        const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${catBaCoordinates.lat}&lon=${catBaCoordinates.lng}&units=metric&appid=${openWeatherMapApiKey}`;
+
+        fetch(forecastUrl)
+            .then(response => response.json())
+            .then(data => {
+                let forecastHtml = '<h3>5-Day Forecast for Cát Bà:</h3>';
+                data.list.forEach((forecast, index) => {
+                    if (index % 8 === 0) {
+                        const date = new Date(forecast.dt * 1000);
+                        const day = date.toLocaleDateString('vi-VN', { weekday: 'long' });
+                        const description = forecast.weather[0].description;
+                        const temperature = forecast.main.temp;
+
+                        forecastHtml += `
+                            <div>
+                                <strong>${day}:</strong><br>
+                                Thời tiết: ${description}<br>
+                                Nhiệt độ: ${temperature}°C
+                            </div>
+                            <br>
+                        `;
+                    }
+                });
+                document.getElementById('forecast').innerHTML = forecastHtml;
+            })
+            .catch(error => {
+                console.error('Error fetching forecast data:', error);
+            });
+    </script>
+</body>
+</html>
