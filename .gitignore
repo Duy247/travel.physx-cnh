@@ -1,0 +1,37 @@
+# Dependencies
+/vendor/
+composer.lock
+
+# Environment files
+.env
+
+# Logs
+*.log
+logs/
+
+# Cache
+cache/
+*.cache
+
+# Temporary files
+*.tmp
+*.temp
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build files
+/build/
+/dist/
+
+# Backup files
+*.bak
+*.backup

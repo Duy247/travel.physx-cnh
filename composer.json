@@ -1,0 +1,32 @@
+{
+    "name": "duy247/travel-physx-cnh",
+    "description": "Travel PhysX CNH - A travel website project",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Duy247",
+            "email": "duy5a247@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "scripts": {
+        "start": "php -S localhost:8000 -t public",
+        "test": "echo 'No tests configured yet'"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
