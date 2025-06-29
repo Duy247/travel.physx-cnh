@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document id="1vRiel5w2T--eehbniB1eFaoxpxHxMtJg">
+	<name>Touring</name>
+	<gx:CascadingStyle kml:id="__managed_style_22C5367DBD3206AE59A5">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=66bb6a&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<gx:displayMode>card</gx:displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_1BF73A64323206AE59A5">
+		<Style>
+			<IconStyle>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=66bb6a&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<gx:displayMode>card</gx:displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_18F315DE6C3206AE599F">
+		<Style>
+			<IconStyle>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=42a5f5&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<gx:displayMode>card</gx:displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_0E384644543206AE59A5">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_1BF73A64323206AE59A5</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_22C5367DBD3206AE59A5</styleUrl>
+		</Pair>
+	</StyleMap>
+	<gx:CascadingStyle kml:id="__managed_style_2F5643824E3206AE599F">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=42a5f5&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<gx:displayMode>card</gx:displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_0FD11E37973206AE599F">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_18F315DE6C3206AE599F</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_2F5643824E3206AE599F</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark id="09131FEF333204F627A2">
+		<name>Làng Chài Cái Bèo (Homestay &amp; Restaurant)</name>
+		<gx:mid>/g/11vwdwgrv4</gx:mid>
+		<gx:fid>0x314a4556f23f0535:0xdd88a8e2ebaa6d92</gx:fid>
+		<LookAt>
+			<longitude>107.0617871</longitude>
+			<latitude>20.7411015</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.3911532020873</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0FD11E37973206AE599F</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0602218009044,20.73989208569946,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="095C4550D53204F6F063">
+		<name>Lan Ha Bay</name>
+		<gx:mid>/g/1q6h_dd_h</gx:mid>
+		<gx:fid>0x314a45b5d29a9b11:0x4dd4f928dad786a9</gx:fid>
+		<LookAt>
+			<longitude>107.0423563</longitude>
+			<latitude>20.7349275</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>10870.63337830978</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0FD11E37973206AE599F</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0465615,20.7237207,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="048BBE84EF3204F96286">
+		<name>đảo Thoi Vạn Bội</name>
+		<gx:mid>/g/1q6jgr_g8</gx:mid>
+		<gx:fid>0x314a450b5d947ba1:0xd51d0c3d3c095401</gx:fid>
+		<LookAt>
+			<longitude>107.0767236</longitude>
+			<latitude>20.7532244</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>2182.123815389093</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0FD11E37973206AE599F</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0764597,20.7527612,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0CADC731853204F9EEA3">
+		<name>Khách Sạn Sun - Sea</name>
+		<gx:mid>/g/11b67txbl1</gx:mid>
+		<gx:fid>0x314a4435a50eaf5d:0xf353e685962c8413</gx:fid>
+		<LookAt>
+			<longitude>107.0504225</longitude>
+			<latitude>20.7255022</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.5036148070611</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0E384644543206AE59A5</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0504225,20.7255022,0</coordinates>
+		</Point>
+	</Placemark>
+</Document>
+</kml>

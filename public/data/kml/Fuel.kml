@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document id="1rrV-ftble_DrXT3_9l5g6Wafftz88SGN">
+	<name>Fuel</name>
+	<gx:CascadingStyle kml:id="__managed_style_223F09D6A032104CCB8F">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=000000&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<gx:displayMode>card</gx:displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_12EBA3AD6E32104CCB8F">
+		<Style>
+			<IconStyle>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=000000&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<gx:displayMode>card</gx:displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_0F40FDE18C32104CCB8F">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_12EBA3AD6E32104CCB8F</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_223F09D6A032104CCB8F</styleUrl>
+		</Pair>
+	</StyleMap>
+	<gx:CascadingStyle kml:id="__managed_style_5BEF6A0BB632104C9421">
+		<Style>
+			<IconStyle>
+				<scale>1.2</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=66bb6a&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<gx:displayMode>card</gx:displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_41709FBED932104C9421">
+		<Style>
+			<IconStyle>
+				<Icon>
+					<href>https://earth.google.com/earth/rpc/cc/icon?color=66bb6a&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<gx:displayMode>card</gx:displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_374B83348B32104C9421">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_41709FBED932104C9421</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_5BEF6A0BB632104C9421</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Placemark id="0CADC731853204F9EEA3">
+		<name>Khách Sạn Sun - Sea</name>
+		<gx:mid>/g/11b67txbl1</gx:mid>
+		<gx:fid>0x314a4435a50eaf5d:0xf353e685962c8413</gx:fid>
+		<LookAt>
+			<longitude>107.0504225</longitude>
+			<latitude>20.7255022</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.5036148070611</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_374B83348B32104C9421</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0504225,20.7255022,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0EA79D70BE32104CC3AC">
+		<name>PVOIL CHXD CÁT BÀ</name>
+		<gx:mid>/g/11c6q70_4_</gx:mid>
+		<gx:fid>0x314a44370b1250f7:0xf4e8f2b08462b9ca</gx:fid>
+		<LookAt>
+			<longitude>107.0442959</longitude>
+			<latitude>20.7253927</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.5044039588612</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0F40FDE18C32104CCB8F</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0442959,20.7253927,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0D2936AF0432104CEAD4">
+		<name>Petrolimex Gas Station Store No.25</name>
+		<gx:mid>/g/11vf8cj07k</gx:mid>
+		<gx:fid>0x314a45847fc265f1:0xfe48e8fd775fbede</gx:fid>
+		<LookAt>
+			<longitude>107.0463933</longitude>
+			<latitude>20.7321337</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.4558152626955</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0F40FDE18C32104CCB8F</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0463933,20.7321337,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0E40063E9832104D0CF6">
+		<name>Công Ty Tnhh Kinh Doanh Xăng Dầu Thái Nguyên</name>
+		<gx:mid>/g/11b699l5wg</gx:mid>
+		<gx:fid>0x314a444b05942f6b:0x260a4df6065d4e7f</gx:fid>
+		<LookAt>
+			<longitude>107.0514732</longitude>
+			<latitude>20.7310757</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>980.4634422292083</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0F40FDE18C32104CCB8F</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.0514732,20.7310757,0</coordinates>
+		</Point>
+	</Placemark>
+</Document>
+</kml>

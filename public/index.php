@@ -47,7 +47,7 @@
                         <button class="location-btn active" data-location="hue">Huế</button>
                         <button class="location-btn" data-location="danang">Đà Nẵng</button>
                         <button class="location-btn" data-location="hoian">Hội An</button>
-                        <button class="location-btn" data-location="hanoi">Hanoi</button>
+                        <button class="location-btn" data-location="hanoi">Hà Nội</button>
                     </div>
                 </div>
                 
