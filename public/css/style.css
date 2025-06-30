@@ -93,38 +93,6 @@ h3 {
     font-weight: 400;
 }
 
-/* Header toggle indicator */
-.header-indicator {
-    position: fixed;
-    top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 99;
-    background: rgba(0, 0, 0, 0.8);
-    color: white;
-    padding: 0.4rem 1rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    backdrop-filter: blur(10px);
-    opacity: 0.8;
-    transition: opacity 0.3s ease, transform 0.2s ease;
-    pointer-events: auto;
-    font-weight: 500;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.header-indicator:hover {
-    transform: translateX(-50%) scale(1.05);
-    opacity: 1;
-}
-
-.header-indicator.hide {
-    opacity: 0;
-    pointer-events: none;
-}
-
 /* Main Container - Swipe Layout */
 .swipe-container {
     display: flex;
@@ -565,11 +533,6 @@ h3 {
         margin-top: 1.5rem;
     }
     
-    .header-indicator {
-        font-size: 0.7rem;
-        padding: 0.2rem 0.6rem;
-    }
-    
     /* Location buttons mobile optimization */
     .location-buttons {
         gap: 0.25rem; /* Even smaller gap on mobile for 4 buttons */
@@ -609,10 +572,6 @@ h3 {
     }
     
     .swipe-indicator {
-        display: none;
-    }
-    
-    .header-indicator {
         display: none;
     }
     

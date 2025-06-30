@@ -16,8 +16,6 @@ class TravelMap {
         this.currentKmlType = 'all';
         this.markerCount = 0;
         this.kmlStyles = {}; // Store parsed KML styles
-        this.markerData = []; // Store marker data for recreation after zoom
-        this.zoomRecreateTimeout = null; // Timeout for zoom-based marker recreation
         this.kmlFiles = {
             'all': 'data/kml/Map.kml',
             'breakfast': 'data/kml/Breakfast.kml',
@@ -102,7 +100,6 @@ class TravelMap {
         // Map event listeners
         this.map.on('zoomend', () => {
             this.updateZoomLevel();
-            this.scheduleMarkerRecreation();
         });
 
         this.map.on('moveend', () => {
@@ -260,12 +257,6 @@ class TravelMap {
             // Parse KML styles first
             await this.parseKMLStyles(kmlFile);
 
-            // Clear any pending marker recreation timeout
-            if (this.zoomRecreateTimeout) {
-                clearTimeout(this.zoomRecreateTimeout);
-                this.zoomRecreateTimeout = null;
-            }
-
             // Remove existing layer
             if (this.currentLayer) {
                 this.map.removeLayer(this.currentLayer);
@@ -279,9 +270,6 @@ class TravelMap {
 
             // Create a new layer group for our custom markers
             this.currentLayer = L.layerGroup();
-            
-            // Clear existing marker data
-            this.markerData = [];
 
             // Extract placemarks and create custom markers
             const placemarks = kmlDoc.querySelectorAll('Placemark');
@@ -303,10 +291,10 @@ class TravelMap {
                     const categoryClass = iconColor || '';
                     const customColor = this.getCSSColorFromCategory(categoryClass);
 
-                    // Get dynamic marker sizing based on zoom level
+                    // Get marker sizing with fixed 0.5 scale for accurate positioning
                     const markerSizing = this.getMarkerSizeForZoom();
 
-                    // Create custom marker with dynamic sizing
+                    // Create custom marker with optimized sizing
                     const marker = L.marker(latLng, {
                         icon: L.divIcon({
                             className: 'custom-div-icon',
@@ -368,15 +356,6 @@ class TravelMap {
                         }
                     });
 
-                    // Store marker data for recreation after zoom changes
-                    this.markerData.push({
-                        latLng: latLng,
-                        name: name,
-                        description: description,
-                        categoryClass: categoryClass,
-                        customColor: customColor
-                    });
-
                     // Add to layer
                     this.currentLayer.addLayer(marker);
                 }
@@ -401,25 +380,10 @@ class TravelMap {
         }
     }
 
-    // Method to calculate marker size and anchor based on zoom level
+    // Method to get optimized marker size with fixed scale for accurate positioning
     getMarkerSizeForZoom() {
-        if (!this.map) {
-            return {
-                iconSize: [120, 80],
-                iconAnchor: [60, 70],
-                popupAnchor: [0, -70]
-            };
-        }
-        
-        const zoom = this.map.getZoom();
-        
-        // Scale marker size based on zoom level
-        // At zoom 10-12: normal size
-        // At zoom 13-15: slightly smaller
-        // At zoom 16+: smallest
-        // At zoom < 10: larger
-        
-        let scale = 0.5;
+        // Use fixed 0.5 scale for perfect positioning accuracy at all zoom levels
+        const scale = 0.5;
         const baseWidth = 120;
         const baseHeight = 80;
         
@@ -436,121 +400,6 @@ class TravelMap {
             iconAnchor: [anchorX, anchorY],
             popupAnchor: [0, -anchorY]
         };
-    }
-
-    // Method to schedule marker recreation after zoom change (with 1-second delay)
-    scheduleMarkerRecreation() {
-        // Clear any existing timeout to debounce rapid zoom changes
-        if (this.zoomRecreateTimeout) {
-            clearTimeout(this.zoomRecreateTimeout);
-        }
-        
-        // Schedule marker recreation after 1 second
-        this.zoomRecreateTimeout = setTimeout(() => {
-            if (this.markerData.length > 0) {
-                console.log('Recreating markers after zoom change at level:', this.map.getZoom());
-                this.recreateMarkersFromData();
-            }
-        }, 1000);
-    }
-
-    // Method to recreate markers from stored data with proper sizing
-    recreateMarkersFromData() {
-        if (!this.currentLayer || this.markerData.length === 0) {
-            return;
-        }
-
-        // Remove existing layer
-        this.map.removeLayer(this.currentLayer);
-        
-        // Create a new layer group
-        this.currentLayer = L.layerGroup();
-
-        // Recreate each marker from stored data with new sizing
-        this.markerData.forEach(markerInfo => {
-            const marker = this.createMarkerFromData(markerInfo);
-            if (marker) {
-                this.currentLayer.addLayer(marker);
-            }
-        });
-
-        // Add the recreated layer back to the map
-        this.currentLayer.addTo(this.map);
-        
-        // Update stats
-        this.updateMapStats();
-    }
-
-    // Helper method to create a single marker from stored data
-    createMarkerFromData(markerInfo) {
-        const { latLng, name, description, categoryClass, customColor } = markerInfo;
-        
-        // Get current zoom-appropriate sizing
-        const markerSizing = this.getMarkerSizeForZoom();
-        
-        // Create custom marker with current zoom sizing
-        const marker = L.marker(latLng, {
-            icon: L.divIcon({
-                className: 'custom-div-icon',
-                html: `
-                    <div class="marker-container ${categoryClass}">
-                        <div class="marker-label">${this.truncateName(name)}</div>
-                        <div class="custom-marker-pin" style="--marker-color: ${customColor.primary}; --marker-solid-color: ${customColor.solid}; --marker-shadow: ${customColor.shadow};">
-                            <div class="pin-head"></div>
-                            <div class="pin-point"></div>
-                        </div>
-                    </div>
-                `,
-                iconSize: markerSizing.iconSize,
-                iconAnchor: markerSizing.iconAnchor,
-                popupAnchor: markerSizing.popupAnchor
-            })
-        });
-
-        // Add popup
-        let popupContent = `<h3>${name}</h3>`;
-        if (description) {
-            popupContent += `<p>${description}</p>`;
-        }
-        popupContent += `<p style="font-size: 0.8rem; color: #71717a; margin-top: 0.5rem;">
-
-        </p>`;
-        popupContent += `
-            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e4e4e7;">
-                <button onclick="window.travelMap.showBatteryWarning({name: '${name.replace(/'/g, "\\'")}', coordinates: L.latLng(${latLng.lat}, ${latLng.lng})})" 
-                        style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.375rem; cursor: pointer; font-size: 0.875rem; transition: all 0.2s ease;">
-                    Navigate Here
-                </button>
-            </div>
-        `;
-
-        marker.bindPopup(popupContent, {
-            maxWidth: 300,
-            className: 'custom-popup'
-        });
-
-        // Add navigation click event
-        marker.on('dblclick', (e) => {
-            // Double-click to start navigation directly
-            e.originalEvent.stopPropagation();
-            
-            // Show battery warning modal before starting navigation
-            this.showBatteryWarning({
-                name: name,
-                coordinates: latLng,
-                description: description
-            });
-        });
-        
-        // Add hover tooltip for navigation hint
-        marker.on('mouseover', (e) => {
-            const markerElement = e.target._icon;
-            if (markerElement) {
-                markerElement.title = `${name} - Click for details, Double-click to navigate`;
-            }
-        });
-
-        return marker;
     }
 
     // Helper method to truncate long names for labels
@@ -1113,7 +962,6 @@ class TravelMap {
                 <div class="navigation-header">
                     <div class="navigation-title">Navigation</div>
                     <div class="navigation-controls-inline">
-                        <button class="navigation-toggle" title="Expand/Minimize">+</button>
                         <button class="navigation-close" title="Stop Navigation">✕</button>
                     </div>
                 </div>
@@ -1141,29 +989,45 @@ class TravelMap {
             document.body.appendChild(panel);
             
             // Add event listeners
-            panel.querySelector('.navigation-close').addEventListener('click', () => {
+            panel.querySelector('.navigation-close').addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent panel toggle when clicking close
                 this.stopNavigation();
             });
             
-            panel.querySelector('.stop').addEventListener('click', () => {
+            panel.querySelector('.stop').addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent panel toggle when clicking stop
                 this.stopNavigation();
             });
 
-            // Add toggle functionality for minimize/expand
-            panel.querySelector('.navigation-toggle').addEventListener('click', () => {
-                panel.classList.toggle('minimized');
-                const toggleBtn = panel.querySelector('.navigation-toggle');
-                if (panel.classList.contains('minimized')) {
-                    toggleBtn.textContent = '+';
-                    toggleBtn.title = 'Expand Navigation';
-                } else {
-                    toggleBtn.textContent = '-';
-                    toggleBtn.title = 'Minimize Navigation';
+            // Add panel tap to toggle functionality
+            panel.addEventListener('click', (e) => {
+                // Only toggle if clicking on the panel itself, not on buttons
+                if (e.target === panel || e.target.closest('.navigation-header') || e.target.closest('.navigation-info')) {
+                    panel.classList.toggle('minimized');
                 }
             });
+
+            // Add click outside to minimize functionality
+            this.setupNavigationPanelOutsideClick(panel);
         }
         
         setTimeout(() => panel.classList.add('show'), 10);
+    }
+
+    // Setup click outside to minimize navigation panel
+    setupNavigationPanelOutsideClick(panel) {
+        const handleOutsideClick = (e) => {
+            // Check if click is outside the panel
+            if (!panel.contains(e.target) && !panel.classList.contains('minimized')) {
+                panel.classList.add('minimized');
+            }
+        };
+
+        // Add event listener to document
+        document.addEventListener('click', handleOutsideClick);
+
+        // Store reference to remove listener when navigation stops
+        panel._outsideClickHandler = handleOutsideClick;
     }
     
     updateNavigationPanel(distance, duration = null, isFallback = false) {
@@ -1229,9 +1093,15 @@ class TravelMap {
             this.userMarker = null;
         }
         
-        // Hide navigation panel
+        // Hide navigation panel and clean up event listeners
         const panel = document.getElementById('navigationPanel');
         if (panel) {
+            // Remove outside click event listener
+            if (panel._outsideClickHandler) {
+                document.removeEventListener('click', panel._outsideClickHandler);
+                panel._outsideClickHandler = null;
+            }
+            
             panel.classList.remove('show');
             setTimeout(() => {
                 if (panel.parentNode) {

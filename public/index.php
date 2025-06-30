@@ -14,7 +14,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="header-indicator" id="headerIndicator">Tap or swipe down for header</div>
     
     <header class="header" id="header">
         <h1>Hue - Danang - Hoian</h1>
@@ -82,14 +81,12 @@
         // Enhanced swipe functionality
         const swipeContainer = document.querySelector('.swipe-container');
         const header = document.getElementById('header');
-        const headerIndicator = document.getElementById('headerIndicator');
         let isScrolling = false;
         let headerTimeout;
         
         // Header management
         function showHeader() {
             header.classList.add('show');
-            headerIndicator.classList.add('hide');
             
             // Auto-hide after 3 seconds
             clearTimeout(headerTimeout);
@@ -100,7 +97,6 @@
         
         function hideHeader() {
             header.classList.remove('show');
-            headerIndicator.classList.remove('hide');
             clearTimeout(headerTimeout);
         }
         
@@ -147,15 +143,9 @@
         
         // Hide header when clicking outside
         document.addEventListener('click', (e) => {
-            if (!header.contains(e.target) && header.classList.contains('show') && !headerIndicator.contains(e.target)) {
+            if (!header.contains(e.target) && header.classList.contains('show')) {
                 hideHeader();
             }
-        });
-        
-        // Click on indicator to show header
-        headerIndicator.addEventListener('click', (e) => {
-            e.stopPropagation();
-            showHeader();
         });
         
         // Keyboard shortcut (H key) to toggle header
