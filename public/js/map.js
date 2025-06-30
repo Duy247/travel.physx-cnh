@@ -23,7 +23,8 @@ class TravelMap {
             'snack-night': 'data/kml/Junk.kml',
             'coffee': 'data/kml/Cafe.kml',
             'tour': 'data/kml/Touring.kml',
-            'fuel': 'data/kml/Fuel.kml'
+            'fuel': 'data/kml/Fuel.kml',
+            'people': 'api/people.php' // Special endpoint for people data
         };
         this.categoryColors = {
             'breakfast': 'breakfast',
@@ -31,7 +32,8 @@ class TravelMap {
             'snack-night': 'snack-night',
             'coffee': 'coffee',
             'tour': 'tour',
-            'fuel': 'fuel'
+            'fuel': 'fuel',
+            'people': 'people'
         };
         // Navigation system properties
         this.userLocation = null;
@@ -202,7 +204,8 @@ class TravelMap {
                 'snack-night': 'Snack & Night',
                 'coffee': 'Coffee Shops',
                 'tour': 'Tour Points',
-                'fuel': 'Fuel Stations'
+                'fuel': 'Fuel Stations',
+                'people': 'People Locations'
             };
             categoryElement.textContent = categoryNames[this.currentKmlType] || 'Unknown';
         }
@@ -254,6 +257,15 @@ class TravelMap {
         this.showLoading(true);
 
         try {
+            // Show/hide refresh button based on category
+            this.showRefreshButton(kmlType === 'people');
+
+            // Handle special case for people data
+            if (kmlType === 'people') {
+                await this.loadPeopleData();
+                return;
+            }
+
             // Parse KML styles first
             await this.parseKMLStyles(kmlFile);
 
@@ -518,6 +530,11 @@ class TravelMap {
                 primary: 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)',
                 solid: '#f97316',
                 shadow: 'rgba(249, 115, 22, 0.4)'
+            },
+            'people': {
+                primary: 'linear-gradient(135deg, #ec4899 0%, #be185d 100%)',
+                solid: '#ec4899',
+                shadow: 'rgba(236, 72, 153, 0.4)'
             }
         };
         
@@ -1125,6 +1142,213 @@ class TravelMap {
         this.userLocation = null;
         
         console.log('Navigation stopped');
+    }
+
+    // Load people location data from the API
+    async loadPeopleData() {
+        try {
+            // Remove existing layer
+            if (this.currentLayer) {
+                this.map.removeLayer(this.currentLayer);
+            }
+
+            // Fetch people data from API
+            const response = await fetch('api/people.php');
+            if (!response.ok) {
+                throw new Error('Failed to fetch people data');
+            }
+            
+            const result = await response.json();
+            if (!result.success) {
+                throw new Error(result.error || 'Failed to load people data');
+            }
+
+            // Create a new layer group for people markers
+            this.currentLayer = L.layerGroup();
+            const bounds = L.latLngBounds();
+            const peopleData = result.data;
+
+            // Create markers for each person
+            for (const [deviceName, location] of Object.entries(peopleData)) {
+                const latLng = L.latLng(location.lat, location.lng);
+                bounds.extend(latLng);
+
+                // Calculate time since last update
+                const lastUpdate = new Date(location.time * 1000);
+                const timeDiff = Date.now() - lastUpdate;
+                const hoursAgo = Math.floor(timeDiff / (1000 * 60 * 60));
+                const minutesAgo = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+                
+                let timeText;
+                if (hoursAgo > 0) {
+                    timeText = `${hoursAgo}h ${minutesAgo}m ago`;
+                } else if (minutesAgo > 0) {
+                    timeText = `${minutesAgo}m ago`;
+                } else {
+                    timeText = 'Just now';
+                }
+
+                // Get people category colors
+                const customColor = this.getCSSColorFromCategory('people');
+                const markerSizing = this.getMarkerSizeForZoom();
+
+                // Create custom people marker
+                const peopleIcon = L.divIcon({
+                    className: 'custom-map-marker people-marker',
+                    html: `
+                        <div class="marker-container">
+                            <div class="marker-pin" style="background: ${customColor.primary}; box-shadow: 0 4px 12px ${customColor.shadow};">
+                                <div class="marker-icon">👤</div>
+                            </div>
+                            <div class="marker-label" style="background: ${customColor.primary}; box-shadow: 0 2px 8px ${customColor.shadow};">
+                                <span class="marker-text">${this.truncateName(deviceName)}</span>
+                            </div>
+                        </div>
+                    `,
+                    iconSize: markerSizing.iconSize,
+                    iconAnchor: markerSizing.iconAnchor,
+                    popupAnchor: markerSizing.popupAnchor
+                });
+
+                // Create marker
+                const marker = L.marker(latLng, { icon: peopleIcon });
+
+                // Create popup with device info
+                const popupContent = `
+                    <div class="custom-popup-content">
+                        <div class="popup-header">
+                            <h3 class="popup-title">👤 ${deviceName}</h3>
+                            <div class="popup-category people">People Location</div>
+                        </div>
+                        <div class="popup-info">
+                            <div class="popup-detail">
+                                <strong>Last Updated:</strong> ${timeText}
+                            </div>
+                            <div class="popup-detail">
+                                <strong>Coordinates:</strong> ${location.lat.toFixed(6)}, ${location.lng.toFixed(6)}
+                            </div>
+                            <div class="popup-detail">
+                                <strong>Timestamp:</strong> ${location.timestamp}
+                            </div>
+                        </div>
+                        <div class="popup-actions">
+                            <button class="popup-btn navigate" onclick="travelMap.showBatteryWarning({name: '${deviceName}', coordinates: L.latLng(${location.lat}, ${location.lng})})">
+                                🧭 Navigate Here
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                marker.bindPopup(popupContent, {
+                    className: 'custom-popup people-popup',
+                    maxWidth: 350,
+                    minWidth: 250
+                });
+
+                // Add marker to layer group
+                this.currentLayer.addLayer(marker);
+            }
+
+            // Add layer to map
+            this.currentLayer.addTo(this.map);
+
+            // Fit bounds if we have any people locations
+            if (bounds.isValid()) {
+                this.map.fitBounds(bounds, { padding: [20, 20] });
+            }
+
+            console.log('People data loaded successfully:', Object.keys(peopleData).length, 'people');
+            this.showLoading(false);
+            this.updateMapStats();
+
+            // Auto-save current user location if GPS is enabled
+            this.promptForLocationSharing();
+
+        } catch (error) {
+            console.error('Error loading people data:', error);
+            this.showError('Failed to load people locations. Please try again.');
+            this.showLoading(false);
+        }
+    }
+
+    // Show/hide refresh button based on category
+    showRefreshButton(show) {
+        const refreshBtn = document.getElementById('refreshPeopleBtn');
+        if (refreshBtn) {
+            refreshBtn.style.display = show ? 'block' : 'none';
+        }
+    }
+
+    // Prompt user to share their location when viewing people category
+    promptForLocationSharing() {
+        if (!navigator.geolocation) {
+            return; // Geolocation not supported
+        }
+
+        // Check if user has already shared location recently (within last 10 minutes)
+        const lastShared = localStorage.getItem('lastLocationShared');
+        if (lastShared && Date.now() - parseInt(lastShared) < 10 * 60 * 1000) {
+            return; // Recently shared, don't prompt again
+        }
+
+        // Get current location and save it
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                this.saveUserLocation(position.coords.latitude, position.coords.longitude);
+            },
+            (error) => {
+                console.log('Location sharing declined or failed:', error.message);
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 300000
+            }
+        );
+    }
+
+    // Save user location to the people database
+    async saveUserLocation(lat, lng) {
+        try {
+            // Get or generate device name
+            let deviceName = localStorage.getItem('deviceName');
+            if (!deviceName) {
+                deviceName = prompt('Enter your name for location sharing:');
+                if (!deviceName) {
+                    return; // User cancelled
+                }
+                localStorage.setItem('deviceName', deviceName);
+            }
+
+            // Save location to server
+            const response = await fetch('api/people.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    lat: lat,
+                    lng: lng,
+                    deviceName: deviceName
+                })
+            });
+
+            const result = await response.json();
+            if (result.success) {
+                console.log('Location saved successfully for:', result.deviceName);
+                localStorage.setItem('lastLocationShared', Date.now().toString());
+                
+                // Refresh people data to show updated location
+                if (this.currentKmlType === 'people') {
+                    setTimeout(() => this.loadPeopleData(), 1000);
+                }
+            } else {
+                console.error('Failed to save location:', result.error);
+            }
+
+        } catch (error) {
+            console.error('Error saving user location:', error);
+        }
     }
 }
 

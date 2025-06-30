@@ -68,6 +68,13 @@ $cache_bust = time();
         </div>
     </div>
 
+    <!-- Refresh Button for People Category -->
+    <div class="refresh-people-btn" id="refreshPeopleBtn" style="display: none;">
+        <button onclick="window.travelMap.loadPeopleData()" title="Refresh People Locations">
+            🔄
+        </button>
+    </div>
+
     <!-- Floating Stats Panel -->
     <div class="map-stats" id="mapStats">
         <div class="map-stats-content">
@@ -116,6 +123,10 @@ $cache_bust = time();
         <div class="map-legend-item" data-kml="fuel">
             <div class="map-legend-color" style="background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);"></div>
             <span>Fuel</span>
+        </div>
+        <div class="map-legend-item" data-kml="people">
+            <div class="map-legend-color" style="background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);"></div>
+            <span>People</span>
         </div>
     </div>
 

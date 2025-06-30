@@ -436,56 +436,52 @@ body {
         linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(24, 24, 27, 0.95) 30%);
 }
 
-.marker-pin {
-    width: 24px;
-    height: 24px;
+.people .marker-label {
+    border-left-color: #ec4899;
     background: 
-        linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-    border: 3px solid rgba(255, 255, 255, 0.9);
-    border-radius: 50%;
+        linear-gradient(135deg, rgba(236, 72, 153, 0.15) 0%, rgba(24, 24, 27, 0.95) 30%);
+}
+
+/* People Marker Specific Styles */
+.people-marker .marker-pin {
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
     box-shadow: 
-        0 4px 12px rgba(99, 102, 241, 0.4),
+        0 4px 12px rgba(236, 72, 153, 0.4),
         0 2px 6px rgba(0, 0, 0, 0.3);
-    position: relative;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    animation: markerPulse 2s infinite;
 }
 
-.marker-pin::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 8px;
-    height: 8px;
-    background-color: white;
-    border-radius: 50%;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+.people-marker .marker-icon {
+    font-size: 14px;
+    animation: pulse 2s infinite;
 }
 
-.marker-pin::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: 
-        linear-gradient(135deg, rgba(99, 102, 241, 0.3) 0%, rgba(139, 92, 246, 0.3) 100%);
-    border-radius: 50%;
-    z-index: -1;
-    animation: markerGlow 2s ease-in-out infinite alternate;
+@keyframes pulse {
+    0%, 100% { 
+        transform: scale(1); 
+        opacity: 1; 
+    }
+    50% { 
+        transform: scale(1.1); 
+        opacity: 0.8; 
+    }
 }
 
-@keyframes markerPulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+.people-marker:hover .marker-pin {
+    transform: scale(1.15);
+    box-shadow: 
+        0 6px 20px rgba(236, 72, 153, 0.6),
+        0 3px 10px rgba(0, 0, 0, 0.4);
 }
 
-@keyframes markerGlow {
-    0% { opacity: 0.3; transform: scale(1); }
-    100% { opacity: 0.6; transform: scale(1.2); }
+/* People Popup Styles */
+.people-popup .leaflet-popup-content-wrapper {
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, rgba(24, 24, 27, 0.95) 30%);
+    border: 1px solid rgba(236, 72, 153, 0.3);
+}
+
+.people-popup .popup-category.people {
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
+    color: white;
 }
 
 /* Marker entrance animation */
@@ -848,6 +844,37 @@ body {
 /* Remove pulse animation for more subtle look */
 .map-legend-item.active::after {
     display: none;
+}
+
+/* Refresh People Button */
+.refresh-people-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.refresh-people-btn button {
+    background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+}
+
+.refresh-people-btn button:hover {
+    transform: scale(1.1) rotate(180deg);
+    box-shadow: 0 6px 20px rgba(236, 72, 153, 0.6);
+}
+
+.refresh-people-btn button:active {
+    transform: scale(0.95);
 }
 
 /* Responsive Design with Enhanced Mobile Experience */
