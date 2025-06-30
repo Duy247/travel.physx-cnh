@@ -1533,9 +1533,6 @@ class TravelMap {
                     .substring(0, 50)
                     .trim();
                 
-                // Add random number to make it unique
-                finalDeviceName += ' #' + Math.floor(Math.random() * 1000);
-                
                 return finalDeviceName;
             }
             
