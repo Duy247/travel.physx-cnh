@@ -23,18 +23,46 @@
     <div class="swipe-container">
         <div class="swipe-panel nav-panel">
             <div class="nav-section">
+                <!-- Navigation Panel Header -->
+                <div class="nav-header">
+                    <div class="nav-header-content">
+                        <h1 class="nav-title">Travel With Friend</h1>
+                        <p class="nav-subtitle">Hue - Danang - Hoian</p>
+                    </div>
+                </div>
+                
                 <div class="countdown" id="countdown"></div>
                 
-                <nav class="nav-grid">
-                    <a href="Map.php">Travel Map</a>
-                    <a href="Weather.php">Weather</a>
-                    <a href="Plan.php">Timeline</a>
-                    <a href="Spending.php">Budget</a>
-                    <a href="PackingList.php">Packing List</a>
-                    <a href="PersonalPack.php">Personal Items</a>
-                    <a href="Info.php">Emergency Info</a>
-                    <a href="Gallery.php">Gallery</a>
-                </nav>
+                <div class="nav-modern-container">
+                    <div class="nav-scroll-area" id="navScrollArea">
+                        <div class="nav-spacer-top"></div>
+                        <a href="Map.php" class="nav-item" data-nav="map">
+                            <span>Travel Map</span>
+                        </a>
+                        <a href="Weather.php" class="nav-item" data-nav="weather">
+                            <span>Weather</span>
+                        </a>
+                        <a href="Plan.php" class="nav-item" data-nav="timeline">
+                            <span>Timeline</span>
+                        </a>
+                        <a href="Spending.php" class="nav-item" data-nav="budget">
+                            <span>Budget</span>
+                        </a>
+                        <a href="PackingList.php" class="nav-item" data-nav="packing">
+                            <span>Packing List</span>
+                        </a>
+                        <a href="PersonalPack.php" class="nav-item" data-nav="personal">
+                            <span>Personal Items</span>
+                        </a>
+                        <a href="Info.php" class="nav-item" data-nav="info">
+                            <span>Emergency Info</span>
+                        </a>
+                        <a href="Gallery.php" class="nav-item" data-nav="gallery">
+                            <span>Gallery</span>
+                        </a>
+                        <div class="nav-spacer-bottom"></div>
+                    </div>
+                </div>
                 
             </div>
         </div>
@@ -344,6 +372,262 @@
                 const locationKey = this.getAttribute('data-location');
                 fetchForecast(locationKey);
             });
+        });
+
+        // Enhanced Center-Focused Navigation System
+        class CenterFocusedNavigation {
+            constructor() {
+                this.scrollArea = document.getElementById('navScrollArea');
+                this.navItems = document.querySelectorAll('.nav-item');
+                this.centerY = null;
+                this.isInitialized = false;
+                this.isScrolling = false;
+                this.scrollTimeout = null;
+                this.rafId = null;
+                this.lastFocusedIndex = -1;
+                this.focusThreshold = 50; // Minimum distance change to trigger focus update
+                
+                if (this.scrollArea && this.navItems.length > 0) {
+                    this.init();
+                }
+            }
+
+            init() {
+                // Calculate center position with better precision
+                this.updateCenterPosition();
+                
+                // Add optimized scroll event listener with passive scrolling
+                this.scrollArea.addEventListener('scroll', this.handleScroll.bind(this), { passive: true });
+                
+                // Handle resize events
+                window.addEventListener('resize', this.debounce(this.updateCenterPosition.bind(this), 250));
+                
+                // Initial setup - scroll to center the "Travel Map" item (data-nav="map")
+                setTimeout(() => {
+                    const mapItemIndex = Array.from(this.navItems).findIndex(item => 
+                        item.getAttribute('data-nav') === 'map'
+                    );
+                    if (mapItemIndex !== -1) {
+                        this.scrollToCenter(mapItemIndex, false); // Instant scroll for initial setup
+                    } else {
+                        this.scrollToCenter(0, false); // Fallback to first item
+                    }
+                }, 100);
+                
+                // Add enhanced click handlers for navigation items
+                this.navItems.forEach((item, index) => {
+                    if (item.href) { // Only add click handler to actual navigation items
+                        item.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            this.handleItemClick(index, item.href);
+                        });
+                    }
+                });
+                
+                this.isInitialized = true;
+                // Use RAF for initial focus update
+                this.requestFocusUpdate();
+            }
+
+            updateCenterPosition() {
+                if (!this.scrollArea) return;
+                const containerRect = this.scrollArea.getBoundingClientRect();
+                this.centerY = containerRect.height / 2;
+            }
+
+            handleScroll() {
+                if (!this.isInitialized) return;
+                
+                this.isScrolling = true;
+                
+                // Clear existing timeout
+                if (this.scrollTimeout) {
+                    clearTimeout(this.scrollTimeout);
+                }
+                
+                // Use requestAnimationFrame for smooth updates
+                this.requestFocusUpdate();
+                
+                // Set scroll end timeout
+                this.scrollTimeout = setTimeout(() => {
+                    this.isScrolling = false;
+                    this.requestFocusUpdate(); // Final update when scrolling stops
+                }, 100);
+            }
+
+            requestFocusUpdate() {
+                if (this.rafId) {
+                    cancelAnimationFrame(this.rafId);
+                }
+                
+                this.rafId = requestAnimationFrame(() => {
+                    this.updateCenterFocus();
+                    this.rafId = null;
+                });
+            }
+
+            updateCenterFocus() {
+                if (!this.scrollArea || !this.isInitialized) return;
+                
+                const containerRect = this.scrollArea.getBoundingClientRect();
+                const centerY = containerRect.top + this.centerY;
+                
+                let closestItem = null;
+                let closestIndex = -1;
+                let closestDistance = Infinity;
+                
+                // Calculate distances more precisely
+                this.navItems.forEach((item, index) => {
+                    const itemRect = item.getBoundingClientRect();
+                    const itemCenterY = itemRect.top + (itemRect.height / 2);
+                    const distance = Math.abs(centerY - itemCenterY);
+                    
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestItem = item;
+                        closestIndex = index;
+                    }
+                });
+                
+                // Only update if there's a significant change or different item
+                if (closestIndex !== this.lastFocusedIndex || closestDistance < this.focusThreshold) {
+                    this.updateItemStates(closestIndex);
+                    this.lastFocusedIndex = closestIndex;
+                }
+            }
+
+            updateItemStates(centerIndex) {
+                // Remove all existing focus states
+                this.navItems.forEach((item, index) => {
+                    item.classList.remove('center-focused');
+                    
+                    // Add center focus only to the centered item
+                    if (index === centerIndex) {
+                        item.classList.add('center-focused');
+                    }
+                });
+            }
+
+            scrollToCenter(index, smooth = true) {
+                if (index < 0 || index >= this.navItems.length) return;
+                
+                const targetItem = this.navItems[index];
+                if (!targetItem) return;
+                
+                // Get current scroll position and target item position
+                const scrollTop = this.scrollArea.scrollTop;
+                const containerHeight = this.scrollArea.clientHeight;
+                
+                // Calculate target item's position relative to the scroll container
+                const itemOffsetTop = targetItem.offsetTop;
+                const itemHeight = targetItem.offsetHeight;
+                
+                // Calculate the scroll position to center the item
+                const targetScrollTop = itemOffsetTop - (containerHeight / 2) + (itemHeight / 2);
+                
+                // Ensure we don't scroll beyond bounds
+                const maxScroll = this.scrollArea.scrollHeight - containerHeight;
+                const finalScrollTop = Math.max(0, Math.min(targetScrollTop, maxScroll));
+                
+                // Scroll to position
+                this.scrollArea.scrollTo({
+                    top: finalScrollTop,
+                    behavior: smooth ? 'smooth' : 'auto'
+                });
+                
+                // Update focus immediately for better responsiveness
+                if (!smooth) {
+                    setTimeout(() => this.updateItemStates(index), 50);
+                }
+            }
+
+            handleItemClick(index, href) {
+                // Center the item first with smooth scrolling
+                this.scrollToCenter(index, true);
+                
+                // Navigate after centering animation completes
+                setTimeout(() => {
+                    window.location.href = href;
+                }, 400); // Slightly longer delay for smoother experience
+            }
+
+            // Public method to programmatically focus an item
+            focusItem(index) {
+                this.scrollToCenter(index, true);
+            }
+
+            // Utility function for debouncing
+            debounce(func, wait) {
+                let timeout;
+                return function executedFunction(...args) {
+                    const later = () => {
+                        clearTimeout(timeout);
+                        func(...args);
+                    };
+                    clearTimeout(timeout);
+                    timeout = setTimeout(later, wait);
+                };
+            }
+
+            // Cleanup method
+            destroy() {
+                if (this.rafId) {
+                    cancelAnimationFrame(this.rafId);
+                }
+                if (this.scrollTimeout) {
+                    clearTimeout(this.scrollTimeout);
+                }
+            }
+        }
+
+        // Initialize the enhanced center-focused navigation
+        const centerNav = new CenterFocusedNavigation();
+
+        // Enhanced keyboard navigation support
+        document.addEventListener('keydown', (e) => {
+            if (!centerNav.isInitialized) return;
+            
+            const currentFocused = document.querySelector('.nav-item.center-focused');
+            if (!currentFocused) return;
+            
+            const currentIndex = Array.from(centerNav.navItems).indexOf(currentFocused);
+            
+            switch(e.key) {
+                case 'ArrowUp':
+                    e.preventDefault();
+                    if (currentIndex > 0) {
+                        centerNav.focusItem(currentIndex - 1);
+                    }
+                    break;
+                case 'ArrowDown':
+                    e.preventDefault();
+                    if (currentIndex < centerNav.navItems.length - 1) {
+                        centerNav.focusItem(currentIndex + 1);
+                    }
+                    break;
+                case 'Enter':
+                case ' ': // Add spacebar support
+                    e.preventDefault();
+                    if (currentFocused.href) {
+                        centerNav.handleItemClick(currentIndex, currentFocused.href);
+                    }
+                    break;
+                case 'Home':
+                    e.preventDefault();
+                    const mapItemIndex = Array.from(centerNav.navItems).findIndex(item => 
+                        item.getAttribute('data-nav') === 'map'
+                    );
+                    if (mapItemIndex !== -1) {
+                        centerNav.focusItem(mapItemIndex);
+                    } else {
+                        centerNav.focusItem(0); // Fallback to first item
+                    }
+                    break;
+                case 'End':
+                    e.preventDefault();
+                    centerNav.focusItem(centerNav.navItems.length - 1);
+                    break;
+            }
         });
     </script>
 </body>

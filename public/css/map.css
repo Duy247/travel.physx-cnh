@@ -152,6 +152,7 @@ body {
     color: #f4f4f5;
     font-weight: 600;
     overflow: hidden;
+    text-decoration: none;
 }
 
 .back-button::before {

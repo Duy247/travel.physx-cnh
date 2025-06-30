@@ -111,8 +111,8 @@ h3 {
 }
 
 .swipe-panel {
-    flex: 0 0 100vw;
-    scroll-snap-align: center;
+    flex: 0 0 100%;
+    scroll-snap-align: start;
     scroll-snap-stop: always;
     padding: 2rem;
     box-sizing: border-box;
@@ -188,34 +188,140 @@ h3 {
     color: #f4f4f5;
 }
 
-.nav-grid {
-    display: grid;
-    gap: 0.25rem;
+/* Navigation Panel Header */
+.nav-header {
+    margin-bottom: 0.75rem;
+    text-align: center;
+    position: relative;
 }
 
-.nav-grid a {
+.nav-header-content {
+    background: 
+        linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 100%),
+        linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%),
+        url('../images/header-bg.jpg') center/cover;
+    background-blend-mode: multiply, overlay;
+    border-radius: 0px;
+    padding: 1.5rem 2rem;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-header-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%, rgba(255, 255, 255, 0.05) 100%);
+    border-radius: 20px;
+    z-index: 1;
+}
+
+.nav-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 0.5rem 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(135deg, #ffffff 0%, #e4e4e7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.nav-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+    position: relative;
+    z-index: 2;
+    letter-spacing: 0.5px;
+}
+
+/* Modern Center-Focused Navigation */
+.nav-modern-container {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    /* Improve rendering performance */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+.nav-scroll-area {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    /* Temporarily disable scroll-snap to reduce conflicts with center focusing */
+    /* scroll-snap-type: y mandatory; */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    position: relative;
+    mask: linear-gradient(to bottom, 
+        transparent 0%, 
+        black 15%, 
+        black 85%, 
+        transparent 100%);
+    -webkit-mask: linear-gradient(to bottom, 
+        transparent 0%, 
+        black 15%, 
+        black 85%, 
+        transparent 100%);
+    /* Improve scrolling performance */
+    -webkit-overflow-scrolling: touch;
+    transform: translateZ(0); /* Force hardware acceleration */
+}
+
+.nav-scroll-area::-webkit-scrollbar {
+    display: none;
+}
+
+.nav-spacer-top,
+.nav-spacer-bottom {
+    height: 150px;
+    flex-shrink: 0;
+}
+
+.nav-item {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1.2rem 1rem;
+    padding: 1.5rem 2rem;
     text-decoration: none;
     color: white;
     background-size: cover;
     background-position: center;
-    border-radius: 0px;
-    transition: all 0.3s ease;
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
-    font-size: 1.1rem;
-    backdrop-filter: blur(10px);
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.9);
-    min-height: 80px;
+    border-radius: 16px;
+    margin: 0.5rem 1rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     position: relative;
     overflow: hidden;
-    z-index: 1;
+    opacity: 0.5;
+    transform: scale(0.85) translateZ(0); /* Add translateZ for hardware acceleration */
+    flex-shrink: 0;
+    height: 140px;
+    min-height: 140px;
+    backdrop-filter: blur(10px);
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.9);
+    scroll-snap-align: center;
+    scroll-snap-stop: always;
+    will-change: transform, opacity; /* Hint browser for better performance */
 }
 
-.nav-grid a::before {
+.nav-item::before {
     content: '';
     position: absolute;
     top: 0;
@@ -223,57 +329,84 @@ h3 {
     right: 0;
     bottom: 0;
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
-    z-index: -1;
-    transition: all 0.3s ease;
+    z-index: 1;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.nav-grid a {
-    /* Text appears above the overlay */
+/* Individual navigation item backgrounds */
+.nav-item[href="Map.php"] {
+    background-image: url('https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=400&h=300&fit=crop');
+}
+
+.nav-item[href="Weather.php"] {
+    background-image: url('https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=400&h=300&fit=crop');
+}
+
+.nav-item[href="Plan.php"] {
+    background-image: url('https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=400&h=300&fit=crop');
+}
+
+.nav-item[href="Spending.php"] {
+    background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=300&fit=crop');
+}
+
+.nav-item[href="PackingList.php"] {
+    background-image: url('https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=300&fit=crop');
+}
+
+.nav-item[href="PersonalPack.php"] {
+    background-image: url('https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=400&h=300&fit=crop');
+}
+
+.nav-item[href="Info.php"] {
+    background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=300&fit=crop');
+}
+
+.nav-item[href="Gallery.php"] {
+    background-image: url('https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400&h=300&fit=crop');
+}
+
+/* Text appears above the overlay */
+.nav-item span {
     position: relative;
     z-index: 2;
 }
 
-/* Individual button backgrounds */
-.nav-grid a[href="Map.php"] {
-    background-image: url('https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=400&h=300&fit=crop');
+/* Center item - normal scale (1.0) with enhanced visibility */
+.nav-item.center-focused {
+    color: #ffffff;
+    background-blend-mode: multiply;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 
+        0 16px 50px rgba(99, 102, 241, 0.5),
+        0 8px 25px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    transform: scale(1.0) translateZ(0);
+    opacity: 1;
+    font-weight: 600;
+    z-index: 3;
+    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.nav-grid a[href="Weather.php"] {
-    background-image: url('https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=400&h=300&fit=crop');
+.nav-item.center-focused::before {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+    animation: navCenterPulse 2s infinite;
 }
 
-.nav-grid a[href="Plan.php"] {
-    background-image: url('https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=400&h=300&fit=crop');
+@keyframes navCenterPulse {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.1; }
 }
 
-.nav-grid a[href="Spending.php"] {
-    background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=300&fit=crop');
+.nav-item:hover {
+    color: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    opacity: 0.9;
+    transform: scale(0.88);
 }
 
-.nav-grid a[href="PackingList.php"] {
-    background-image: url('https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=300&fit=crop');
-}
-
-.nav-grid a[href="PersonalPack.php"] {
-    background-image: url('https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=400&h=300&fit=crop');
-}
-
-.nav-grid a[href="Info.php"] {
-    background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=300&fit=crop');
-}
-
-.nav-grid a[href="Gallery.php"] {
-    background-image: url('https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400&h=300&fit=crop');
-}
-
-.nav-grid a:hover::before {
+.nav-item:hover::before {
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
-}
-
-.nav-grid a:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
-    border-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Weather Section */

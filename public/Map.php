@@ -30,9 +30,10 @@
     <div class="map-page-bg"></div>
 
     <!-- Back Button -->
-    <button class="back-button" onclick="window.history.back()" title="Go Back">
-        ←
-    </button>
+    <a href="index.php" class="back-button" title="Back to Menu">
+        <
+    </a>
+
 
     <!-- Page Header -->
     <div class="map-header">
