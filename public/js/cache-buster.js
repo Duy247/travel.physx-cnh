@@ -17,34 +17,9 @@
         // Page was reloaded
         console.log('Page reloaded - UI cache cleared');
     }
-    
-    // Add timestamp to CSS and JS links only (preserve image caching)
+    // Minimal mobile optimizations only (no asset modification)
     document.addEventListener('DOMContentLoaded', function() {
-        // Only add cache busting to PHP pages and CSS/JS files
-        const phpLinks = document.querySelectorAll('a[href$=".php"]');
-        phpLinks.forEach(function(link) {
-            if (link.href.includes(window.location.hostname)) {
-                const separator = link.href.includes('?') ? '&' : '?';
-                link.href += separator + '_t=' + Date.now();
-            }
-        });
-        
-        // Add cache busting to CSS and JS files that don't already have it
-        const cssLinks = document.querySelectorAll('link[rel="stylesheet"][href*=".css"]:not([href*="?v="])');
-        cssLinks.forEach(function(link) {
-            if (!link.href.includes('?v=')) {
-                const separator = link.href.includes('?') ? '&' : '?';
-                link.href += separator + 'v=' + Date.now();
-            }
-        });
-        
-        const jsScripts = document.querySelectorAll('script[src*=".js"]:not([src*="?v="])');
-        jsScripts.forEach(function(script) {
-            if (!script.src.includes('?v=')) {
-                const separator = script.src.includes('?') ? '&' : '?';
-                script.src += separator + 'v=' + Date.now();
-            }
-        });
+        // Only add mobile touch optimizations
         
         // Prevent iOS bounce effect
         document.body.addEventListener('touchstart', function() {}, { passive: true });
@@ -55,6 +30,35 @@
                 e.preventDefault();
             }
         }, { passive: false });
+        
+        // Debug: Check if nav images are loading (after a delay)
+        setTimeout(function() {
+            const navItems = document.querySelectorAll('.nav-item');
+            console.log('Found', navItems.length, 'navigation items');
+            
+            navItems.forEach(function(item, index) {
+                const styles = window.getComputedStyle(item);
+                const bgImage = styles.backgroundImage;
+                console.log('Nav item ' + index + ':', item.getAttribute('href'), 'Background:', bgImage);
+                
+                // Check if background image is loading
+                if (bgImage && bgImage !== 'none') {
+                    const urlMatch = bgImage.match(/url\(["']?([^"')]+)["']?\)/);
+                    if (urlMatch) {
+                        const img = new Image();
+                        img.onload = function() {
+                            console.log('✓ Background image loaded:', urlMatch[1]);
+                        };
+                        img.onerror = function() {
+                            console.error('✗ Background image failed to load:', urlMatch[1]);
+                        };
+                        img.src = urlMatch[1];
+                    }
+                } else {
+                    console.warn('No background image found for nav item:', item.getAttribute('href'));
+                }
+            });
+        }, 2000);
     });
     
     // Force page refresh when browser back button is used (for HTML pages only)

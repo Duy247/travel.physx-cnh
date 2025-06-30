@@ -651,9 +651,8 @@ $cache_bust = time();
         loadingTilesCount++;    
     }
     function finishLoadingTile() {
-        // Delayed increase loaded count to prevent changing the layer before 
-        // it will be replaced by next
-        setTimeout(function() { loadedTilesCount++; }, 250);
+        // Reduced delay for faster response
+        setTimeout(function() { loadedTilesCount++; }, 100);
     }
     function isTilesLoading() {
         return loadingTilesCount > loadedTilesCount;
@@ -701,14 +700,15 @@ $cache_bust = time();
             lastPastFramePosition = api.radar.past.length - 1;
         }
 
-        // Ensure that only one layer is visible initially
+        // Ensure that only the current frame is initially visible
         for (var i = 0; i < mapFrames.length; i++) {
             if (i == lastPastFramePosition) {
                 addLayer(mapFrames[i]);
                 radarLayers[mapFrames[i].path].setOpacity(layerOpacity / 100);
             } else {
-                addLayer(mapFrames[i]);
-                radarLayers[mapFrames[i].path].setOpacity(0);
+                // Don't preload all layers immediately - only add them when needed
+                // addLayer(mapFrames[i]);
+                // radarLayers[mapFrames[i].path].setOpacity(0);
             }
         }
 
@@ -717,7 +717,7 @@ $cache_bust = time();
 
     /**
      * Animation functions
-     * @param path - Path to the XYZ tile
+     * @param frame - Frame object with path and time
      */
     function addLayer(frame) {
         if (!radarLayers[frame.path]) {
@@ -727,12 +727,13 @@ $cache_bust = time();
 
             var source = new L.TileLayer(apiData.host + frame.path + '/' + optionTileSize + '/{z}/{x}/{y}/' + colorScheme + '/' + smooth + '_' + snow + '.png', {
                 tileSize: 256,
-                opacity: layerOpacity / 100, // Set the opacity based on the stored value
-                zIndex: frame.time
+                opacity: 0, // Start with 0 opacity
+                zIndex: frame.time,
+                maxNativeZoom: 18, // Prevent over-zooming
+                maxZoom: 18
             });
 
-            // Track layer loading state to not display the overlay 
-            // before it will completelly loads
+            // Track layer loading state
             source.on('loading', startLoadingTile);
             source.on('load', finishLoadingTile); 
             source.on('remove', finishLoadingTile);
@@ -765,8 +766,8 @@ $cache_bust = time();
         addLayer(nextFrame);
 
         // Quit if this call is for preloading only by design
-        // or some times still loading in background
-        if (preloadOnly || (isTilesLoading() && !force)) {
+        // Reduced blocking on tile loading for better performance
+        if (preloadOnly || (isTilesLoading() && !force && loadingTilesCount - loadedTilesCount > 5)) {
             return;
         }
 
@@ -784,16 +785,19 @@ $cache_bust = time();
     }
 
     /**
-     * Check avialability and show particular frame position from the timestamps list
+     * Check availability and show particular frame position from the timestamps list
      */
     function showFrame(nextPosition, force) {
         var preloadingDirection = nextPosition - animationPosition > 0 ? 1 : -1;
 
         changeRadarPosition(nextPosition, false, force);
 
-        // preload next next frame (typically, +1 frame)
-        // if don't do that, the animation will be blinking at the first loop
-        changeRadarPosition(nextPosition + preloadingDirection, true);
+        // Preload next frame for smoother animation
+        var nextPreloadPosition = nextPosition + preloadingDirection;
+        changeRadarPosition(nextPreloadPosition, true);
+        
+        // Also preload the frame after that for even smoother experience
+        changeRadarPosition(nextPreloadPosition + preloadingDirection, true);
     }
 
     /**
@@ -811,9 +815,14 @@ $cache_bust = time();
 
     function play() {
         showFrame(animationPosition + 1);
+        
+        // Clean up unused layers every 10 frames for better memory management
+        if (animationPosition % 10 === 0) {
+            cleanupLayers();
+        }
 
-        // Main animation driver. Run this function every 500 ms
-        animationTimer = setTimeout(play, 500);
+        // Faster animation - reduced from 500ms to 300ms for smoother playback
+        animationTimer = setTimeout(play, 300);
     }
 
     function playStop() {
@@ -841,6 +850,41 @@ $cache_bust = time();
         layerOpacity = value; // Store the opacity value
         var frame = mapFrames[animationPosition];
         radarLayers[frame.path].setOpacity(value / 100);
+    }
+
+    /**
+     * Clean up unused layers to free memory
+     */
+    function cleanupLayers() {
+        var currentTime = Date.now();
+        var framesToKeep = 10; // Keep only the last 10 frames in memory
+        var layersToRemove = [];
+        
+        for (var path in radarLayers) {
+            var shouldKeep = false;
+            
+            // Check if this layer is one of the recent frames
+            for (var i = Math.max(0, animationPosition - framesToKeep); 
+                 i < Math.min(mapFrames.length, animationPosition + framesToKeep); i++) {
+                if (mapFrames[i] && mapFrames[i].path === path) {
+                    shouldKeep = true;
+                    break;
+                }
+            }
+            
+            if (!shouldKeep) {
+                layersToRemove.push(path);
+            }
+        }
+        
+        // Remove old layers
+        for (var j = 0; j < layersToRemove.length; j++) {
+            var pathToRemove = layersToRemove[j];
+            if (radarLayers[pathToRemove]) {
+                map.removeLayer(radarLayers[pathToRemove]);
+                delete radarLayers[pathToRemove];
+            }
+        }
     }
 
     /**

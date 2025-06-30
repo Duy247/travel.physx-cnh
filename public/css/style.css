@@ -384,37 +384,37 @@ h3 {
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Individual navigation item backgrounds */
+/* Individual navigation item backgrounds - using local images */
 .nav-item[href="Map.php"] {
-    background-image: url('https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=400&h=300&fit=crop');
+    background-image: url('../images/nav/map.jpg');
 }
 
 .nav-item[href="Weather.php"] {
-    background-image: url('https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=400&h=300&fit=crop');
+    background-image: url('../images/nav/weather.jpg');
 }
 
 .nav-item[href="Plan.php"] {
-    background-image: url('https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=400&h=300&fit=crop');
+    background-image: url('../images/nav/plan.jpg');
 }
 
 .nav-item[href="Spending.php"] {
-    background-image: url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&h=300&fit=crop');
+    background-image: url('../images/nav/spending.jpg');
 }
 
 .nav-item[href="PackingList.php"] {
-    background-image: url('https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=300&fit=crop');
+    background-image: url('../images/nav/packinglist.jpg');
 }
 
 .nav-item[href="PersonalPack.php"] {
-    background-image: url('https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=400&h=300&fit=crop');
+    background-image: url('../images/nav/personalpack.jpg');
 }
 
 .nav-item[href="Info.php"] {
-    background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=300&fit=crop');
+    background-image: url('../images/nav/info.jpg');
 }
 
 .nav-item[href="Gallery.php"] {
-    background-image: url('https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=400&h=300&fit=crop');
+    background-image: url('../images/nav/gallery.jpg');
 }
 
 /* Text appears above the overlay */
