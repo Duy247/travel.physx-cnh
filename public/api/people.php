@@ -89,32 +89,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $peopleData = loadPeopleData();
     
-    // Handle potential duplicate device names by checking if location is significantly different
-    if (isset($peopleData[$deviceName])) {
-        $existingLat = $peopleData[$deviceName]['lat'];
-        $existingLng = $peopleData[$deviceName]['lng'];
-        
-        // Calculate distance between existing and new location
-        $distance = calculateDistance($lat, $lng, $existingLat, $existingLng);
-        
-        // If distance is more than 100 meters and time difference is small, 
-        // it might be a different device with same name
-        $timeDiff = time() - $peopleData[$deviceName]['time'];
-        if ($distance > 0.1 && $timeDiff < 300) { // 5 minutes
-            // Add a number suffix to make it unique
-            $counter = 2;
-            $originalName = $deviceName;
-            while (isset($peopleData[$deviceName])) {
-                $deviceName = $originalName . ' (' . $counter . ')';
-                $counter++;
-            }
-        }
-    }
+    // Simply update the device location if it already exists
+    // This handles GPS updates for the same device moving around
+    // The device name detection from JavaScript should be consistent enough
+    // to avoid creating multiple entries for the same device
     
     // Get alternate name if provided
     $alternateName = isset($input['alternateName']) && !empty(trim($input['alternateName'])) 
         ? trim($input['alternateName']) 
         : null;
+    
+    // If device exists and has an alternate name, preserve it unless explicitly overridden
+    if (isset($peopleData[$deviceName]) && $peopleData[$deviceName]['alternateName'] && !$alternateName) {
+        $alternateName = $peopleData[$deviceName]['alternateName'];
+    }
     
     // Update or add device location
     // Set timezone to Asia/Ho_Chi_Minh for correct local time
