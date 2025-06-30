@@ -3,7 +3,7 @@
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+header('Access-Control-Allow-Methods: GET, POST, PUT, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 
 // Handle preflight requests
@@ -33,11 +33,35 @@ function savePeopleData($data) {
 }
 
 function generateDeviceName() {
-    // Generate a unique device name if none provided
-    $adjectives = ['Swift', 'Bright', 'Happy', 'Quick', 'Smart', 'Cool', 'Fast', 'Nice', 'Good', 'Kind'];
-    $nouns = ['Explorer', 'Traveler', 'Wanderer', 'Tourist', 'Adventurer', 'Visitor', 'Guest', 'Friend', 'User', 'Person'];
+    // Generate a more descriptive device name if none provided
+    $adjectives = ['Swift', 'Bright', 'Happy', 'Quick', 'Smart', 'Cool', 'Fast', 'Nice', 'Good', 'Kind', 'Brave', 'Calm', 'Bold', 'Free'];
+    $nouns = ['Explorer', 'Traveler', 'Wanderer', 'Tourist', 'Adventurer', 'Visitor', 'Guest', 'Friend', 'User', 'Person', 'Navigator', 'Roamer'];
     
-    return $adjectives[array_rand($adjectives)] . ' ' . $nouns[array_rand($nouns)] . ' ' . rand(100, 999);
+    // Add time-based uniqueness
+    $timeStamp = date('His'); // HHMMSS format
+    
+    return $adjectives[array_rand($adjectives)] . ' ' . $nouns[array_rand($nouns)] . ' ' . $timeStamp;
+}
+
+function calculateDistance($lat1, $lng1, $lat2, $lng2) {
+    // Calculate distance between two coordinates in kilometers using Haversine formula
+    $earthRadius = 6371; // Earth's radius in kilometers
+    
+    $lat1Rad = deg2rad($lat1);
+    $lng1Rad = deg2rad($lng1);
+    $lat2Rad = deg2rad($lat2);
+    $lng2Rad = deg2rad($lng2);
+    
+    $deltaLat = $lat2Rad - $lat1Rad;
+    $deltaLng = $lng2Rad - $lng1Rad;
+    
+    $a = sin($deltaLat / 2) * sin($deltaLat / 2) +
+         cos($lat1Rad) * cos($lat2Rad) *
+         sin($deltaLng / 2) * sin($deltaLng / 2);
+    
+    $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+    
+    return $earthRadius * $c;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -65,12 +89,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $peopleData = loadPeopleData();
     
+    // Handle potential duplicate device names by checking if location is significantly different
+    if (isset($peopleData[$deviceName])) {
+        $existingLat = $peopleData[$deviceName]['lat'];
+        $existingLng = $peopleData[$deviceName]['lng'];
+        
+        // Calculate distance between existing and new location
+        $distance = calculateDistance($lat, $lng, $existingLat, $existingLng);
+        
+        // If distance is more than 100 meters and time difference is small, 
+        // it might be a different device with same name
+        $timeDiff = time() - $peopleData[$deviceName]['time'];
+        if ($distance > 0.1 && $timeDiff < 300) { // 5 minutes
+            // Add a number suffix to make it unique
+            $counter = 2;
+            $originalName = $deviceName;
+            while (isset($peopleData[$deviceName])) {
+                $deviceName = $originalName . ' (' . $counter . ')';
+                $counter++;
+            }
+        }
+    }
+    
+    // Get alternate name if provided
+    $alternateName = isset($input['alternateName']) && !empty(trim($input['alternateName'])) 
+        ? trim($input['alternateName']) 
+        : null;
+    
     // Update or add device location
+    // Set timezone to Asia/Ho_Chi_Minh for correct local time
+    date_default_timezone_set('Asia/Ho_Chi_Minh');
     $peopleData[$deviceName] = [
         'lat' => $lat,
         'lng' => $lng,
         'time' => time(),
-        'timestamp' => date('Y-m-d H:i:s')
+        'timestamp' => date('Y-m-d H:i:s'),
+        'alternateName' => $alternateName
     ];
     
     if (savePeopleData($peopleData)) {
@@ -108,6 +162,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'data' => $cleanedData,
         'count' => count($cleanedData)
     ]);
+    
+} elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
+    // Update alternate name for existing device
+    $input = json_decode(file_get_contents('php://input'), true);
+    
+    if (!$input || !isset($input['deviceName']) || !isset($input['alternateName'])) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Device name and alternate name are required.']);
+        exit;
+    }
+    
+    $deviceName = trim($input['deviceName']);
+    $alternateName = trim($input['alternateName']);
+    
+    $peopleData = loadPeopleData();
+    
+    if (!isset($peopleData[$deviceName])) {
+        http_response_code(404);
+        echo json_encode(['error' => 'Device not found.']);
+        exit;
+    }
+    
+    // Update only the alternate name
+    $peopleData[$deviceName]['alternateName'] = !empty($alternateName) ? $alternateName : null;
+    
+    if (savePeopleData($peopleData)) {
+        echo json_encode([
+            'success' => true,
+            'message' => 'Alternate name updated successfully',
+            'deviceName' => $deviceName,
+            'alternateName' => $peopleData[$deviceName]['alternateName']
+        ]);
+    } else {
+        http_response_code(500);
+        echo json_encode(['error' => 'Failed to update alternate name']);
+    }
     
 } else {
     http_response_code(405);

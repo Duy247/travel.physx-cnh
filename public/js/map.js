@@ -111,7 +111,7 @@ class TravelMap {
 
     addControls() {
         // Add locate control
-        L.control.locate({
+        const locateControl = L.control.locate({
             position: 'topright',
             drawCircle: true,
             flyTo: true,
@@ -125,6 +125,12 @@ class TravelMap {
                 maximumAge: 300000
             }
         }).addTo(this.map);
+
+        // Add event listener to locate control for location sharing
+        this.map.on('locationfound', (e) => {
+            // Save current location when locate button is used
+            this.saveUserLocation(e.latlng.lat, e.latlng.lng);
+        });
 
         // Add scale control
         L.control.scale({
@@ -1188,6 +1194,9 @@ class TravelMap {
                     timeText = 'Just now';
                 }
 
+                // Determine display name (use alternate name if available, otherwise device name)
+                const displayName = location.alternateName || deviceName;
+
                 // Get people category colors
                 const customColor = this.getCSSColorFromCategory('people');
                 const markerSizing = this.getMarkerSizeForZoom();
@@ -1201,7 +1210,7 @@ class TravelMap {
                                 <div class="marker-icon">👤</div>
                             </div>
                             <div class="marker-label" style="background: ${customColor.primary}; box-shadow: 0 2px 8px ${customColor.shadow};">
-                                <span class="marker-text">${this.truncateName(deviceName)}</span>
+                                <span class="marker-text">${this.truncateName(displayName)}</span>
                             </div>
                         </div>
                     `,
@@ -1217,10 +1226,18 @@ class TravelMap {
                 const popupContent = `
                     <div class="custom-popup-content">
                         <div class="popup-header">
-                            <h3 class="popup-title">👤 ${deviceName}</h3>
+                            <h3 class="popup-title">👤 ${displayName}</h3>
                             <div class="popup-category people">People Location</div>
                         </div>
                         <div class="popup-info">
+                            <div class="popup-detail">
+                                <strong>Device:</strong> ${deviceName}
+                            </div>
+                            ${location.alternateName ? `
+                            <div class="popup-detail">
+                                <strong>Display Name:</strong> ${location.alternateName}
+                            </div>
+                            ` : ''}
                             <div class="popup-detail">
                                 <strong>Last Updated:</strong> ${timeText}
                             </div>
@@ -1232,8 +1249,11 @@ class TravelMap {
                             </div>
                         </div>
                         <div class="popup-actions">
-                            <button class="popup-btn navigate" onclick="travelMap.showBatteryWarning({name: '${deviceName}', coordinates: L.latLng(${location.lat}, ${location.lng})})">
-                                🧭 Navigate Here
+                            <button class="popup-btn navigate" onclick="travelMap.showBatteryWarning({name: '${displayName}', coordinates: L.latLng(${location.lat}, ${location.lng})})">
+                                Navigate Here
+                            </button>
+                            <button class="popup-btn set-name" onclick="travelMap.showSetNameDialog('${deviceName.replace(/'/g, "\\'")}', '${(location.alternateName || '').replace(/'/g, "\\'")}')">
+                                Set Name
                             </button>
                         </div>
                     </div>
@@ -1308,16 +1328,33 @@ class TravelMap {
     }
 
     // Save user location to the people database
-    async saveUserLocation(lat, lng) {
+    async saveUserLocation(lat, lng, alternateName = null) {
         try {
-            // Get or generate device name
-            let deviceName = localStorage.getItem('deviceName');
+            // Get device name automatically from browser/device info
+            let deviceName = await this.getDeviceName();
+            
+            // If we couldn't detect device name, ask user or use stored name
             if (!deviceName) {
-                deviceName = prompt('Enter your name for location sharing:');
+                deviceName = localStorage.getItem('deviceName');
                 if (!deviceName) {
-                    return; // User cancelled
+                    deviceName = prompt('Enter your name for location sharing (or leave empty for auto-generated):');
+                    if (deviceName) {
+                        localStorage.setItem('deviceName', deviceName);
+                    }
+                    // If still no name, let server generate one
                 }
-                localStorage.setItem('deviceName', deviceName);
+            }
+
+            // Prepare request data
+            const requestData = {
+                lat: lat,
+                lng: lng,
+                deviceName: deviceName
+            };
+            
+            // Include alternate name if provided
+            if (alternateName) {
+                requestData.alternateName = alternateName;
             }
 
             // Save location to server
@@ -1326,17 +1363,20 @@ class TravelMap {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    lat: lat,
-                    lng: lng,
-                    deviceName: deviceName
-                })
+                body: JSON.stringify(requestData)
             });
 
             const result = await response.json();
             if (result.success) {
                 console.log('Location saved successfully for:', result.deviceName);
+                console.log('Original detected name:', deviceName);
                 localStorage.setItem('lastLocationShared', Date.now().toString());
+                
+                // Store the server-confirmed device name for future use
+                if (result.deviceName !== deviceName) {
+                    localStorage.setItem('deviceName', result.deviceName);
+                    console.log('Device name updated to:', result.deviceName);
+                }
                 
                 // Refresh people data to show updated location
                 if (this.currentKmlType === 'people') {
@@ -1350,11 +1390,390 @@ class TravelMap {
             console.error('Error saving user location:', error);
         }
     }
+
+    // Debug function to test device name detection
+    async testDeviceNameDetection() {
+        const deviceName = await this.getDeviceName();
+        console.log('Detected device name:', deviceName);
+        console.log('User Agent:', navigator.userAgent);
+        console.log('Platform:', navigator.platform);
+        
+        if (navigator.userAgentData) {
+            try {
+                const brands = navigator.userAgentData.brands;
+                const mobile = navigator.userAgentData.mobile;
+                console.log('User Agent Data - Brands:', brands);
+                console.log('User Agent Data - Mobile:', mobile);
+                
+                const highEntropy = await navigator.userAgentData.getHighEntropyValues([
+                    'model', 'platform', 'platformVersion', 'architecture', 'bitness'
+                ]);
+                console.log('High Entropy Values:', highEntropy);
+            } catch (e) {
+                console.log('High entropy values not available');
+            }
+        }
+        
+        return deviceName;
+    }
+
+    // Get device name from browser/device information
+    async getDeviceName() {
+        try {
+            let deviceInfo = [];
+            
+            // Method 1: Try to get device name from navigator
+            if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+                try {
+                    const uaData = await navigator.userAgentData.getHighEntropyValues([
+                        'model', 'platform', 'platformVersion'
+                    ]);
+                    
+                    if (uaData.model) {
+                        deviceInfo.push(uaData.model);
+                    } else if (uaData.platform) {
+                        deviceInfo.push(uaData.platform);
+                    }
+                } catch (e) {
+                    console.log('High entropy values not available:', e.message);
+                }
+            }
+            
+            // Method 2: Parse User Agent for device info
+            if (deviceInfo.length === 0) {
+                const userAgent = navigator.userAgent;
+                
+                // Try to extract device model from user agent
+                let deviceModel = null;
+                
+                // Android devices
+                if (userAgent.includes('Android')) {
+                    const androidMatch = userAgent.match(/Android.*?;\s*([^)]+)/);
+                    if (androidMatch && androidMatch[1]) {
+                        deviceModel = androidMatch[1].trim();
+                        // Clean up common patterns
+                        deviceModel = deviceModel.replace(/Build\/.*$/, '').trim();
+                        deviceModel = deviceModel.replace(/\s+wv$/, '').trim();
+                    }
+                }
+                
+                // iOS devices
+                else if (userAgent.includes('iPhone')) {
+                    deviceModel = 'iPhone';
+                    // Try to determine iPhone model
+                    const iosMatch = userAgent.match(/iPhone OS ([^;]+)/);
+                    if (iosMatch) {
+                        deviceModel += ' (iOS ' + iosMatch[1].replace(/_/g, '.') + ')';
+                    }
+                }
+                else if (userAgent.includes('iPad')) {
+                    deviceModel = 'iPad';
+                    const iosMatch = userAgent.match(/OS ([^;]+)/);
+                    if (iosMatch) {
+                        deviceModel += ' (iOS ' + iosMatch[1].replace(/_/g, '.') + ')';
+                    }
+                }
+                
+                // Windows devices
+                else if (userAgent.includes('Windows NT')) {
+                    const windowsMatch = userAgent.match(/Windows NT ([^;)]+)/);
+                    if (windowsMatch) {
+                        deviceModel = 'Windows ' + this.getWindowsVersion(windowsMatch[1]);
+                    } else {
+                        deviceModel = 'Windows PC';
+                    }
+                }
+                
+                // Mac devices
+                else if (userAgent.includes('Macintosh')) {
+                    deviceModel = 'Mac';
+                    if (userAgent.includes('Intel')) {
+                        deviceModel += ' (Intel)';
+                    } else if (userAgent.includes('PPC')) {
+                        deviceModel += ' (PowerPC)';
+                    }
+                }
+                
+                // Linux
+                else if (userAgent.includes('Linux')) {
+                    deviceModel = 'Linux PC';
+                }
+                
+                if (deviceModel) {
+                    deviceInfo.push(deviceModel);
+                }
+            }
+            
+            // Method 3: Get browser info as fallback
+            if (deviceInfo.length === 0) {
+                const browserInfo = this.getBrowserInfo();
+                if (browserInfo) {
+                    deviceInfo.push(browserInfo + ' User');
+                }
+            }
+            
+            // Method 4: Try to get network/connection info for additional context
+            if (navigator.connection) {
+                const connection = navigator.connection;
+                if (connection.type === 'cellular') {
+                    deviceInfo.push('(Mobile)');
+                } else if (connection.type === 'wifi') {
+                    deviceInfo.push('(WiFi)');
+                }
+            }
+            
+            // Create final device name
+            let finalDeviceName = deviceInfo.join(' ').trim();
+            
+            // Clean up and limit length
+            if (finalDeviceName) {
+                finalDeviceName = finalDeviceName
+                    .replace(/\s+/g, ' ')
+                    .replace(/[^\w\s\-\(\)\.]/g, '')
+                    .substring(0, 50)
+                    .trim();
+                
+                // Add random number to make it unique
+                finalDeviceName += ' #' + Math.floor(Math.random() * 1000);
+                
+                return finalDeviceName;
+            }
+            
+            return null; // No device name detected
+            
+        } catch (error) {
+            console.log('Error detecting device name:', error);
+            return null;
+        }
+    }
+    
+    // Helper function to convert Windows NT version to readable name
+    getWindowsVersion(version) {
+        const versions = {
+            '10.0': '10/11',
+            '6.3': '8.1',
+            '6.2': '8',
+            '6.1': '7',
+            '6.0': 'Vista',
+            '5.2': 'XP x64',
+            '5.1': 'XP'
+        };
+        return versions[version] || version;
+    }
+    
+    // Helper function to get browser information
+    getBrowserInfo() {
+        const userAgent = navigator.userAgent;
+        
+        if (userAgent.includes('Chrome') && !userAgent.includes('Edg')) {
+            return 'Chrome';
+        } else if (userAgent.includes('Firefox')) {
+            return 'Firefox';
+        } else if (userAgent.includes('Safari') && !userAgent.includes('Chrome')) {
+            return 'Safari';
+        } else if (userAgent.includes('Edg')) {
+            return 'Edge';
+        } else if (userAgent.includes('Opera') || userAgent.includes('OPR')) {
+            return 'Opera';
+        } else {
+            return 'Browser';
+        }
+    }
+
+    // Show dialog for setting alternate name
+    showSetNameDialog(deviceName, currentAlternateName = '') {
+        // Remove any existing dialog
+        const existingDialog = document.querySelector('.set-name-overlay');
+        if (existingDialog) {
+            existingDialog.remove();
+        }
+
+        // Create dialog HTML using existing CSS classes
+        const dialogHTML = `
+            <div class="set-name-overlay">
+                <div class="set-name-modal">
+                    <div class="set-name-header">
+                        <h3>Set Display Name</h3>
+                        <button class="set-name-close" onclick="travelMap.closeSetNameDialog()">&times;</button>
+                    </div>
+                    <div class="set-name-content">
+                        <p>Device: <strong>${deviceName}</strong></p>
+                        <div class="set-name-field">
+                            <label for="alternateName">Display Name (optional):</label>
+                            <input type="text" id="alternateName" value="${currentAlternateName}" 
+                                   placeholder="Enter your preferred display name" maxlength="50">
+                            <small>This name will be shown instead of your device name</small>
+                        </div>
+                    </div>
+                    <div class="set-name-actions">
+                        <button class="set-name-btn cancel" onclick="travelMap.closeSetNameDialog()">Cancel</button>
+                        <button class="set-name-btn clear" onclick="travelMap.clearAlternateName('${deviceName}')" 
+                                ${!currentAlternateName ? 'disabled' : ''}>Clear Name</button>
+                        <button class="set-name-btn save" onclick="travelMap.saveAlternateName('${deviceName}')">Save</button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Add dialog to DOM
+        document.body.insertAdjacentHTML('beforeend', dialogHTML);
+
+        // Show dialog with animation
+        setTimeout(() => {
+            const overlay = document.querySelector('.set-name-overlay');
+            if (overlay) {
+                overlay.classList.add('show');
+            }
+        }, 10);
+
+        // Focus input field
+        setTimeout(() => {
+            const input = document.getElementById('alternateName');
+            if (input) {
+                input.focus();
+                input.select();
+            }
+        }, 100);
+
+        // Handle Enter key
+        const input = document.getElementById('alternateName');
+        if (input) {
+            input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    this.saveAlternateName(deviceName);
+                }
+            });
+        }
+
+        // Handle Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.closeSetNameDialog();
+            }
+        }, { once: true });
+    }
+
+    // Close the set name dialog
+    closeSetNameDialog() {
+        const overlay = document.querySelector('.set-name-overlay');
+        if (overlay) {
+            overlay.classList.remove('show');
+            setTimeout(() => overlay.remove(), 300);
+        }
+    }
+
+    // Save alternate name
+    async saveAlternateName(deviceName) {
+        const input = document.getElementById('alternateName');
+        if (!input) return;
+
+        const alternateName = input.value.trim();
+        
+        try {
+            const success = await this.updateAlternateName(deviceName, alternateName);
+            if (success) {
+                this.closeSetNameDialog();
+                this.showSuccessMessage(alternateName ? 'Name updated successfully!' : 'Name cleared successfully!');
+                
+                // Refresh people data to show updated name
+                if (this.currentKmlType === 'people') {
+                    setTimeout(() => this.loadPeopleData(), 500);
+                }
+            }
+        } catch (error) {
+            console.error('Error saving alternate name:', error);
+            this.showError('Failed to update name. Please try again.');
+        }
+    }
+
+    // Clear alternate name
+    async clearAlternateName(deviceName) {
+        try {
+            const success = await this.updateAlternateName(deviceName, '');
+            if (success) {
+                this.closeSetNameDialog();
+                this.showSuccessMessage('Name cleared successfully!');
+                
+                // Refresh people data to show updated name
+                if (this.currentKmlType === 'people') {
+                    setTimeout(() => this.loadPeopleData(), 500);
+                }
+            }
+        } catch (error) {
+            console.error('Error clearing alternate name:', error);
+            this.showError('Failed to clear name. Please try again.');
+        }
+    }
+
+    // Update alternate name on server
+    async updateAlternateName(deviceName, alternateName) {
+        try {
+            const response = await fetch('api/people.php', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    deviceName: deviceName,
+                    alternateName: alternateName
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            return result.success;
+        } catch (error) {
+            console.error('Error updating alternate name:', error);
+            throw error;
+        }
+    }
+
+    // Show success message
+    showSuccessMessage(message) {
+        // Remove any existing success message
+        const existingToast = document.querySelector('.map-success-toast');
+        if (existingToast) {
+            existingToast.remove();
+        }
+
+        // Create success toast using existing CSS class
+        const toastHTML = `
+            <div class="map-success-toast">
+                <span>✓ ${message}</span>
+            </div>
+        `;
+
+        // Add toast to DOM
+        document.body.insertAdjacentHTML('beforeend', toastHTML);
+
+        // Auto-remove after 3 seconds
+        setTimeout(() => {
+            const toast = document.querySelector('.map-success-toast');
+            if (toast) {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(100%)';
+                setTimeout(() => toast.remove(), 300);
+            }
+        }, 3000);
+    }
 }
 
 // Initialize map when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     window.travelMap = new TravelMap();
+    
+    // Add global debug function for testing device name detection
+    window.testDeviceName = async () => {
+        if (window.travelMap) {
+            return await window.travelMap.testDeviceNameDetection();
+        }
+        console.log('Travel map not initialized yet');
+    };
+    
+    console.log('Travel Map initialized. You can test device name detection by calling: testDeviceName()');
 });
 
 // Export for potential module use
