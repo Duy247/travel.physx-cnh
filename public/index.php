@@ -1,13 +1,27 @@
 <?php
 // public/index.php
+
+// Prevent caching for mobile devices
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+
+// Generate cache busting timestamp
+$cache_bust = time();
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Travel PhysX CNH</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=<?php echo $cache_bust; ?>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
@@ -274,8 +288,9 @@
             document.getElementById('forecast-content').innerHTML = 
                 '<div class="forecast-card"><p>Loading weather data...</p></div>';
 
-            // Call our PHP backend endpoint
-            fetch(`api/weather.php?location=${locationKey}`)
+            // Call our PHP backend endpoint with cache busting
+            const cacheBust = new Date().getTime();
+            fetch(`api/weather.php?location=${locationKey}&_=${cacheBust}`)
                 .then(res => {
                     if (!res.ok) {
                         throw new Error(`HTTP ${res.status}: ${res.statusText}`);
@@ -631,5 +646,8 @@
             }
         });
     </script>
+    
+    <!-- Cache Busting Script -->
+    <script src="js/cache-buster.js?v=<?php echo $cache_bust; ?>"></script>
 </body>
 </html>

@@ -1,10 +1,25 @@
+<?php
+// Prevent caching for mobile devices
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
+
+// Generate cache busting timestamp
+$cache_bust = time();
+?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Bản Đồ Thời Tiết</title>
 
     <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <link href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" rel="stylesheet"/>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
@@ -851,6 +866,9 @@
         return false;
     }
 </script>
+
+<!-- Cache Busting Script -->
+<script src="js/cache-buster.js?v=<?php echo $cache_bust; ?>"></script>
 
 </body>
 </html>

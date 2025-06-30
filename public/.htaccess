@@ -31,13 +31,28 @@ Header always set X-XSS-Protection "1; mode=block"
     AddOutputFilterByType DEFLATE application/x-javascript
 </IfModule>
 
-# Browser caching
+# Prevent caching to fix mobile UI issues
+<IfModule mod_headers.c>
+    # Prevent caching for HTML, PHP, CSS, and JS files
+    <FilesMatch "\.(html|htm|php|css|js)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+    
+    # Set cache control for all files
+    Header always set Cache-Control "no-cache, no-store, must-revalidate"
+    Header always set Pragma "no-cache"
+    Header always set Expires "0"
+    
+    # Disable ETag
+    Header unset ETag
+</IfModule>
+
+# Disable file ETags
+FileETag None
+
+# Disable caching via mod_expires
 <IfModule mod_expires.c>
-    ExpiresActive on
-    ExpiresByType text/css "access plus 1 month"
-    ExpiresByType application/javascript "access plus 1 month"
-    ExpiresByType image/png "access plus 1 month"
-    ExpiresByType image/jpg "access plus 1 month"
-    ExpiresByType image/jpeg "access plus 1 month"
-    ExpiresByType image/gif "access plus 1 month"
+    ExpiresActive Off
 </IfModule>
