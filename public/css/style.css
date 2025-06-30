@@ -303,9 +303,9 @@ h3 {
     background-position: center;
     border-radius: 16px;
     margin: 0.5rem 1rem;
-    font-family: 'Inter', sans-serif;
-    font-size: 1rem;
-    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 300;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     position: relative;
     overflow: hidden;
@@ -319,6 +319,7 @@ h3 {
     scroll-snap-align: center;
     scroll-snap-stop: always;
     will-change: transform, opacity; /* Hint browser for better performance */
+    letter-spacing: 0.5px;
 }
 
 .nav-item::before {
@@ -383,7 +384,7 @@ h3 {
         inset 0 1px 0 rgba(255, 255, 255, 0.3);
     transform: scale(1.0) translateZ(0);
     opacity: 1;
-    font-weight: 600;
+    font-weight: 400;
     z-index: 3;
     transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
@@ -653,12 +654,49 @@ h3 {
     
     .nav-section,
     .weather-section {
-        padding: 0rem;
+        padding: 0.25rem;
     }
     
     .countdown {
         font-size: 1rem;
         padding: 0.75rem 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Navigation header mobile fixes */
+    .nav-header {
+        margin-bottom: 1rem;
+    }
+    
+    .nav-header-content {
+        padding: 1rem 1.5rem;
+        border-radius: 16px;
+    }
+    
+    .nav-title {
+        font-size: 1.5rem;
+    }
+    
+    .nav-subtitle {
+        font-size: 0.8rem;
+    }
+    
+    /* Navigation container mobile adjustments */
+    .nav-modern-container {
+        height: 400px;
+    }
+    
+    .nav-spacer-top,
+    .nav-spacer-bottom {
+        height: 100px;
+    }
+    
+    .nav-item {
+        height: 120px;
+        min-height: 120px;
+        margin: 0.25rem 0.5rem;
+        padding: 1rem 1.5rem;
+        font-size: 1.1rem;
     }
     
     .swipe-indicator {

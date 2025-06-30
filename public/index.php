@@ -40,7 +40,7 @@
                             <span>Travel Map</span>
                         </a>
                         <a href="Weather.php" class="nav-item" data-nav="weather">
-                            <span>Weather</span>
+                            <span>Weather Map</span>
                         </a>
                         <a href="Plan.php" class="nav-item" data-nav="timeline">
                             <span>Timeline</span>
@@ -95,7 +95,7 @@
 
             if (distance < 0) {
                 clearInterval(timer);
-                countdownEl.textContent = "🎉 The adventure begins!";
+                countdownEl.textContent = "Let's go, it's time!";
                 return;
             }
 
@@ -103,7 +103,8 @@
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 
-            countdownEl.textContent = `Countdown: ${days} days, ${hours} hours, ${minutes} minutes`;
+            countdownEl.textContent = `Countdown`;
+            countdownEl.innerHTML += `<br>${days} days, ${hours} hours, ${minutes} minutes`;
         }, 1000);
 
         // Enhanced swipe functionality
