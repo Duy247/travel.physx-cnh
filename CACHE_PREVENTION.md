@@ -1,20 +1,23 @@
-# Cache Prevention for Mobile Devices
+# Selective Cache Prevention for Mobile Devices
 
-This document explains the cache prevention measures implemented to fix UI issues on mobile devices.
+This document explains the selective cache prevention measures implemented to fix UI issues on mobile devices while maintaining performance for static assets.
 
 ## Implemented Solutions
 
-### 1. Server-Side Cache Prevention
-- **PHP Headers**: All PHP files now include cache prevention headers:
-  - `Cache-Control: no-cache, no-store, must-revalidate`
-  - `Pragma: no-cache`
-  - `Expires: 0`
-  - `Last-Modified: current timestamp`
+### 1. Selective Server-Side Cache Prevention
+- **PHP Headers**: All PHP files include cache prevention headers for HTML content only
+- **UI Files**: HTML, PHP, CSS, and JS files have no-cache headers
+- **Static Assets**: Images, fonts, and other static files maintain long-term caching
+- **Headers Applied**:
+  - UI Files: `Cache-Control: no-cache, no-store, must-revalidate`
+  - Images: `Cache-Control: public, max-age=31536000` (1 year)
+  - Fonts: `Cache-Control: public, max-age=31536000` (1 year)
 
-### 2. Client-Side Cache Busting
-- **Cache Busting URLs**: All CSS and JS files include timestamp parameters
-- **Dynamic Asset Loading**: Resources are loaded with `?v=timestamp` parameters
+### 2. Smart Client-Side Cache Busting
+- **CSS/JS Only**: Cache busting parameters only applied to stylesheets and scripts
+- **Image Preservation**: Images retain their cache for optimal performance
 - **API Calls**: Weather API calls include cache-busting parameters
+- **Selective URLs**: Only PHP, CSS, and JS files get timestamp parameters
 
 ### 3. Browser Configuration
 - **Meta Tags**: Added comprehensive cache prevention meta tags:
@@ -36,6 +39,26 @@ This document explains the cache prevention measures implemented to fix UI issue
 - **Service Worker Cleanup**: Automatically unregisters any service workers
 - **Page Refresh Logic**: Forces reload when returning from cache
 - **Link Modification**: Adds timestamps to internal navigation links
+
+## File Type Cache Policy
+
+### ❌ No Cache (Mobile UI Fix)
+- **HTML files** (.html, .htm)
+- **PHP files** (.php) 
+- **CSS files** (.css)
+- **JavaScript files** (.js)
+- **API responses** (JSON)
+
+### ✅ Long-term Cache (Performance)
+- **Images** (.jpg, .jpeg, .png, .gif, .webp, .svg, .ico) - 1 year
+- **Fonts** (.woff, .woff2, .ttf, .eot) - 1 year
+- **Static data** (.json, .xml, .kml, .pdf) - 1 day
+
+### Benefits
+- **UI Freshness**: Mobile users always get latest UI updates
+- **Performance**: Images and fonts load fast from cache
+- **Bandwidth**: Reduced data usage for static assets
+- **Speed**: Faster page loads with cached images
 
 ## Files Modified
 
