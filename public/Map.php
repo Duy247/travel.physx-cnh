@@ -71,43 +71,36 @@
         </div>
     </div>
 
-    <!-- Modern Center-Focused Scrolling Menu -->
-    <div class="map-legend-modern show" id="mapLegend">
-        <div class="map-legend-container">
-            <div class="map-legend-title">Choose Category</div>
-            <div class="map-legend-scroll-area" id="legendScrollArea">
-                <div class="map-legend-spacer-top"></div>
-                <div class="map-legend-item active" data-kml="all">
-                    <div class="map-legend-color" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);"></div>
-                    <span>All Locations</span>
-                </div>
-                <div class="map-legend-item" data-kml="breakfast">
-                    <div class="map-legend-color" style="background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);"></div>
-                    <span>Breakfast</span>
-                </div>
-                <div class="map-legend-item" data-kml="lunch-dinner">
-                    <div class="map-legend-color" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);"></div>
-                    <span>Lunch & Dinner</span>
-                </div>
-                <div class="map-legend-item" data-kml="snack-night">
-                    <div class="map-legend-color" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);"></div>
-                    <span>Snack & Night</span>
-                </div>
-                <div class="map-legend-item" data-kml="coffee">
-                    <div class="map-legend-color" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);"></div>
-                    <span>Coffee</span>
-                </div>
-                <div class="map-legend-item" data-kml="tour">
-                    <div class="map-legend-color" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);"></div>
-                    <span>Tour Points</span>
-                </div>
-                <div class="map-legend-item" data-kml="fuel">
-                    <div class="map-legend-color" style="background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);"></div>
-                    <span>Fuel</span>
-                </div>
-                <div class="map-legend-spacer-bottom"></div>
-            </div>
-            <div class="map-legend-center-indicator"></div>
+    <!-- Map Legend -->
+    <div class="map-legend show" id="mapLegend">
+        <div class="map-legend-title">Choose Category</div>
+        <div class="map-legend-item active" data-kml="all">
+            <div class="map-legend-color" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);"></div>
+            <span>All Locations</span>
+        </div>
+        <div class="map-legend-item" data-kml="breakfast">
+            <div class="map-legend-color" style="background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);"></div>
+            <span>Breakfast</span>
+        </div>
+        <div class="map-legend-item" data-kml="lunch-dinner">
+            <div class="map-legend-color" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);"></div>
+            <span>Lunch & Dinner</span>
+        </div>
+        <div class="map-legend-item" data-kml="snack-night">
+            <div class="map-legend-color" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);"></div>
+            <span>Snack & Night</span>
+        </div>
+        <div class="map-legend-item" data-kml="coffee">
+            <div class="map-legend-color" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);"></div>
+            <span>Coffee</span>
+        </div>
+        <div class="map-legend-item" data-kml="tour">
+            <div class="map-legend-color" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);"></div>
+            <span>Tour Points</span>
+        </div>
+        <div class="map-legend-item" data-kml="fuel">
+            <div class="map-legend-color" style="background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);"></div>
+            <span>Fuel</span>
         </div>
     </div>
 
