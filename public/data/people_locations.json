@@ -1,23 +1,9 @@
 {
-    "iPhone (iOS 16.6 like Mac OS X) AppleWebKit605.1.1 #798": {
+    "iPhone (iOS 16.6 like Mac OS X) AppleWebKit605.1.1": {
         "lat": 20.950909,
         "lng": 105.77021,
-        "time": 1751307953,
-        "timestamp": "2025-07-01 01:25:53",
-        "alternateName": null
-    },
-    "iPhone (iOS 16.6 like Mac OS X) AppleWebKit605.1.1 #627": {
-        "lat": 20.950909,
-        "lng": 105.77021,
-        "time": 1751308140,
-        "timestamp": "2025-07-01 01:29:00",
-        "alternateName": null
-    },
-    "iPhone (iOS 16.6 like Mac OS X) AppleWebKit605.1.1 #756": {
-        "lat": 20.950909,
-        "lng": 105.77021,
-        "time": 1751308142,
-        "timestamp": "2025-07-01 01:29:02",
+        "time": 1751379058,
+        "timestamp": "2025-07-01 21:10:58",
         "alternateName": null
     }
 }

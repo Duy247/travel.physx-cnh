@@ -43,6 +43,8 @@ class TravelMap {
         this.routeLayer = null;
         this.userMarker = null;
         this.locationUpdateInterval = null;
+        this.powerSavingMode = false; // Power saving mode flag
+        this.wakeLock = null; // Wake lock reference
         this.init();
     }
 
@@ -52,6 +54,7 @@ class TravelMap {
             this.initMap();
             this.addControls();
             this.setupEventListeners();
+            this.initPowerSavingMode();
             this.loadDefaultKML();
             this.showUIElements();
         }).catch(error => {
@@ -61,6 +64,7 @@ class TravelMap {
             this.initMap();
             this.addControls();
             this.setupEventListeners();
+            this.initPowerSavingMode();
             this.loadDefaultKML();
             this.showUIElements();
         });
@@ -714,10 +718,14 @@ class TravelMap {
                 <div class="battery-warning-icon">🔋⚠️</div>
                 <h3 class="battery-warning-title">Battery Usage Warning</h3>
                 <p class="battery-warning-text">
-                    GPS navigation with live tracking will significantly drain your device's battery. 
-                    Location updates occur every 10 seconds for accurate routing to <strong>${destination.name}</strong>.
+                    GPS navigation with live tracking will drain your device's battery. 
+                    This app uses battery-optimized tracking to <strong>${destination.name}</strong>:
                     <br><br>
-                    Consider keeping your device plugged in during navigation.
+                    • Smart intervals (30s-60s) based on movement<br>
+                    • Reduced GPS accuracy for better battery life<br>
+                    • Automatic power saving when stationary<br>
+                    <br>
+                    For longest battery life, consider keeping your device plugged in.
                 </p>
                 <div class="battery-warning-actions">
                     <button class="battery-warning-btn cancel">Cancel</button>
@@ -808,8 +816,29 @@ class TravelMap {
             // Calculate initial route
             await this.calculateRoute();
             
+            // Ensure distance is displayed immediately with fallback calculation
+            if (this.userLocation && this.navigationTarget) {
+                const straightLineDistance = this.userLocation.distanceTo(this.navigationTarget.coordinates);
+                const fallbackDistanceKm = (straightLineDistance / 1000).toFixed(2);
+                
+                // Update panel with immediate distance while route calculation might be in progress
+                setTimeout(() => {
+                    const distanceElement = document.getElementById('navDistance');
+                    if (distanceElement && distanceElement.textContent === 'Calculating...') {
+                        distanceElement.textContent = fallbackDistanceKm + ' km (direct)';
+                        console.log('Applied fallback distance:', fallbackDistanceKm + ' km');
+                    }
+                }, 1000);
+            }
+            
             // Show navigation panel
             this.showNavigationPanel();
+            
+            // Show power saving controls
+            this.showPowerSavingControls();
+            
+            // Request wake lock to prevent screen from turning off
+            await this.requestWakeLock();
             
             // Show navigation status
             this.showNavigationStatus('Navigation Active');
@@ -825,9 +854,9 @@ class TravelMap {
     getCurrentPosition() {
         return new Promise((resolve, reject) => {
             navigator.geolocation.getCurrentPosition(resolve, reject, {
-                enableHighAccuracy: true,
-                timeout: 10000,
-                maximumAge: 300000
+                enableHighAccuracy: this.highAccuracyGPS, // Use user's accuracy preference
+                timeout: 15000, // Longer timeout for battery efficiency
+                maximumAge: this.highAccuracyGPS ? 30000 : 60000 // Cache longer for low accuracy mode
             });
         });
     }
@@ -862,35 +891,137 @@ class TravelMap {
     }
     
     startLocationTracking() {
-        // Update location every 10 seconds to save API quota
-        this.locationUpdateInterval = setInterval(async () => {
+        // Battery-optimized location tracking with adaptive intervals
+        let baseInterval = this.powerSavingMode ? 60000 : 30000; // 60s or 30s base
+        let updateInterval = baseInterval;
+        let lastMovementTime = Date.now();
+        let lastPosition = null;
+        let isStationary = false;
+        
+        const updateLocation = async () => {
             if (!this.navigationActive) return;
             
             try {
                 const position = await this.getCurrentPosition();
                 const newLocation = L.latLng(position.coords.latitude, position.coords.longitude);
                 
+                // Calculate distance moved since last update
+                let distanceMoved = 0;
+                if (lastPosition) {
+                    distanceMoved = this.calculateDistanceBetweenPoints(
+                        lastPosition.lat, lastPosition.lng,
+                        newLocation.lat, newLocation.lng
+                    );
+                }
+                
+                // Adaptive interval based on movement and power saving mode
+                if (distanceMoved > 0.01) { // ~10 meters movement
+                    isStationary = false;
+                    lastMovementTime = Date.now();
+                    updateInterval = this.powerSavingMode ? 45000 : 20000; // 45s or 20s when moving
+                } else {
+                    const timeSinceMovement = Date.now() - lastMovementTime;
+                    if (timeSinceMovement > (this.powerSavingMode ? 60000 : 120000)) { // 1min or 2min threshold
+                        isStationary = true;
+                        updateInterval = this.powerSavingMode ? 120000 : 60000; // 2min or 1min when stationary
+                    }
+                }
+                
                 // Update user location
                 this.userLocation = newLocation;
+                lastPosition = newLocation;
                 
                 // Update user marker
                 if (this.userMarker) {
                     this.userMarker.setLatLng(newLocation);
                 }
                 
-                // Recalculate route
-                await this.calculateRoute();
+                // Only recalculate route if moved significantly or first time
+                if (distanceMoved > 0.005 || lastPosition === null) { // ~5 meters threshold or first time
+                    console.log('Recalculating route - Distance moved:', distanceMoved, 'km, First time:', lastPosition === null);
+                    await this.calculateRoute();
+                } else {
+                    // Still update distance even if not recalculating full route
+                    if (this.userLocation && this.navigationTarget) {
+                        const straightLineDistance = this.userLocation.distanceTo(this.navigationTarget.coordinates);
+                        const distanceKm = (straightLineDistance / 1000).toFixed(2);
+                        
+                        // Update just the distance without recalculating the entire route
+                        const distanceElement = document.getElementById('navDistance');
+                        if (distanceElement) {
+                            distanceElement.textContent = distanceKm + ' km';
+                        }
+                    }
+                }
                 
-                console.log('Location updated:', newLocation);
+                // Show battery-friendly status
+                this.updateBatteryStatus(isStationary, updateInterval);
+                
+                console.log('Location updated:', newLocation, 'Distance moved:', distanceMoved.toFixed(3), 'km');
                 
             } catch (error) {
                 console.error('Location update error:', error);
+                // Increase interval on error to save battery
+                updateInterval = Math.min(updateInterval * 1.5, this.powerSavingMode ? 180000 : 120000);
             }
-        }, 10000); // 10 seconds to save API quota
+            
+            // Schedule next update with current interval
+            if (this.navigationActive) {
+                this.locationUpdateInterval = setTimeout(updateLocation, updateInterval);
+            }
+        };
+        
+        // Start first update
+        updateLocation();
+    }
+    
+    // Helper method to calculate distance between two GPS coordinates (in kilometers)
+    calculateDistanceBetweenPoints(lat1, lng1, lat2, lng2) {
+        const R = 6371; // Earth's radius in kilometers
+        const dLat = this.toRadians(lat2 - lat1);
+        const dLng = this.toRadians(lng2 - lng1);
+        const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(this.toRadians(lat1)) * Math.cos(this.toRadians(lat2)) *
+                Math.sin(dLng/2) * Math.sin(dLng/2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        return R * c;
+    }
+    
+    // Helper to convert degrees to radians
+    toRadians(degrees) {
+        return degrees * (Math.PI / 180);
+    }
+    
+    // Update battery status in navigation panel
+    updateBatteryStatus(isStationary, updateInterval) {
+        const intervalSeconds = updateInterval / 1000;
+        const powerMode = this.powerSavingMode ? 'Ultra Power Saver' : 'Battery Optimized';
+        const status = isStationary ? 
+            `🔋 ${powerMode}: Stationary (${intervalSeconds}s intervals)` : 
+            `📍 ${powerMode}: Active (${intervalSeconds}s intervals)`;
+        
+        // Update navigation panel battery status
+        const batteryElement = document.getElementById('batteryStatus');
+        if (batteryElement) {
+            batteryElement.textContent = status;
+        }
+        
+        // Update main battery status indicator
+        const indicator = document.getElementById('batteryStatusIndicator');
+        if (indicator) {
+            indicator.textContent = status;
+        }
     }
     
     async calculateRoute() {
-        if (!this.userLocation || !this.navigationTarget) return;
+        if (!this.userLocation || !this.navigationTarget) {
+            console.warn('Cannot calculate route: missing userLocation or navigationTarget');
+            console.log('userLocation:', this.userLocation);
+            console.log('navigationTarget:', this.navigationTarget);
+            return;
+        }
+        
+        console.log('Calculating route from', this.userLocation, 'to', this.navigationTarget.coordinates);
         
         try {
             // Remove existing route
@@ -908,7 +1039,26 @@ class TravelMap {
             // Check if API key is available
             if (!config.apiKey) {
                 console.warn('OpenRouteService API key not configured, using fallback route');
-                throw new Error('API key not configured');
+                
+                // Fallback to straight line if no API key
+                const route = [this.userLocation, this.navigationTarget.coordinates];
+                
+                this.routeLayer = L.polyline(route, {
+                    color: '#f59e0b', // Orange color to indicate fallback
+                    weight: 4,
+                    opacity: 0.8,
+                    dashArray: '10, 5',
+                    lineCap: 'round',
+                    lineJoin: 'round'
+                }).addTo(this.map);
+                
+                // Calculate straight-line distance
+                const distance = this.userLocation.distanceTo(this.navigationTarget.coordinates);
+                const distanceKm = (distance / 1000).toFixed(2);
+                
+                // Update navigation panel with fallback info
+                this.updateNavigationPanel(distanceKm, null, true);
+                return; // Exit early since we've handled the fallback
             }
             
             const url = `${config.endpoint}?api_key=${config.apiKey}&start=${startCoords[0]},${startCoords[1]}&end=${endCoords[0]},${endCoords[1]}`;
@@ -1002,6 +1152,9 @@ class TravelMap {
                             <div class="nav-stat-row">
                                 <span>Status: <span id="navStatus">Active</span></span>
                             </div>
+                            <div class="nav-stat-row">
+                                <span id="batteryStatus">🔋 Optimized (30s)</span>
+                            </div>
                         </div>
                     </div>
                     <div class="navigation-controls">
@@ -1054,12 +1207,17 @@ class TravelMap {
     }
     
     updateNavigationPanel(distance, duration = null, isFallback = false) {
+        console.log('Updating navigation panel with distance:', distance, 'duration:', duration, 'fallback:', isFallback);
+        
         const distanceElement = document.getElementById('navDistance');
         const durationElement = document.getElementById('navDuration');
         const routeTypeElement = document.getElementById('navRouteType');
         
         if (distanceElement) {
             distanceElement.textContent = distance + ' km';
+            console.log('Distance element updated to:', distance + ' km');
+        } else {
+            console.warn('navDistance element not found');
         }
         
         if (durationElement) {
@@ -1100,7 +1258,7 @@ class TravelMap {
         
         // Clear location tracking
         if (this.locationUpdateInterval) {
-            clearInterval(this.locationUpdateInterval);
+            clearTimeout(this.locationUpdateInterval); // Changed from clearInterval to clearTimeout
             this.locationUpdateInterval = null;
         }
         
@@ -1115,6 +1273,9 @@ class TravelMap {
             this.map.removeLayer(this.userMarker);
             this.userMarker = null;
         }
+        
+        // Release wake lock if active
+        this.releaseWakeLock();
         
         // Hide navigation panel and clean up event listeners
         const panel = document.getElementById('navigationPanel');
@@ -1144,12 +1305,44 @@ class TravelMap {
             }, 300);
         }
         
+        // Hide power saving controls
+        this.hidePowerSavingControls();
+        
+        // Release wake lock
+        this.releaseWakeLock();
+        
         this.navigationTarget = null;
         this.userLocation = null;
         
         console.log('Navigation stopped');
     }
 
+    // Wake Lock Management for Navigation
+    
+    async requestWakeLock() {
+        try {
+            if ('wakeLock' in navigator) {
+                this.wakeLock = await navigator.wakeLock.request('screen');
+                console.log('Screen wake lock acquired');
+                
+                this.wakeLock.addEventListener('release', () => {
+                    console.log('Screen wake lock released');
+                });
+                
+                this.showSuccessMessage('🔓 Screen will stay on during navigation');
+            }
+        } catch (error) {
+            console.warn('Wake lock not supported or failed:', error);
+        }
+    }
+    
+    releaseWakeLock() {
+        if (this.wakeLock) {
+            this.wakeLock.release();
+            this.wakeLock = null;
+        }
+    }
+    
     // Load people location data from the API
     async loadPeopleData() {
         try {
@@ -1755,6 +1948,119 @@ class TravelMap {
                 setTimeout(() => toast.remove(), 300);
             }
         }, 3000);
+    }
+
+    // Power Saving Mode Methods
+    
+    initPowerSavingMode() {
+        this.powerSavingMode = false;
+        this.highAccuracyGPS = true; // Default to high accuracy
+        this.setupPowerSavingToggle();
+        this.setupGPSAccuracyToggle();
+    }
+    
+    setupPowerSavingToggle() {
+        const toggle = document.getElementById('powerSavingToggle');
+        const switchEl = document.getElementById('powerSavingSwitch');
+        
+        if (toggle && switchEl) {
+            switchEl.addEventListener('click', () => {
+                this.togglePowerSavingMode();
+            });
+        }
+    }
+    
+    togglePowerSavingMode() {
+        this.powerSavingMode = !this.powerSavingMode;
+        const switchEl = document.getElementById('powerSavingSwitch');
+        
+        if (switchEl) {
+            if (this.powerSavingMode) {
+                switchEl.classList.add('active');
+            } else {
+                switchEl.classList.remove('active');
+            }
+        }
+        
+        // Save preference
+        localStorage.setItem('powerSavingMode', this.powerSavingMode.toString());
+        
+        // Show confirmation
+        this.showSuccessMessage(
+            this.powerSavingMode ? 
+            '🔋 Ultra Power Saving Mode Enabled - 60s+ intervals' : 
+            '📍 Normal Battery Mode Enabled - 20-30s intervals'
+        );
+    }
+    
+    setupGPSAccuracyToggle() {
+        const toggle = document.getElementById('gpsAccuracyToggle');
+        const switchEl = document.getElementById('gpsAccuracySwitch');
+        
+        if (toggle && switchEl) {
+            switchEl.addEventListener('click', () => {
+                this.toggleGPSAccuracy();
+            });
+        }
+        
+        // Load saved preference
+        const savedAccuracy = localStorage.getItem('highAccuracyGPS');
+        if (savedAccuracy === 'false') {
+            this.highAccuracyGPS = false;
+            const switchEl = document.getElementById('gpsAccuracySwitch');
+            if (switchEl) switchEl.classList.remove('active');
+        }
+    }
+    
+    toggleGPSAccuracy() {
+        this.highAccuracyGPS = !this.highAccuracyGPS;
+        const switchEl = document.getElementById('gpsAccuracySwitch');
+        
+        if (switchEl) {
+            if (this.highAccuracyGPS) {
+                switchEl.classList.add('active');
+            } else {
+                switchEl.classList.remove('active');
+            }
+        }
+        
+        // Save preference
+        localStorage.setItem('highAccuracyGPS', this.highAccuracyGPS.toString());
+        
+        // Show confirmation
+        this.showSuccessMessage(
+            this.highAccuracyGPS ? 
+            '🎯 High GPS Accuracy Enabled - Better positioning, more battery usage' : 
+            '🔋 Low GPS Accuracy Enabled - Network-based location, better battery life'
+        );
+    }
+    
+    showPowerSavingControls() {
+        const indicator = document.getElementById('batteryStatusIndicator');
+        const toggle = document.getElementById('powerSavingToggle');
+        const gpsToggle = document.getElementById('gpsAccuracyToggle');
+        
+        if (indicator) indicator.classList.add('show');
+        if (toggle) toggle.classList.add('show');
+        if (gpsToggle) gpsToggle.classList.add('show');
+        
+        // Load saved preference
+        const savedMode = localStorage.getItem('powerSavingMode');
+        if (savedMode === 'true') {
+            this.powerSavingMode = true;
+            const switchEl = document.getElementById('powerSavingSwitch');
+            if (switchEl) switchEl.classList.add('active');
+        }
+    }
+    
+    hidePowerSavingControls() {
+        const indicator = document.getElementById('batteryStatusIndicator');
+        const toggle = document.getElementById('powerSavingToggle');
+        const gpsToggle = document.getElementById('gpsAccuracyToggle');
+        
+        if (indicator) indicator.classList.remove('show');
+        if (toggle) toggle.classList.remove('show');
+        if (gpsToggle) gpsToggle.classList.remove('show');
     }
 }
 
