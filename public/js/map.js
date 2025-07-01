@@ -1504,9 +1504,10 @@ class TravelMap {
                     const durationMin = Math.round(routeProps.segments[0].duration / 60);
                     
                     // Update navigation panel with real route data
-                    this.updateNavigationPanel(distanceKm, durationMin);
+                    
                     
                     console.log(`Route calculated: ${distanceKm}km, ${durationMin} minutes`);
+                    this.updateNavigationPanel(distanceKm, durationMin);
                     
                 } else {
                     throw new Error('No route found');
@@ -1622,20 +1623,23 @@ class TravelMap {
         panel._outsideClickHandler = handleOutsideClick;
     }
     
-    updateNavigationPanel(distance, duration = null, isFallback = false) {
+    async updateNavigationPanel(distance, duration = null, isFallback = false) {
         console.log('Updating navigation panel with distance:', distance, 'duration:', duration, 'fallback:', isFallback);
-        
+
+        // Wait for 2 seconds before trying to get the element
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
         const distanceElement = document.getElementById('navDistance');
         const durationElement = document.getElementById('navDuration');
         const routeTypeElement = document.getElementById('navRouteType');
-        
+
         if (distanceElement) {
             distanceElement.textContent = distance + ' km';
             console.log('Distance element updated to:', distance + ' km');
         } else {
             console.warn('navDistance element not found');
         }
-        
+
         if (durationElement) {
             if (duration) {
                 durationElement.textContent = duration + ' min';
@@ -1644,7 +1648,7 @@ class TravelMap {
                 durationElement.style.display = 'none';
             }
         }
-        
+
         if (routeTypeElement) {
             if (isFallback) {
                 routeTypeElement.textContent = 'Direct path (estimated)';
