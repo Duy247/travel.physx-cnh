@@ -45,6 +45,11 @@ class TravelMap {
         this.locationUpdateInterval = null;
         this.powerSavingMode = false; // Power saving mode flag
         this.wakeLock = null; // Wake lock reference
+        
+        // Tile caching properties
+        this.cacheEnabled = 'caches' in window; // Check if Cache API is supported
+        this.cacheStats = { hits: 0, misses: 0, errors: 0 };
+        
         this.init();
     }
 
@@ -97,11 +102,8 @@ class TravelMap {
         // Initialize map centered on Central Vietnam
         this.map = L.map('map').setView([16.0471, 108.2068], 10);
 
-        // Add OpenStreetMap tile layer
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            maxZoom: 19
-        }).addTo(this.map);
+        // Add cached OpenStreetMap tile layer
+        this.addCachedTileLayer();
 
         // Map event listeners
         this.map.on('zoomend', () => {
@@ -402,6 +404,400 @@ class TravelMap {
         }
     }
 
+    // Add cached tile layer with 5-day cache duration
+    addCachedTileLayer() {
+        // Cache configuration
+        const CACHE_NAME = 'osm-tiles-v1';
+        const CACHE_DURATION = 5 * 24 * 60 * 60 * 1000; // 5 days in milliseconds
+        
+        // Create custom tile layer with caching
+        const CachedTileLayer = L.TileLayer.extend({
+            createTile: function(coords, done) {
+                const tile = L.DomUtil.create('img', 'leaflet-tile');
+                const url = this.getTileUrl(coords);
+                
+                // Set tile properties
+                tile.alt = '';
+                tile.setAttribute('role', 'presentation');
+                
+                // Load tile with caching
+                this.loadTileWithCache(tile, url, done);
+                
+                return tile;
+            },
+            
+            loadTileWithCache: async function(tile, url, done) {
+                try {
+                    // Check if Cache API is supported (modern browsers)
+                    if ('caches' in window) {
+                        const cache = await caches.open(CACHE_NAME);
+                        const cachedResponse = await cache.match(url);
+                        
+                        if (cachedResponse) {
+                            // Check if cache is still valid (5 days)
+                            const cacheDate = cachedResponse.headers.get('sw-cache-date');
+                            const now = Date.now();
+                            
+                            if (cacheDate && (now - parseInt(cacheDate)) < CACHE_DURATION) {
+                                // Use cached tile
+                                const blob = await cachedResponse.blob();
+                                tile.src = URL.createObjectURL(blob);
+                                done(null, tile);
+                                
+                                // Track cache hit
+                                if (window.travelMap) window.travelMap.cacheStats.hits++;
+                                return;
+                            } else {
+                                // Cache expired, remove it
+                                await cache.delete(url);
+                            }
+                        }
+                        
+                        // Track cache miss
+                        if (window.travelMap) window.travelMap.cacheStats.misses++;
+                        
+                        // Fetch tile and cache it
+                        try {
+                            const response = await fetch(url, {
+                                headers: {
+                                    'User-Agent': 'Travel Map App/1.0'
+                                }
+                            });
+                            
+                            if (response.ok) {
+                                // Clone response for caching
+                                const responseClone = response.clone();
+                                
+                                // Add cache date to response headers
+                                const modifiedResponse = new Response(responseClone.body, {
+                                    status: responseClone.status,
+                                    statusText: responseClone.statusText,
+                                    headers: {
+                                        ...Object.fromEntries(responseClone.headers),
+                                        'sw-cache-date': Date.now().toString()
+                                    }
+                                });
+                                
+                                // Cache the response silently in background
+                                cache.put(url, modifiedResponse).catch(err => {
+                                    console.warn('Failed to cache tile:', err);
+                                    if (window.travelMap) window.travelMap.cacheStats.errors++;
+                                });
+                                
+                                // Use the original response for the tile
+                                const blob = await response.blob();
+                                tile.src = URL.createObjectURL(blob);
+                                done(null, tile);
+                            } else {
+                                throw new Error(`HTTP ${response.status}`);
+                            }
+                        } catch (fetchError) {
+                            console.warn('Failed to fetch tile:', url, fetchError);
+                            if (window.travelMap) window.travelMap.cacheStats.errors++;
+                            this.fallbackTileLoad(tile, url, done);
+                        }
+                    } else {
+                        // Fallback for browsers without Cache API
+                        this.fallbackTileLoad(tile, url, done);
+                    }
+                } catch (error) {
+                    console.warn('Cache error:', error);
+                    if (window.travelMap) window.travelMap.cacheStats.errors++;
+                    this.fallbackTileLoad(tile, url, done);
+                }
+            },
+            
+            fallbackTileLoad: function(tile, url, done) {
+                // Standard tile loading as fallback
+                tile.onload = () => done(null, tile);
+                tile.onerror = (err) => done(err, tile);
+                tile.src = url;
+            }
+        });
+        
+        // Create and add the cached tile layer
+        const cachedTileLayer = new CachedTileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19,
+            subdomains: ['a', 'b', 'c'], // Use multiple subdomains for better performance
+            crossOrigin: true
+        });
+        
+        cachedTileLayer.addTo(this.map);
+        
+        // Initialize cache cleanup
+        this.initCacheCleanup();
+        
+        console.log('Cached tile layer initialized with 5-day cache duration');
+    }
+    
+    // Initialize cache cleanup to remove expired tiles
+    initCacheCleanup() {
+        if ('caches' in window) {
+            // Run cache cleanup on initialization
+            this.cleanupExpiredTiles();
+            
+            // Schedule periodic cleanup (once per day)
+            setInterval(() => {
+                this.cleanupExpiredTiles();
+            }, 24 * 60 * 60 * 1000); // 24 hours
+        }
+    }
+    
+    // Clean up expired tiles from cache
+    async cleanupExpiredTiles() {
+        try {
+            const CACHE_NAME = 'osm-tiles-v1';
+            const CACHE_DURATION = 5 * 24 * 60 * 60 * 1000; // 5 days
+            
+            const cache = await caches.open(CACHE_NAME);
+            const requests = await cache.keys();
+            const now = Date.now();
+            let cleaned = 0;
+            
+            for (const request of requests) {
+                const response = await cache.match(request);
+                if (response) {
+                    const cacheDate = response.headers.get('sw-cache-date');
+                    if (cacheDate && (now - parseInt(cacheDate)) >= CACHE_DURATION) {
+                        await cache.delete(request);
+                        cleaned++;
+                    }
+                }
+            }
+            
+            if (cleaned > 0) {
+                console.log(`Cleaned up ${cleaned} expired tiles from cache`);
+            }
+        } catch (error) {
+            console.warn('Cache cleanup failed:', error);
+        }
+    }
+    
+    // Method to get cache statistics (optional - for debugging)
+    async getCacheStats() {
+        if ('caches' in window) {
+            try {
+                const CACHE_NAME = 'osm-tiles-v1';
+                const cache = await caches.open(CACHE_NAME);
+                const requests = await cache.keys();
+                
+                let totalSize = 0;
+                let validTiles = 0;
+                const now = Date.now();
+                const CACHE_DURATION = 5 * 24 * 60 * 60 * 1000;
+                
+                for (const request of requests) {
+                    const response = await cache.match(request);
+                    if (response) {
+                        const cacheDate = response.headers.get('sw-cache-date');
+                        if (cacheDate && (now - parseInt(cacheDate)) < CACHE_DURATION) {
+                            validTiles++;
+                            // Estimate size (this is approximate)
+                            totalSize += parseInt(response.headers.get('content-length') || '0');
+                        }
+                    }
+                }
+                
+                return {
+                    totalTiles: requests.length,
+                    validTiles: validTiles,
+                    estimatedSize: totalSize
+                };
+            } catch (error) {
+                console.warn('Failed to get cache stats:', error);
+                return null;
+            }
+        }
+        return null;
+    }
+
+    async loadKML(kmlType) {
+        const kmlFile = this.kmlFiles[kmlType];
+        if (!kmlFile) {
+            console.error('KML file not found for type:', kmlType);
+            return;
+        }
+
+        this.showLoading(true);
+
+        try {
+            // Show/hide refresh button based on category
+            this.showRefreshButton(kmlType === 'people');
+
+            // Handle special case for people data
+            if (kmlType === 'people') {
+                await this.loadPeopleData();
+                return;
+            }
+
+            // Parse KML styles first
+            await this.parseKMLStyles(kmlFile);
+
+            // Remove existing layer
+            if (this.currentLayer) {
+                this.map.removeLayer(this.currentLayer);
+            }
+
+            // Fetch and parse KML manually
+            const response = await fetch(kmlFile);
+            const kmlText = await response.text();
+            const parser = new DOMParser();
+            const kmlDoc = parser.parseFromString(kmlText, 'text/xml');
+
+            // Create a new layer group for our custom markers
+            this.currentLayer = L.layerGroup();
+
+            // Extract placemarks and create custom markers
+            const placemarks = kmlDoc.querySelectorAll('Placemark');
+            const bounds = L.latLngBounds();
+
+            placemarks.forEach(placemark => {
+                const name = placemark.querySelector('name')?.textContent || 'Unnamed Location';
+                const description = placemark.querySelector('description')?.textContent || '';
+                const styleUrl = placemark.querySelector('styleUrl')?.textContent || '';
+                const coordinates = placemark.querySelector('Point coordinates')?.textContent;
+
+                if (coordinates) {
+                    const [lng, lat] = coordinates.trim().split(',').map(Number);
+                    const latLng = L.latLng(lat, lng);
+                    bounds.extend(latLng);
+
+                    // Get color based on style
+                    let iconColor = this.getIconColorFromStyle(styleUrl) || this.categoryColors[this.currentKmlType];
+                    const categoryClass = iconColor || '';
+                    const customColor = this.getCSSColorFromCategory(categoryClass);
+
+                    // Get marker sizing with fixed 0.5 scale for accurate positioning
+                    const markerSizing = this.getMarkerSizeForZoom();
+
+                    // Create custom marker with optimized sizing
+                    const marker = L.marker(latLng, {
+                        icon: L.divIcon({
+                            className: 'custom-div-icon',
+                            html: `
+                                <div class="marker-container ${categoryClass}">
+                                    <div class="marker-label">${this.truncateName(name)}</div>
+                                    <div class="custom-marker-pin" style="--marker-color: ${customColor.primary}; --marker-solid-color: ${customColor.solid}; --marker-shadow: ${customColor.shadow};">
+                                        <div class="pin-head"></div>
+                                        <div class="pin-point"></div>
+                                    </div>
+                                </div>
+                            `,
+                            iconSize: markerSizing.iconSize,
+                            iconAnchor: markerSizing.iconAnchor,
+                            popupAnchor: markerSizing.popupAnchor
+                        })
+                    });
+
+                    // Add popup
+                    let popupContent = `<h3>${name}</h3>`;
+                    if (description) {
+                        popupContent += `<p>${description}</p>`;
+                    }
+                    popupContent += `<p style="font-size: 0.8rem; color: #71717a; margin-top: 0.5rem;">
+
+                    </p>`;
+                    popupContent += `
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e4e4e7;">
+                            <button onclick="window.travelMap.showBatteryWarning({name: '${name.replace(/'/g, "\\'")}', coordinates: L.latLng(${lat}, ${lng})})" 
+                                    style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.375rem; cursor: pointer; font-size: 0.875rem; transition: all 0.2s ease;">
+                                Navigate Here
+                            </button>
+                        </div>
+                    `;
+
+                    marker.bindPopup(popupContent, {
+                        maxWidth: 300,
+                        className: 'custom-popup'
+                    });
+
+                    // Add navigation click event
+                    marker.on('dblclick', (e) => {
+                        // Double-click to start navigation directly
+                        e.originalEvent.stopPropagation();
+                        
+                        // Show battery warning modal before starting navigation
+                        this.showBatteryWarning({
+                            name: name,
+                            coordinates: latLng,
+                            description: description
+                        });
+                    });
+                    
+                    // Add hover tooltip for navigation hint
+                    marker.on('mouseover', (e) => {
+                        const markerElement = e.target._icon;
+                        if (markerElement) {
+                            markerElement.title = `${name} - Click for details, Double-click to navigate`;
+                        }
+                    });
+
+                    // Add to layer
+                    this.currentLayer.addLayer(marker);
+                }
+            });
+
+            // Add layer to map
+            this.currentLayer.addTo(this.map);
+
+            // Fit bounds
+            if (bounds.isValid()) {
+                this.map.fitBounds(bounds, { padding: [20, 20] });
+            }
+
+            console.log('KML loaded successfully with custom markers:', kmlFile);
+            this.showLoading(false);
+            this.updateMapStats();
+
+        } catch (error) {
+            console.error('Error loading KML:', error);
+            this.showError('Failed to load map data. Please try again.');
+            this.showLoading(false);
+        }
+    }
+
+    // Method to log cache performance for debugging
+    logCachePerformance() {
+        if (this.cacheEnabled) {
+            const total = this.cacheStats.hits + this.cacheStats.misses;
+            const hitRate = total > 0 ? ((this.cacheStats.hits / total) * 100).toFixed(1) : 0;
+            
+            console.log('Tile Cache Performance:', {
+                enabled: this.cacheEnabled,
+                hits: this.cacheStats.hits,
+                misses: this.cacheStats.misses,
+                errors: this.cacheStats.errors,
+                hitRate: `${hitRate}%`,
+                total: total
+            });
+        } else {
+            console.log('Tile caching not supported in this browser');
+        }
+    }
+    
+    // Method to clear all cached tiles (for debugging/maintenance)
+    async clearTileCache() {
+        if ('caches' in window) {
+            try {
+                const deleted = await caches.delete('osm-tiles-v1');
+                if (deleted) {
+                    console.log('Tile cache cleared successfully');
+                    // Reset stats
+                    this.cacheStats = { hits: 0, misses: 0, errors: 0 };
+                    return true;
+                } else {
+                    console.log('No tile cache found to clear');
+                    return false;
+                }
+            } catch (error) {
+                console.error('Failed to clear tile cache:', error);
+                return false;
+            }
+        }
+        return false;
+    }
+    
     // Method to get optimized marker size with fixed scale for accurate positioning
     getMarkerSizeForZoom() {
         // Use fixed 0.5 scale for perfect positioning accuracy at all zoom levels
@@ -2076,7 +2472,27 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Travel map not initialized yet');
     };
     
-    console.log('Travel Map initialized. You can test device name detection by calling: testDeviceName()');
+    // Add global debug function for cache performance
+    window.logCacheStats = () => {
+        if (window.travelMap) {
+            window.travelMap.logCachePerformance();
+        } else {
+            console.log('Travel map not initialized yet');
+        }
+    };
+    
+    // Add global function to clear tile cache
+    window.clearTileCache = async () => {
+        if (window.travelMap) {
+            return await window.travelMap.clearTileCache();
+        } else {
+            console.log('Travel map not initialized yet');
+            return false;
+        }
+    };
+    
+    console.log('Travel Map initialized with tile caching enabled.');
+    console.log('Debug commands: testDeviceName(), logCacheStats(), clearTileCache()');
 });
 
 // Export for potential module use
