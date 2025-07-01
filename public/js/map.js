@@ -46,6 +46,9 @@ class TravelMap {
         this.powerSavingMode = false; // Power saving mode flag
         this.wakeLock = null; // Wake lock reference
         
+        // People location sharing properties
+        this.lastSavedPeopleLocation = null; // Track last saved location for people sharing
+        
         // Tile caching properties
         this.cacheEnabled = 'caches' in window; // Check if Cache API is supported
         this.cacheStats = { hits: 0, misses: 0, errors: 0 };
@@ -62,6 +65,8 @@ class TravelMap {
             this.initPowerSavingMode();
             this.loadDefaultKML();
             this.showUIElements();
+            // Initialize last saved location for people sharing efficiency
+            this.initializeLastSavedLocation();
         }).catch(error => {
             console.error('Failed to load configuration:', error);
             this.showError('Failed to load application configuration. Some features may not work properly.');
@@ -72,6 +77,8 @@ class TravelMap {
             this.initPowerSavingMode();
             this.loadDefaultKML();
             this.showUIElements();
+            // Initialize last saved location for people sharing efficiency
+            this.initializeLastSavedLocation();
         });
     }
 
@@ -134,8 +141,8 @@ class TravelMap {
 
         // Add event listener to locate control for location sharing
         this.map.on('locationfound', (e) => {
-            // Save current location when locate button is used
-            this.saveUserLocation(e.latlng.lat, e.latlng.lng);
+            // Force save current location when locate button is used (user's intentional action)
+            this.forceLocationUpdate(e.latlng.lat, e.latlng.lng);
         });
 
         // Add scale control
@@ -1919,6 +1926,27 @@ class TravelMap {
     // Save user location to the people database
     async saveUserLocation(lat, lng, alternateName = null) {
         try {
+            // Check if this is a forced update (when alternate name is provided) or first-time save
+            const isFirstTime = !this.lastSavedPeopleLocation;
+            const isNameUpdate = alternateName !== null;
+            
+            // Check distance from last saved location (only if not first time or name update)
+            if (!isFirstTime && !isNameUpdate && this.lastSavedPeopleLocation) {
+                const currentLocation = L.latLng(lat, lng);
+                const distanceMoved = this.calculateDistanceBetweenPoints(
+                    this.lastSavedPeopleLocation.lat, this.lastSavedPeopleLocation.lng,
+                    lat, lng
+                );
+                
+                // Only update if moved more than 10 meters (0.01 km)
+                if (distanceMoved < 0.01) {
+                    console.log('📍 People location update skipped - movement too small:', (distanceMoved * 1000).toFixed(1), 'meters (threshold: 10m)');
+                    return;
+                }
+                
+                console.log('📍 People location update proceeding - movement:', (distanceMoved * 1000).toFixed(1), 'meters (above 10m threshold)');
+            }
+            
             // Get device name automatically from browser/device info
             let deviceName = await this.getDeviceName();
             
@@ -1961,6 +1989,9 @@ class TravelMap {
                 console.log('Original detected name:', deviceName);
                 localStorage.setItem('lastLocationShared', Date.now().toString());
                 
+                // Store the last saved location for distance checking
+                this.lastSavedPeopleLocation = { lat: lat, lng: lng };
+                
                 // Store the server-confirmed device name for future use
                 if (result.deviceName !== deviceName) {
                     localStorage.setItem('deviceName', result.deviceName);
@@ -1977,6 +2008,43 @@ class TravelMap {
 
         } catch (error) {
             console.error('Error saving user location:', error);
+        }
+    }
+
+    // Force location update (bypasses distance check) - useful for manual location sharing
+    async forceLocationUpdate(lat, lng, alternateName = null) {
+        // Store the previous state to restore later
+        const previousLocation = this.lastSavedPeopleLocation;
+        
+        // Temporarily clear the last saved location to force update
+        this.lastSavedPeopleLocation = null;
+        
+        try {
+            await this.saveUserLocation(lat, lng, alternateName);
+        } catch (error) {
+            // Restore previous state if update failed
+            this.lastSavedPeopleLocation = previousLocation;
+            throw error;
+        }
+    }
+
+    // Initialize last saved location from current people data
+    async initializeLastSavedLocation() {
+        try {
+            const deviceName = localStorage.getItem('deviceName') || await this.getDeviceName();
+            if (!deviceName) return;
+            
+            const response = await fetch('api/people.php');
+            if (!response.ok) return;
+            
+            const result = await response.json();
+            if (result.success && result.data[deviceName]) {
+                const location = result.data[deviceName];
+                this.lastSavedPeopleLocation = { lat: location.lat, lng: location.lng };
+                console.log('Initialized last saved location:', this.lastSavedPeopleLocation);
+            }
+        } catch (error) {
+            console.log('Could not initialize last saved location:', error);
         }
     }
 
