@@ -1132,6 +1132,7 @@ class TravelMap {
                 </p>
                 <div class="battery-warning-actions">
                     <button class="battery-warning-btn cancel">Cancel</button>
+                    <button class="battery-warning-btn google-maps">Use Google Maps</button>
                     <button class="battery-warning-btn proceed">Start Navigation</button>
                 </div>
             </div>
@@ -1143,6 +1144,11 @@ class TravelMap {
         // Handle button clicks
         overlay.querySelector('.cancel').addEventListener('click', () => {
             this.closeBatteryWarning(overlay);
+        });
+        
+        overlay.querySelector('.google-maps').addEventListener('click', () => {
+            this.closeBatteryWarning(overlay);
+            this.openGoogleMapsNavigation(destination.coordinates);
         });
         
         overlay.querySelector('.proceed').addEventListener('click', () => {
@@ -1174,6 +1180,13 @@ class TravelMap {
                 overlay.parentNode.removeChild(overlay);
             }
         }, 300);
+    }
+    
+    openGoogleMapsNavigation(coordinates) {
+        const lat = coordinates.lat;
+        const lng = coordinates.lng;
+        const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+        window.open(googleMapsUrl, '_blank');
     }
     
     async startNavigation(destination, coordinates) {
