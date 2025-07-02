@@ -1,261 +1,338 @@
 [
     {
-        "date": "01/07",
+        "date": "30/07",
         "location": "HÀ NỘI",
         "map": "",
-        "time": "00:00",
-        "task": "Lên kế hoạch"
-    },
-    {
-        "date": "02/08",
-        "location": "HÀ NỘI",
-        "map": "Nhà Trang",
-        "time": "05:00",
-        "task": "Duy, Hà, Phương Anh, Việt Anh di chuyển lên nhà Trang ăn sáng"
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "",
-        "time": "06:00",
-        "task": "5 người thuê xe 7 chỗ đi lên Nhà Hát Lớn"
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "Nhà Hát Lớn",
-        "time": "07:00",
-        "task": "Xe đón tại Nhà Hát Lớn xuất phát đi Cát Hải."
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "Ngã tư TB-CL",
-        "time": "07:45",
-        "task": "Xe đón tại Ngã tư Thạch Bàn - Cổ Linh (cách Aeon Long Biên 1,8km)"
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "V23 Hưng Yên",
-        "time": "08:30",
-        "task": "Xe dừng ở Trạm dừng nghỉ Hưng Yên, có thể xuống mua đồ ăn sáng nhẹ ở đây."
-    },
-    {
-        "date": "",
-        "location": "CÁT BÀ",
-        "map": "KS Sun - Sea",
-        "time": "11:00",
-        "task": "Xe đến Cát Bà. Di chuyển đến KS Sun - Sea Cát Bà"
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "",
-        "time": "12:00",
-        "task": "Gửi hành lý. Ăn trưa"
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "",
-        "time": "13:30",
-        "task": "Nhận phòng KS Sun-Sea Cat Ba"
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "Tour Vịnh Lan Hạ",
-        "time": "14:00",
-        "task": "Tour Vịnh Lan Hạ ngắm Sunset"
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "",
-        "time": "18:00",
-        "task": "Thuyền cập bến về TT Thị Trấn Cát Bà"
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "",
-        "time": "18:30",
-        "task": "Ăn tối"
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "",
         "time": "20:00",
-        "task": "Option 1: Quảng trường Cát Bà, dạo chợ đêm,...<br> Option 2: Đi xe máy dạo Quảng trường, sau đó đi cung đường TT Cát Bà - Bến Phà (25km) ngắm sao (tuyến đường ven biển bên trái đảo)"
+        "task": "Đội Hà Nội: Lên xe giường nằm đi Huế"
     },
     {
-        "date": "",
-        "location": "",
+        "date": "31/07",
+        "location": "HUẾ",
         "map": "",
-        "time": "23:00",
-        "task": "Trò chuyện đêm khuya, chơi Board Game"
-    },
-    {
-        "date": "03/08",
-        "location": "CÁT BÀ",
-        "map": "",
-        "time": "06:00",
-        "task": "Tắm biển"
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "",
-        "time": "07:00",
-        "task": "Tắm tráng, ăn sáng"
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "",
-        "time": "08:00",
-        "task": "Xuất phát đi Rừng Quốc Gia Cát Bà"
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "",
-        "time": "08:30",
-        "task": "Trekking Rừng Kim Giao - Đỉnh Ngự Lâm"
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "",
-        "time": "12:30",
-        "task": "Hoàn thành trekking, ăn trưa tại NH Trung Trang - đối diện cổng. Nghỉ ngơi"
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "",
-        "time": "14:00",
-        "task": "Khám phá động Trung Trang (khoảng 20p)"
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "",
-        "time": "14:45",
-        "task": "Tham quan Động Hoa Cương, xem bến phà Gia Luận (kết nối Tuần Châu-Quảng Ninh và Cát Bà-Hải Phòng)"
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "",
-        "time": "15:30",
-        "task": "Từ bến phà Gia Luận đi ngược về trung tâm, đi về đường Vũ Trọng Tiến rẻ vào đường bên trái đảo"
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "",
-        "time": "16:30",
-        "task": "Về Khách sạn, lấy đồ đi tắm biển"
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "",
-        "time": "17:00",
-        "task": "Tắm biển"
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "",
-        "time": "18:00",
-        "task": "Về KS tắm tráng lại"
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "",
-        "time": "19:00",
-        "task": "Ăn tối"
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "",
-        "time": "20:00",
-        "task": "Cafe"
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "",
-        "time": "21:00",
-        "task": "Đi ngắm sao (tuyến đường ven biển bên phải đảo)"
-    },
-    {
-        "date": "",
-        "location": "",
-        "map": "",
-        "time": "23:30",
-        "task": "Trò chuyện đêm khuya, chơi Board Game"
-    },
-    {
-        "date": "04/08",
-        "location": "",
-        "map": "",
-        "time": "06:00",
-        "task": "Tắm biển"
+        "time": "06:30",
+        "task": "Đến Huế, để đồ tại khách sạn, thuê xe máy, đi ăn bún bò Huế"
     },
     {
         "date": "",
         "location": "",
         "map": "",
         "time": "07:30",
-        "task": "Tắm tráng, ăn sáng"
+        "task": "Tham quan Đại Nội Huế (makeup sớm, chụp ảnh)"
     },
     {
         "date": "",
         "location": "",
         "map": "",
+        "time": "11:00",
+        "task": "Ăn trưa: Vả trộn tôm thịt, bánh bèo, bánh bột lọc, nem công chả phụng, cơm sen"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "12:15",
+        "task": "Đi dạo trường Quốc học Huế"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "12:30",
+        "task": "Về khách sạn nghỉ trưa"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "14:15",
+        "task": "Văn Thánh Huế - Quốc Tử Giám"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "15:15",
+        "task": "Tham quan Hổ Quyền Voi Ré"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "16:00",
+        "task": "Làng Hương Thủy Xuân và các lăng mộ gần đó"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "17:30",
+        "task": "Về khách sạn tắm rửa"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "18:45",
+        "task": "Ra bến thuyền"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "19:00",
+        "task": "Thưởng thức bữa tối và nghe ca nhạc trên thuyền rồng"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "21:00",
+        "task": "Đi ăn chè"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "22:00",
+        "task": "Về villa nghỉ ngơi, tâm sự"
+    },
+    {
+        "date": "01/08",
+        "location": "HUẾ",
+        "map": "",
+        "time": "05:00",
+        "task": "Tập thể dục tại Đại Nội Huế"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "06:00",
+        "task": "Trả xe, trả phòng, ăn sáng"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "07:00",
+        "task": "Lên tàu di sản Huế - Đà Nẵng"
+    },
+    {
+        "date": "",
+        "location": "ĐÀ NẴNG",
+        "map": "",
+        "time": "10:30",
+        "task": "Đến Đà Nẵng, cất đồ ở KS, thuê xe máy"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "11:00",
+        "task": "Ăn phá lấu"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "12:30",
+        "task": "Nghỉ trưa"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "14:00",
+        "task": "Tham quan Bán đảo Sơn Trà: Đỉnh Bàn Cờ, Mũi Nghê, Hải Đăng Tiên Sa"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "16:30",
+        "task": "Tắm biển Đà Nẵng hoặc chơi nhảy dù"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "18:00",
+        "task": "Tắm rửa"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "19:00",
+        "task": "Ăn hải sản"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "21:00",
+        "task": "Đi dạo công viên APEC, ăn chè sầu"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "22:00",
+        "task": "Tâm sự tại villa"
+    },
+    {
+        "date": "02/08",
+        "location": "ĐÀ NẴNG",
+        "map": "",
+        "time": "05:00",
+        "task": "Ngắm biển sáng sớm"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "07:00",
+        "task": "Ăn sáng mì Quảng"
+    },
+    {
+        "date": "",
+        "location": "QUẢNG NAM",
+        "map": "",
         "time": "08:00",
-        "task": "Cafe"
+        "task": "Xuất phát đi tour Thánh địa Mỹ Sơn"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "12:00",
+        "task": "Ăn trưa bê thui"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "14:00",
+        "task": "Nghỉ ngơi"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "16:00",
+        "task": "Tắm rửa chuẩn bị đi Hội An"
+    },
+    {
+        "date": "",
+        "location": "HỘI AN",
+        "map": "",
+        "time": "17:00",
+        "task": "Di chuyển đi Hội An, có thể ghé bảo tàng đất nung"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "18:00",
+        "task": "Ăn tối: cơm gà, cao lầu, bánh vạc, bánh xèo, bánh ướt, hoành thánh"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "19:00",
+        "task": "Dạo phố, cafe Hội An"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "21:00",
+        "task": "Ăn bánh mì Hội An"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "21:15",
+        "task": "Phượt về Đà Nẵng, có thể dừng chụp sao"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "23:00",
+        "task": "Ra biển đi dạo, xem cầu Sông Hàn quay, sau đó ngủ"
+    },
+    {
+        "date": "03/08",
+        "location": "ĐÀ NẴNG",
+        "map": "",
+        "time": "05:00",
+        "task": "Ngắm bình minh"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "07:00",
+        "task": "Đi chợ Đà Nẵng, ăn bánh tráng cuốn thịt heo, mua đặc sản"
     },
     {
         "date": "",
         "location": "",
         "map": "",
         "time": "09:00",
-        "task": "Đi vòng quanh đảo xem có gì mua quà về không"
+        "task": "Đội MB: Trả phòng, ra sân bay"
     },
     {
         "date": "",
         "location": "",
         "map": "",
-        "time": "11:30",
-        "task": "Trả phòng, gửi hành lý ở đó rồi đi ăn trưa"
+        "time": "10:30",
+        "task": "Đội MB: Bay Đà Nẵng → Hà Nội"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "13:30",
+        "task": "Đội MB: Về nhà"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "09:00",
+        "task": "Đội XK: Tham quan bảo tàng Chăm"
+    },
+    {
+        "date": "",
+        "location": "",
+        "map": "",
+        "time": "10:30",
+        "task": "Đội XK: Về KS dọn đồ, ăn trưa, nghỉ trưa"
     },
     {
         "date": "",
         "location": "",
         "map": "",
         "time": "13:00",
-        "task": "Ăn trưa xong cbi đồ đón xe về HN, có thể đi Cafe chờ"
+        "task": "Đội XK: Ngũ Hành Sơn, làng đá, chùa Non Nước"
     },
     {
         "date": "",
         "location": "",
         "map": "",
         "time": "15:00",
-        "task": "Xe đón"
+        "task": "Đội XK: Về khách sạn chuẩn bị lên xe"
     },
     {
-        "date": "",
-        "location": "HÀ NỘI",
+        "date": "04/08",
+        "location": "",
         "map": "",
-        "time": "19:00",
-        "task": "Xe trả về HN, bắt xe về nhà"
+        "time": "17:00",
+        "task": "Đội XK: Lên xe về Hà Nội (xe khách)"
     }
 ]
