@@ -340,6 +340,13 @@ $cache_bust = time();
             min-height: 400px;
         }
 
+        .swipe-tab-panel.no-pading {
+            flex: 0 0 100%; /* Changed from 100% to 33.333% for 3 tabs */
+            scroll-snap-align: start;
+            padding: 0rem;
+            min-height: 400px;
+        }
+
         /* Filter Section */
         .filter-container {
             background: rgba(39, 39, 42, 0.6);
@@ -567,17 +574,12 @@ $cache_bust = time();
             font-size: 1.1rem;
         }
 
-        /* Balance Section */
-        .balance-grid {
-            display: grid;
-            gap: 1rem;
-        }
-
         .balance-item {
             background: rgba(39, 39, 42, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             padding: 1rem;
+            display: grid;
         }
 
         .balance-header {
@@ -944,10 +946,7 @@ $cache_bust = time();
                     </h3>
                     <div id="mobile-payer-summary" class="summary-grid"></div>
                 </div>
-                <div class="swipe-tab-panel">
-                    <h3 style="color: #f4f4f5; margin-bottom: 1rem; font-family: 'Montserrat', sans-serif;">
-                        <i class="fas fa-exchange-alt"></i> Cân Bằng
-                    </h3>
+                <div class="swipe-tab-panel no-pading">
                     <div id="mobile-balance-summary" class="balance-grid"></div>
                 </div>
             </div>
