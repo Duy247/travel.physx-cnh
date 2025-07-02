@@ -334,7 +334,7 @@ $cache_bust = time();
         }
 
         .swipe-tab-panel {
-            flex: 0 0 25%; /* Changed from 100% to 25% for 4 tabs */
+            flex: 0 0 100%; /* Changed from 100% to 33.333% for 3 tabs */
             scroll-snap-align: start;
             padding: 2rem;
             min-height: 400px;
@@ -949,12 +949,6 @@ $cache_bust = time();
                         <i class="fas fa-exchange-alt"></i> Cân Bằng
                     </h3>
                     <div id="mobile-balance-summary" class="balance-grid"></div>
-                </div>
-                <div class="swipe-tab-panel">
-                    <h3 style="color: #f4f4f5; margin-bottom: 1rem; font-family: 'Montserrat', sans-serif;">
-                        <i class="fas fa-money-bill-transfer"></i> Giao Dịch
-                    </h3>
-                    <div id="mobile-transactions-summary" class="balance-grid"></div>
                 </div>
             </div>
         </div>
