@@ -1715,58 +1715,125 @@ $cache_bust = time();
                 }
             });
 
-            // Mobile swipe detection for tabs
+            // Mobile swipe detection for tabs with debouncing
             let startX = 0;
             let currentX = 0;
             let isSwiping = false;
+            let isAnimating = false; // Flag to prevent overlapping animations
+            let swipeStartTime = 0;
+            let lastSwipeTime = 0;
+            const SWIPE_COOLDOWN = 500; // Time in ms to wait before allowing another swipe
             const swipeContainer = document.querySelector('.swipe-tabs-container');
             
             if (window.innerWidth <= 768) {
                 swipeContainer.addEventListener('touchstart', function(e) {
-                    startX = e.touches[0].clientX;
-                    currentX = startX;
-                    isSwiping = true;
+                    // Only start a new swipe if we're not currently animating
+                    if (!isAnimating) {
+                        startX = e.touches[0].clientX;
+                        currentX = startX;
+                        isSwiping = true;
+                        swipeStartTime = Date.now();
+                    }
                 });
 
                 swipeContainer.addEventListener('touchmove', function(e) {
+                    // Only track movement if we're actively swiping
                     if (isSwiping) {
                         currentX = e.touches[0].clientX;
+                        
+                        // Prevent default to avoid page scrolling while swiping tabs
+                        if (Math.abs(startX - currentX) > 10) {
+                            e.preventDefault();
+                        }
                     }
-                });
+                }, { passive: false });
 
                 swipeContainer.addEventListener('touchend', function(e) {
                     if (!isSwiping) return;
                     
+                    const now = Date.now();
+                    // Check if we're still in the cooldown period
+                    if (now - lastSwipeTime < SWIPE_COOLDOWN) {
+                        // Reset swiping state without taking action
+                        isSwiping = false;
+                        return;
+                    }
+                    
                     const diffX = startX - currentX;
-                    const threshold = 70; // Increased threshold for less sensitivity
-                    const tabWidth = this.scrollWidth / 3; // Now we have 3 tabs
+                    const threshold = 80; // Increased threshold for less sensitivity
+                    const tabWidth = this.scrollWidth / 3; // We have 3 tabs
                     
-                    // Get current tab index
-                    const currentTab = Math.round(this.scrollLeft / tabWidth);
+                    // Calculate current tab more precisely
+                    const currentPosition = this.scrollLeft;
+                    const currentTab = Math.round(currentPosition / tabWidth);
                     
+                    // Only process swipe if it meets threshold and timing requirements
                     if (Math.abs(diffX) > threshold) {
+                        isAnimating = true;
+                        lastSwipeTime = now;
+                        
                         // Limit movement to only one tab at a time
                         if (diffX > 0 && currentTab < 2) {
-                            // Swipe left - go to next tab (only one tab)
-                            this.scrollTo({ left: (currentTab + 1) * tabWidth, behavior: 'smooth' });
+                            // Swipe left - go to next tab
+                            this.scrollTo({ 
+                                left: (currentTab + 1) * tabWidth, 
+                                behavior: 'smooth' 
+                            });
                         } else if (diffX < 0 && currentTab > 0) {
-                            // Swipe right - go to previous tab (only one tab)
-                            this.scrollTo({ left: (currentTab - 1) * tabWidth, behavior: 'smooth' });
+                            // Swipe right - go to previous tab
+                            this.scrollTo({ 
+                                left: (currentTab - 1) * tabWidth, 
+                                behavior: 'smooth' 
+                            });
+                        } else {
+                            // Stay on current tab
+                            this.scrollTo({ 
+                                left: currentTab * tabWidth, 
+                                behavior: 'smooth' 
+                            });
                         }
+                        
+                        // Reset animation flag after transition completes
+                        setTimeout(() => {
+                            isAnimating = false;
+                        }, 300);
                     } else {
-                        // If the swipe was too small, stay on the current tab
-                        this.scrollTo({ left: currentTab * tabWidth, behavior: 'smooth' });
+                        // If the swipe was too small, snap back to current tab
+                        this.scrollTo({ 
+                            left: currentTab * tabWidth, 
+                            behavior: 'smooth' 
+                        });
                     }
                     
                     // Reset swiping state
                     isSwiping = false;
+                }, { passive: false });
+
+                // Ensure tabs snap correctly when scrolling ends
+                swipeContainer.addEventListener('scroll', function() {
+                    if (!isAnimating && !isSwiping) {
+                        clearTimeout(swipeContainer.scrollTimeout);
+                        swipeContainer.scrollTimeout = setTimeout(() => {
+                            const tabWidth = this.scrollWidth / 3;
+                            const currentPosition = this.scrollLeft;
+                            const targetTab = Math.round(currentPosition / tabWidth);
+                            
+                            // Only snap if we're not too close to the target already
+                            if (Math.abs(currentPosition - (targetTab * tabWidth)) > 10) {
+                                this.scrollTo({
+                                    left: targetTab * tabWidth,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        }, 150);
+                    }
                 });
             }
-        });
 
-        // Global functions for onclick handlers
-        window.openEditModal = openEditModal;
-        window.deleteExpense = deleteExpense;
+            // Global functions for onclick handlers
+            window.openEditModal = openEditModal;
+            window.deleteExpense = deleteExpense;
+        })
     </script>
 </body>
 </html>
