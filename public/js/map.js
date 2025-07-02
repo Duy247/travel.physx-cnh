@@ -356,7 +356,7 @@ class TravelMap {
                         <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e4e4e7;">
                             <button onclick="window.travelMap.showBatteryWarning({name: '${name.replace(/'/g, "\\'")}', coordinates: L.latLng(${lat}, ${lng})})" 
                                     style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.375rem; cursor: pointer; font-size: 0.875rem; transition: all 0.2s ease;">
-                                Navigate Here
+                                Dẫn đường tới đây
                             </button>
                         </div>
                     `;
@@ -383,7 +383,7 @@ class TravelMap {
                     marker.on('mouseover', (e) => {
                         const markerElement = e.target._icon;
                         if (markerElement) {
-                            markerElement.title = `${name} - Click for details, Double-click to navigate`;
+                            markerElement.title = `${name} - Bấm để xem chi tiết, Nhấp đúp để dẫn đường`;
                         }
                     });
 
@@ -709,7 +709,7 @@ class TravelMap {
                         <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e4e4e7;">
                             <button onclick="window.travelMap.showBatteryWarning({name: '${name.replace(/'/g, "\\'")}', coordinates: L.latLng(${lat}, ${lng})})" 
                                     style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.375rem; cursor: pointer; font-size: 0.875rem; transition: all 0.2s ease;">
-                                Navigate Here
+                                Dẫn đường tới đây
                             </button>
                         </div>
                     `;
@@ -736,7 +736,7 @@ class TravelMap {
                     marker.on('mouseover', (e) => {
                         const markerElement = e.target._icon;
                         if (markerElement) {
-                            markerElement.title = `${name} - Click for details, Double-click to navigate`;
+                            markerElement.title = `${name} - Bấm để xem chi tiết, Nhấp đúp để dẫn đường`;
                         }
                     });
 
@@ -1118,23 +1118,18 @@ class TravelMap {
         overlay.className = 'battery-warning-overlay';
         overlay.innerHTML = `
             <div class="battery-warning-modal">
-                <div class="battery-warning-icon">🔋⚠️</div>
-                <h3 class="battery-warning-title">Battery Usage Warning</h3>
-                <p class="battery-warning-text">
-                    GPS navigation with live tracking will drain your device's battery. 
-                    This app uses battery-optimized tracking to <strong>${destination.name}</strong>:
-                    <br><br>
-                    • Smart intervals (30s-60s) based on movement<br>
-                    • Reduced GPS accuracy for better battery life<br>
-                    • Automatic power saving when stationary<br>
-                    <br>
-                    For longest battery life, consider keeping your device plugged in.
-                </p>
-                <div class="battery-warning-actions">
-                    <button class="battery-warning-btn cancel">Cancel</button>
-                    <button class="battery-warning-btn google-maps">Use Google Maps</button>
-                    <button class="battery-warning-btn proceed">Start Navigation</button>
-                </div>
+            <div class="battery-warning-icon">🔋⚠️</div>
+            <h3 class="battery-warning-title">Cảnh Báo Pin</h3>
+            <p class="battery-warning-text">
+                Việc sử dụng GPS dẫn đường trực tiếp sẽ làm hao pin thiết bị của bạn
+                <br><br>
+                Để đảm bảo pin, hãy cân nhắc cắm sạc khi sử dụng dẫn đường lâu.
+            </p>
+            <div class="battery-warning-actions">
+                <button class="battery-warning-btn cancel">Huỷ</button>
+                <button class="battery-warning-btn google-maps">Dùng Google Maps</button>
+                <button class="battery-warning-btn proceed">Bắt đầu dẫn đường</button>
+            </div>
             </div>
         `;
         
@@ -1198,7 +1193,7 @@ class TravelMap {
                     await this.loadConfiguration();
                 } catch (configError) {
                     console.warn('Failed to load configuration for navigation:', configError);
-                    this.showError('Configuration not available. Navigation will use fallback routing.');
+                    this.showError('Không thể tải cấu hình dẫn đường. Ứng dụng sẽ sử dụng chế độ dẫn đường dự phòng.');
                 }
             }
             
@@ -1209,7 +1204,7 @@ class TravelMap {
             
             // Check if geolocation is supported
             if (!navigator.geolocation) {
-                this.showError('Geolocation is not supported by this browser.');
+                this.showError('Trình duyệt của bạn không hỗ trợ định vị vị trí.');
                 return;
             }
             
@@ -1263,7 +1258,7 @@ class TravelMap {
             
         } catch (error) {
             console.error('Navigation start error:', error);
-            this.showError('Failed to start navigation. Please check your location settings.');
+            this.showError('Không thể bắt đầu dẫn đường. Vui lòng kiểm tra cài đặt vị trí của bạn.');
         }
     }
     
@@ -1301,7 +1296,7 @@ class TravelMap {
             })
         }).addTo(this.map);
         
-        this.userMarker.bindPopup('Your Current Location', {
+        this.userMarker.bindPopup('Vị trí hiện tại', {
             className: 'custom-popup'
         });
     }
@@ -1411,7 +1406,7 @@ class TravelMap {
     // Update battery status in navigation panel
     updateBatteryStatus(isStationary, updateInterval) {
         const intervalSeconds = updateInterval / 1000;
-        const powerMode = this.powerSavingMode ? 'Ultra Power Saver' : 'Battery Optimized';
+        const powerMode = this.powerSavingMode ? 'Siêu tiết kiệm pin' : 'Tối ưu pin';
         const status = isStationary ? 
             `🔋 ${powerMode}: Stationary (${intervalSeconds}s intervals)` : 
             `📍 ${powerMode}: Active (${intervalSeconds}s intervals)`;
@@ -1550,32 +1545,32 @@ class TravelMap {
             panel.className = 'navigation-panel minimized';
             panel.innerHTML = `
                 <div class="navigation-header">
-                    <div class="navigation-title">Navigation</div>
+                    <div class="navigation-title">Dẫn Đường</div>
                     <div class="navigation-controls-inline">
-                        <button class="navigation-close" title="Stop Navigation">✕</button>
+                        <button class="navigation-close" title="Dừng dẫn đường">✕</button>
                     </div>
                 </div>
                 <div class="navigation-content">
                     <div class="navigation-info">
-                        <div class="navigation-destination">To: ${this.navigationTarget.name}</div>
+                        <div class="navigation-destination">Đến: ${this.navigationTarget.name}</div>
                         <div class="navigation-stats">
                             <div class="nav-stat-row">
-                                <span>Distance: <span id="navDistance">Calculating...</span></span>
-                                <span id="navDuration" style="display: none;">ETA: <span></span></span>
+                                <span>Khoảng cách: <span id="navDistance">Đang tính...</span></span>
+                                <span id="navDuration" style="display: none;">Ước tính: <span></span></span>
                             </div>
                             <div class="nav-stat-row">
-                                <span id="navRouteType">Calculating route...</span>
+                                <span id="navRouteType">Đang tìm đường...</span>
                             </div>
                             <div class="nav-stat-row">
-                                <span>Status: <span id="navStatus">Active</span></span>
+                                <span>Trạng thái: <span id="navStatus">Đang hoạt động</span></span>
                             </div>
                             <div class="nav-stat-row">
-                                <span id="batteryStatus">🔋 Optimized (30s)</span>
+                                <span id="batteryStatus">🔋 Đã tối ưu (30s)</span>
                             </div>
                         </div>
                     </div>
                     <div class="navigation-controls">
-                        <button class="navigation-btn stop">Stop Navigation</button>
+                        <button class="navigation-btn stop">Dừng dẫn đường</button>
                     </div>
                 </div>
             `;
@@ -1743,16 +1738,16 @@ class TravelMap {
         try {
             if ('wakeLock' in navigator) {
                 this.wakeLock = await navigator.wakeLock.request('screen');
-                console.log('Screen wake lock acquired');
-                
+                console.log('Đã giữ màn hình luôn sáng');
+
                 this.wakeLock.addEventListener('release', () => {
-                    console.log('Screen wake lock released');
+                    console.log('Đã tắt giữ màn hình sáng');
                 });
-                
-                this.showSuccessMessage('🔓 Screen will stay on during navigation');
+
+                this.showSuccessMessage('🔓 Màn hình sẽ luôn sáng khi dẫn đường');
             }
         } catch (error) {
-            console.warn('Wake lock not supported or failed:', error);
+            console.warn('Wake lock không hỗ trợ hoặc bị lỗi:', error);
         }
     }
     
@@ -1774,12 +1769,12 @@ class TravelMap {
             // Fetch people data from API
             const response = await fetch('api/people.php');
             if (!response.ok) {
-                throw new Error('Failed to fetch people data');
+                throw new Error('Không thể tải dữ liệu vị trí mọi người');
             }
             
             const result = await response.json();
             if (!result.success) {
-                throw new Error(result.error || 'Failed to load people data');
+                throw new Error(result.error || 'Không thể tải dữ liệu vị trí mọi người');
             }
 
             // Create a new layer group for people markers
@@ -1863,10 +1858,10 @@ class TravelMap {
                         </div>
                         <div class="popup-actions">
                             <button class="popup-btn navigate" onclick="travelMap.showBatteryWarning({name: '${displayName}', coordinates: L.latLng(${location.lat}, ${location.lng})})">
-                                Navigate Here
+                                Dẫn đường
                             </button>
                             <button class="popup-btn set-name" onclick="travelMap.showSetNameDialog('${deviceName.replace(/'/g, "\\'")}', '${(location.alternateName || '').replace(/'/g, "\\'")}')">
-                                Set Name
+                                Đặt tên
                             </button>
                         </div>
                     </div>
@@ -1971,7 +1966,7 @@ class TravelMap {
             if (!deviceName) {
                 deviceName = localStorage.getItem('deviceName');
                 if (!deviceName) {
-                    deviceName = prompt('Enter your name for location sharing (or leave empty for auto-generated):');
+                    deviceName = prompt('Nhập tên thiết bị hoặc tên của bạn để chia sẻ vị trí (hoặc để trống để tự động tạo):');
                     if (deviceName) {
                         localStorage.setItem('deviceName', deviceName);
                     }
@@ -2262,27 +2257,27 @@ class TravelMap {
         // Create dialog HTML using existing CSS classes
         const dialogHTML = `
             <div class="set-name-overlay">
-                <div class="set-name-modal">
-                    <div class="set-name-header">
-                        <h3>Set Display Name</h3>
-                        <button class="set-name-close" onclick="travelMap.closeSetNameDialog()">&times;</button>
-                    </div>
-                    <div class="set-name-content">
-                        <p>Device: <strong>${deviceName}</strong></p>
-                        <div class="set-name-field">
-                            <label for="alternateName">Display Name (optional):</label>
-                            <input type="text" id="alternateName" value="${currentAlternateName}" 
-                                   placeholder="Enter your preferred display name" maxlength="50">
-                            <small>This name will be shown instead of your device name</small>
-                        </div>
-                    </div>
-                    <div class="set-name-actions">
-                        <button class="set-name-btn cancel" onclick="travelMap.closeSetNameDialog()">Cancel</button>
-                        <button class="set-name-btn clear" onclick="travelMap.clearAlternateName('${deviceName}')" 
-                                ${!currentAlternateName ? 'disabled' : ''}>Clear Name</button>
-                        <button class="set-name-btn save" onclick="travelMap.saveAlternateName('${deviceName}')">Save</button>
-                    </div>
+            <div class="set-name-modal">
+                <div class="set-name-header">
+                <h3>Đặt tên hiển thị</h3>
+                <button class="set-name-close" onclick="travelMap.closeSetNameDialog()">&times;</button>
                 </div>
+                <div class="set-name-content">
+                <p>Thiết bị: <strong>${deviceName}</strong></p>
+                <div class="set-name-field">
+                    <label for="alternateName">Tên hiển thị (tuỳ chọn):</label>
+                    <input type="text" id="alternateName" value="${currentAlternateName}" 
+                       placeholder="Nhập tên bạn muốn hiển thị" maxlength="50">
+                    <small>Tên này sẽ được hiển thị thay cho tên thiết bị</small>
+                </div>
+                </div>
+                <div class="set-name-actions">
+                <button class="set-name-btn cancel" onclick="travelMap.closeSetNameDialog()">Huỷ</button>
+                <button class="set-name-btn clear" onclick="travelMap.clearAlternateName('${deviceName}')"
+                    ${!currentAlternateName ? 'disabled' : ''}>Xoá tên</button>
+                <button class="set-name-btn save" onclick="travelMap.saveAlternateName('${deviceName}')">Lưu</button>
+                </div>
+            </div>
             </div>
         `;
 
@@ -2344,8 +2339,7 @@ class TravelMap {
             const success = await this.updateAlternateName(deviceName, alternateName);
             if (success) {
                 this.closeSetNameDialog();
-                this.showSuccessMessage(alternateName ? 'Name updated successfully!' : 'Name cleared successfully!');
-                
+                this.showSuccessMessage(alternateName ? 'Cập nhật tên thành công!' : 'Đã xoá tên hiển thị!');
                 // Refresh people data to show updated name
                 if (this.currentKmlType === 'people') {
                     setTimeout(() => this.loadPeopleData(), 500);
@@ -2353,7 +2347,7 @@ class TravelMap {
             }
         } catch (error) {
             console.error('Error saving alternate name:', error);
-            this.showError('Failed to update name. Please try again.');
+            this.showError('Cập nhật tên thất bại. Vui lòng thử lại.');
         }
     }
 
@@ -2363,7 +2357,7 @@ class TravelMap {
             const success = await this.updateAlternateName(deviceName, '');
             if (success) {
                 this.closeSetNameDialog();
-                this.showSuccessMessage('Name cleared successfully!');
+                this.showSuccessMessage('Đã xoá tên hiển thị!');
                 
                 // Refresh people data to show updated name
                 if (this.currentKmlType === 'people') {
@@ -2372,7 +2366,7 @@ class TravelMap {
             }
         } catch (error) {
             console.error('Error clearing alternate name:', error);
-            this.showError('Failed to clear name. Please try again.');
+            this.showError('Xoá tên thất bại. Vui lòng thử lại.');
         }
     }
 
@@ -2468,9 +2462,9 @@ class TravelMap {
         
         // Show confirmation
         this.showSuccessMessage(
-            this.powerSavingMode ? 
-            '🔋 Ultra Power Saving Mode Enabled - 60s+ intervals' : 
-            '📍 Normal Battery Mode Enabled - 20-30s intervals'
+            this.powerSavingMode ?
+            '🔋 Đã bật chế độ Siêu tiết kiệm pin - cập nhật mỗi 60s+' :
+            '📍 Đã bật chế độ thường - cập nhật mỗi 20-30s'
         );
     }
     
@@ -2510,9 +2504,9 @@ class TravelMap {
         
         // Show confirmation
         this.showSuccessMessage(
-            this.highAccuracyGPS ? 
-            '🎯 High GPS Accuracy Enabled - Better positioning, more battery usage' : 
-            '🔋 Low GPS Accuracy Enabled - Network-based location, better battery life'
+            this.highAccuracyGPS ?
+            '🎯 Đã bật GPS chính xác cao - Định vị tốt hơn, tốn pin hơn' :
+            '🔋 Đã bật GPS tiết kiệm pin - Định vị qua mạng, tiết kiệm pin hơn'
         );
     }
     

@@ -89,15 +89,15 @@ $cache_bust = time();
     <div class="map-stats" id="mapStats">
         <div class="map-stats-content">
             <div class="map-stats-item">
-                <span class="map-stats-label">Active Category:</span>
+                <span class="map-stats-label">Hạng mục:</span>
                 <span class="map-stats-value" id="activeCategory">All Locations</span>
             </div>
             <div class="map-stats-item">
-                <span class="map-stats-label">Total Markers:</span>
+                <span class="map-stats-label">Tổng vị trí:</span>
                 <span class="map-stats-value" id="markerCount">0</span>
             </div>
             <div class="map-stats-item">
-                <span class="map-stats-label">Map Zoom:</span>
+                <span class="map-stats-label">Zoom:</span>
                 <span class="map-stats-value" id="currentZoom">10</span>
             </div>
         </div>
@@ -105,7 +105,7 @@ $cache_bust = time();
 
     <!-- Map Legend -->
     <div class="map-legend show" id="mapLegend">
-        <div class="map-legend-title">Choose Category</div>
+        <div class="map-legend-title">Chọn Hạng mục</div>
         <div class="map-legend-item active" data-kml="all">
             <div class="map-legend-color" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);"></div>
             <span>All Locations</span>
