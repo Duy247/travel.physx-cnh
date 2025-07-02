@@ -1,0 +1,67 @@
+[
+    {
+        "id": "exp_68653a6027e051.10466425",
+        "content": "G\u00e0",
+        "amount": 10000,
+        "payer": "Duy",
+        "date": "2025-07-02 15:55:44",
+        "created_at": 1751464544
+    },
+    {
+        "id": "exp_68653a766902d4.49005693",
+        "content": "Xe",
+        "amount": 1000000,
+        "payer": "Trang",
+        "date": "2025-07-02 15:56:06",
+        "created_at": 1751464566,
+        "updated_at": 1751464676
+    },
+    {
+        "id": "exp_68653a82e5bc02.05300766",
+        "content": "C\u01a1m",
+        "amount": 50000,
+        "payer": "Duy",
+        "date": "2025-07-02 15:56:18",
+        "created_at": 1751464578
+    },
+    {
+        "id": "exp_68653e26f25a67.73076289",
+        "content": "Xe",
+        "amount": 50000,
+        "payer": "Ph\u01b0\u01a1ng Anh",
+        "date": "2025-07-02 16:11:50",
+        "created_at": 1751465510
+    },
+    {
+        "id": "exp_68653e3868e1b6.85408123",
+        "content": "Gaf",
+        "amount": 760000,
+        "payer": "Ph\u01b0\u01a1ng Anh",
+        "date": "2025-07-02 16:12:08",
+        "created_at": 1751465528
+    },
+    {
+        "id": "exp_68653e480a5403.93798670",
+        "content": "Fa",
+        "amount": 4545000,
+        "payer": "H\u00e0",
+        "date": "2025-07-02 16:12:24",
+        "created_at": 1751465544
+    },
+    {
+        "id": "exp_68653e57ec7841.89446548",
+        "content": "sdf",
+        "amount": 567000,
+        "payer": "Vi\u1ec7t Anh",
+        "date": "2025-07-02 16:12:39",
+        "created_at": 1751465559
+    },
+    {
+        "id": "exp_68653e60356445.17679489",
+        "content": "FDS",
+        "amount": 456000,
+        "payer": "Nam",
+        "date": "2025-07-02 16:12:48",
+        "created_at": 1751465568
+    }
+]
