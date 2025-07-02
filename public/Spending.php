@@ -1718,34 +1718,48 @@ $cache_bust = time();
             // Mobile swipe detection for tabs
             let startX = 0;
             let currentX = 0;
+            let isSwiping = false;
             const swipeContainer = document.querySelector('.swipe-tabs-container');
             
             if (window.innerWidth <= 768) {
                 swipeContainer.addEventListener('touchstart', function(e) {
                     startX = e.touches[0].clientX;
+                    currentX = startX;
+                    isSwiping = true;
                 });
 
                 swipeContainer.addEventListener('touchmove', function(e) {
-                    currentX = e.touches[0].clientX;
+                    if (isSwiping) {
+                        currentX = e.touches[0].clientX;
+                    }
                 });
 
                 swipeContainer.addEventListener('touchend', function(e) {
+                    if (!isSwiping) return;
+                    
                     const diffX = startX - currentX;
-                    const threshold = 50;
+                    const threshold = 70; // Increased threshold for less sensitivity
                     const tabWidth = this.scrollWidth / 3; // Now we have 3 tabs
-
+                    
+                    // Get current tab index
+                    const currentTab = Math.round(this.scrollLeft / tabWidth);
+                    
                     if (Math.abs(diffX) > threshold) {
-                        // Get current scroll position
-                        const currentTab = Math.round(this.scrollLeft / tabWidth);
-                        
+                        // Limit movement to only one tab at a time
                         if (diffX > 0 && currentTab < 2) {
-                            // Swipe left - go to next tab
+                            // Swipe left - go to next tab (only one tab)
                             this.scrollTo({ left: (currentTab + 1) * tabWidth, behavior: 'smooth' });
                         } else if (diffX < 0 && currentTab > 0) {
-                            // Swipe right - go to previous tab
+                            // Swipe right - go to previous tab (only one tab)
                             this.scrollTo({ left: (currentTab - 1) * tabWidth, behavior: 'smooth' });
                         }
+                    } else {
+                        // If the swipe was too small, stay on the current tab
+                        this.scrollTo({ left: currentTab * tabWidth, behavior: 'smooth' });
                     }
+                    
+                    // Reset swiping state
+                    isSwiping = false;
                 });
             }
         });
