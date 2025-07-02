@@ -30,8 +30,12 @@ Thumbs.db
 
 # Build files
 /build/
-/dist/
+dist/
 
 # Backup files
 *.bak
 *.backup
+
+# Data files
+/public/data/people_locations.json
+/public/data/expenses.json
