@@ -334,7 +334,7 @@ $cache_bust = time();
         }
 
         .swipe-tab-panel {
-            flex: 0 0 100%;
+            flex: 0 0 25%; /* Changed from 100% to 25% for 4 tabs */
             scroll-snap-align: start;
             padding: 2rem;
             min-height: 400px;
@@ -567,24 +567,99 @@ $cache_bust = time();
             font-size: 1.1rem;
         }
 
-        /* Back Link */
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            background: rgba(24, 24, 27, 0.8);
-            backdrop-filter: blur(20px);
+        /* Balance Section */
+        .balance-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .balance-item {
+            background: rgba(39, 39, 42, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
+            padding: 1rem;
+        }
+
+        .balance-header {
             color: #f4f4f5;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            margin: 0 auto;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
             display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .balance-average {
+            color: #8b5cf6;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            text-align: center;
+        }
+
+        .balance-transaction {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+        }
+
+        .balance-transaction:last-child {
+            margin-bottom: 0;
+        }
+
+        .transaction-payer {
+            color: #f87171;
+        }
+
+        .transaction-receiver {
+            color: #10b981;
+        }
+
+        .transaction-amount {
+            font-weight: 600;
+            color: #f4f4f5;
+        }
+
+        /* Back Link */
+        .back-link {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
             justify-content: center;
-            max-width: 200px;
+            font-size: 1.25rem;
+            text-decoration: none;
+            box-shadow: 0 4px 16px rgba(99, 102, 241, 0.2);
+            z-index: 101;
+            transition: all 0.3s ease;
+        }
+        .back-link:hover {
+            background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+            transform: translateY(-2px) scale(1.07);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+        }
+        @media (max-width: 768px) {
+            .back-link {
+            top: 1rem;
+            left: 1rem;
+            width: 40px;
+            height: 40px;
+            font-size: 1rem;
+            }
         }
 
         .back-link:hover {
@@ -714,6 +789,7 @@ $cache_bust = time();
 
             .swipe-tabs-container {
                 display: flex;
+                max-height: 700px;
             }
 
             .floating-add-btn {
@@ -839,12 +915,18 @@ $cache_bust = time();
                 <button class="tab-button" data-tab="summary">
                     <i class="fas fa-chart-pie"></i> Thống Kê
                 </button>
+                <button class="tab-button" data-tab="balance">
+                    <i class="fas fa-exchange-alt"></i> Cân Bằng
+                </button>
             </div>
 
             <!-- Desktop Tabs Content -->
             <div class="tabs-content">
                 <div id="summary-tab" class="tab-panel">
                     <div id="payer-summary" class="summary-grid"></div>
+                </div>
+                <div id="balance-tab" class="tab-panel">
+                    <div id="balance-summary" class="balance-grid"></div>
                 </div>
             </div>
 
@@ -862,12 +944,24 @@ $cache_bust = time();
                     </h3>
                     <div id="mobile-payer-summary" class="summary-grid"></div>
                 </div>
+                <div class="swipe-tab-panel">
+                    <h3 style="color: #f4f4f5; margin-bottom: 1rem; font-family: 'Montserrat', sans-serif;">
+                        <i class="fas fa-exchange-alt"></i> Cân Bằng
+                    </h3>
+                    <div id="mobile-balance-summary" class="balance-grid"></div>
+                </div>
+                <div class="swipe-tab-panel">
+                    <h3 style="color: #f4f4f5; margin-bottom: 1rem; font-family: 'Montserrat', sans-serif;">
+                        <i class="fas fa-money-bill-transfer"></i> Giao Dịch
+                    </h3>
+                    <div id="mobile-transactions-summary" class="balance-grid"></div>
+                </div>
             </div>
         </div>
 
         <!-- Back Link -->
         <a href="index.php" class="back-link">
-            <i class="fas fa-arrow-left"></i> Về Trang Chủ
+            <i class="fas fa-arrow-left"></i>
         </a>
     </div>
 
@@ -1009,6 +1103,7 @@ $cache_bust = time();
                 expenses = await response.json();
                 displayExpenses();
                 displaySummary();
+                displayBalance();
             } catch (error) {
                 console.error('Error fetching expenses:', error);
                 showMessage('Lỗi khi tải danh sách chi tiêu', 'error');
@@ -1031,6 +1126,7 @@ $cache_bust = time();
                 expenses.push(newExpense);
                 displayExpenses();
                 displaySummary();
+                displayBalance();
                 showMessage('Thêm chi tiêu thành công!');
                 
                 // Reset form and close modal
@@ -1064,6 +1160,7 @@ $cache_bust = time();
                 
                 displayExpenses();
                 displaySummary();
+                displayBalance();
                 showMessage('Cập nhật chi tiêu thành công!');
                 closeEditModal();
                 
@@ -1092,6 +1189,7 @@ $cache_bust = time();
                 expenses = expenses.filter(exp => exp.id !== id);
                 displayExpenses();
                 displaySummary();
+                displayBalance();
                 showMessage('Xóa chi tiêu thành công!');
                 
             } catch (error) {
@@ -1272,6 +1370,156 @@ $cache_bust = time();
             return summaryHTML;
         }
 
+        // Balance functions
+        function displayBalance() {
+            const balanceContainer = document.getElementById('balance-summary');
+            const mobileBalanceContainer = document.getElementById('mobile-balance-summary');
+            const selectedPayer = document.getElementById('filter-payer').value;
+            const dateFrom = document.getElementById('filter-date-from').value;
+            const dateTo = document.getElementById('filter-date-to').value;
+            
+            let expensesToBalance = expenses;
+            
+            // Apply same filters as expenses
+            if (selectedPayer) {
+                expensesToBalance = expensesToBalance.filter(exp => exp.payer === selectedPayer);
+            }
+            
+            if (dateFrom) {
+                expensesToBalance = expensesToBalance.filter(exp => {
+                    const expenseDate = new Date(exp.date).toISOString().split('T')[0];
+                    return expenseDate >= dateFrom;
+                });
+            }
+            
+            if (dateTo) {
+                expensesToBalance = expensesToBalance.filter(exp => {
+                    const expenseDate = new Date(exp.date).toISOString().split('T')[0];
+                    return expenseDate <= dateTo;
+                });
+            }
+
+            const balanceHTML = generateBalanceHTML(expensesToBalance);
+            
+            balanceContainer.innerHTML = balanceHTML;
+            mobileBalanceContainer.innerHTML = balanceHTML;
+        }
+
+        function generateBalanceHTML(expensesToBalance) {
+            if (expensesToBalance.length === 0) {
+                return `
+                    <div style="text-align: center; color: #a1a1aa; padding: 3rem;">
+                        <i class="fas fa-exchange-alt" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <p>Chưa có dữ liệu để cân bằng chi tiêu</p>
+                    </div>
+                `;
+            }
+
+            // Calculate the total amount spent by each person
+            const payerAmounts = {};
+            let totalAmount = 0;
+            let peopleCount = 0;
+            
+            expensesToBalance.forEach(expense => {
+                const amount = parseFloat(expense.amount);
+                totalAmount += amount;
+                
+                if (payerAmounts[expense.payer]) {
+                    payerAmounts[expense.payer] += amount;
+                } else {
+                    payerAmounts[expense.payer] = amount;
+                    peopleCount++;
+                }
+            });
+
+            // Calculate the average amount per person
+            const averageAmount = totalAmount / peopleCount;
+
+            // Calculate how much each person should pay or receive
+            const balances = {};
+            for (const payer in payerAmounts) {
+                balances[payer] = payerAmounts[payer] - averageAmount;
+            }
+
+            // Create transactions to balance everyone out
+            const transactions = [];
+            const debtors = Object.keys(balances).filter(person => balances[person] < 0);
+            const creditors = Object.keys(balances).filter(person => balances[person] > 0);
+            
+            // For simplicity, we'll pair debtors with creditors
+            while (debtors.length > 0 && creditors.length > 0) {
+                const debtor = debtors[0];
+                const creditor = creditors[0];
+                
+                const debtAmount = Math.abs(balances[debtor]);
+                const creditAmount = balances[creditor];
+                
+                const transferAmount = Math.min(debtAmount, creditAmount);
+                
+                transactions.push({
+                    from: debtor,
+                    to: creditor,
+                    amount: Math.round(transferAmount) // Round to nearest integer
+                });
+                
+                balances[debtor] += transferAmount;
+                balances[creditor] -= transferAmount;
+                
+                if (Math.abs(balances[debtor]) < 1) { // Small threshold to handle floating point errors
+                    debtors.shift();
+                }
+                
+                if (Math.abs(balances[creditor]) < 1) {
+                    creditors.shift();
+                }
+            }
+
+            // Create HTML for balance display
+            let balanceHTML = `
+                <div class="balance-item">
+                    <div class="balance-header">
+                        <span><i class="fas fa-calculator"></i> Thông Tin Cân Bằng</span>
+                    </div>
+                    <div class="balance-average">
+                        <span>Chi tiêu trung bình: ${formatCurrency(Math.round(averageAmount))}</span>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+            `;
+
+            // Show each person's contribution and difference from average
+            balanceHTML += `
+                    </div>
+                    <div class="balance-header">
+                        <span><i class="fas fa-exchange-alt"></i> Các Giao Dịch Cần Thực Hiện</span>
+                    </div>
+            `;
+
+            // Show needed transactions
+            if (transactions.length === 0) {
+                balanceHTML += `
+                    <div style="text-align: center; color: #a1a1aa; padding: 1rem;">
+                        Chi tiêu đã được cân bằng
+                    </div>
+                `;
+            } else {
+                transactions.forEach(transaction => {
+                    if (transaction.amount > 0) {
+                        balanceHTML += `
+                            <div class="balance-transaction">
+                                <span class="transaction-payer">${transaction.from}</span>
+                                <span><i class="fas fa-arrow-right"></i></span>
+                                <span class="transaction-receiver">${transaction.to}</span>
+                                <span class="transaction-amount">${formatCurrency(transaction.amount)}</span>
+                            </div>
+                        `;
+                    }
+                });
+            }
+
+            balanceHTML += `</div>`;
+            return balanceHTML;
+        }
+
         // Modal functions
         function openAddModal() {
             document.getElementById('add-expense-modal').style.display = 'flex';
@@ -1322,6 +1570,7 @@ $cache_bust = time();
             document.getElementById('filter-date-to').value = '';
             displayExpenses();
             displaySummary();
+            displayBalance();
         }
 
         function updateFormattedAmount(inputId, displayId) {
@@ -1406,16 +1655,19 @@ $cache_bust = time();
             document.getElementById('filter-payer').addEventListener('change', function() {
                 displayExpenses();
                 displaySummary();
+                displayBalance();
             });
 
             document.getElementById('filter-date-from').addEventListener('change', function() {
                 displayExpenses();
                 displaySummary();
+                displayBalance();
             });
 
             document.getElementById('filter-date-to').addEventListener('change', function() {
                 displayExpenses();
                 displaySummary();
+                displayBalance();
             });
 
             // Clear filters
@@ -1486,14 +1738,18 @@ $cache_bust = time();
                 swipeContainer.addEventListener('touchend', function(e) {
                     const diffX = startX - currentX;
                     const threshold = 50;
+                    const tabWidth = this.scrollWidth / 3; // Now we have 3 tabs
 
                     if (Math.abs(diffX) > threshold) {
-                        if (diffX > 0) {
-                            // Swipe left - go to next tab (summary)
-                            this.scrollTo({ left: this.scrollWidth / 2, behavior: 'smooth' });
-                        } else {
-                            // Swipe right - go to previous tab (expenses)
-                            this.scrollTo({ left: 0, behavior: 'smooth' });
+                        // Get current scroll position
+                        const currentTab = Math.round(this.scrollLeft / tabWidth);
+                        
+                        if (diffX > 0 && currentTab < 2) {
+                            // Swipe left - go to next tab
+                            this.scrollTo({ left: (currentTab + 1) * tabWidth, behavior: 'smooth' });
+                        } else if (diffX < 0 && currentTab > 0) {
+                            // Swipe right - go to previous tab
+                            this.scrollTo({ left: (currentTab - 1) * tabWidth, behavior: 'smooth' });
                         }
                     }
                 });
