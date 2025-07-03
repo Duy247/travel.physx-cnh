@@ -27,7 +27,7 @@
         document.body.addEventListener('touchmove', function(e) {
             // Prevent overscroll
             if (e.target === document.body) {
-                e.preventDefault();
+                //e.preventDefault();
             }
         }, { passive: false });
         

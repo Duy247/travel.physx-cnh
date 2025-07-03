@@ -1610,7 +1610,7 @@ $cache_bust = time();
 
             // Add expense form
             document.getElementById('expense-form').addEventListener('submit', async function(e) {
-                e.preventDefault();
+                //e.preventDefault();
                 
                 const addBtn = document.getElementById('add-expense-btn');
                 setLoading(addBtn, true);
@@ -1627,7 +1627,7 @@ $cache_bust = time();
 
             // Edit expense form
             document.getElementById('edit-expense-form').addEventListener('submit', async function(e) {
-                e.preventDefault();
+                //e.preventDefault();
                 
                 if (!currentEditId) return;
                 
@@ -1742,7 +1742,7 @@ $cache_bust = time();
                         
                         // Prevent default to avoid page scrolling while swiping tabs
                         if (Math.abs(startX - currentX) > 10) {
-                            e.preventDefault();
+                            //e.preventDefault();
                         }
                     }
                 }, { passive: false });

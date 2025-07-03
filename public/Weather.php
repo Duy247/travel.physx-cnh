@@ -906,7 +906,7 @@ $cache_bust = time();
             default:
                 return; // exit this handler for other keys
         }
-        e.preventDefault();
+        //e.preventDefault();
         return false;
     }
 </script>

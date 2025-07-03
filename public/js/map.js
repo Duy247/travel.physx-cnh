@@ -155,7 +155,7 @@ class TravelMap {
         // Setup legend item listeners for KML switching
         document.querySelectorAll('.map-legend-item').forEach((item, index) => {
             item.addEventListener('click', async (e) => {
-                e.preventDefault();
+                //e.preventDefault();
                 const kmlType = item.getAttribute('data-kml');
                 if (kmlType) {
                     await this.loadKML(kmlType);

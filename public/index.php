@@ -174,7 +174,7 @@ $cache_bust = time();
                 isHeaderSwipe = false; // Prevent multiple triggers
                 
                 // Prevent this touch from affecting horizontal swipes
-                e.preventDefault();
+                //e.preventDefault();
             }
         });
         
@@ -434,7 +434,7 @@ $cache_bust = time();
                 this.navItems.forEach((item, index) => {
                     if (item.href) { // Only add click handler to actual navigation items
                         item.addEventListener('click', (e) => {
-                            e.preventDefault();
+                            //e.preventDefault();
                             this.handleItemClick(index, item.href);
                         });
                     }
@@ -610,26 +610,26 @@ $cache_bust = time();
             
             switch(e.key) {
                 case 'ArrowUp':
-                    e.preventDefault();
+                    //e.preventDefault();
                     if (currentIndex > 0) {
                         centerNav.focusItem(currentIndex - 1);
                     }
                     break;
                 case 'ArrowDown':
-                    e.preventDefault();
+                    //e.preventDefault();
                     if (currentIndex < centerNav.navItems.length - 1) {
                         centerNav.focusItem(currentIndex + 1);
                     }
                     break;
                 case 'Enter':
                 case ' ': // Add spacebar support
-                    e.preventDefault();
+                    //e.preventDefault();
                     if (currentFocused.href) {
                         centerNav.handleItemClick(currentIndex, currentFocused.href);
                     }
                     break;
                 case 'Home':
-                    e.preventDefault();
+                    //e.preventDefault();
                     const mapItemIndex = Array.from(centerNav.navItems).findIndex(item => 
                         item.getAttribute('data-nav') === 'map'
                     );
@@ -640,7 +640,7 @@ $cache_bust = time();
                     }
                     break;
                 case 'End':
-                    e.preventDefault();
+                    //e.preventDefault();
                     centerNav.focusItem(centerNav.navItems.length - 1);
                     break;
             }

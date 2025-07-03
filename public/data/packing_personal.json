@@ -1,0 +1,106 @@
+{
+    "personal_items": {
+        "H\u00e0": [
+            {
+                "id": "ha1",
+                "name": "\u00c1o kho\u00e1c",
+                "packed": true
+            },
+            {
+                "id": "ha2",
+                "name": "S\u1ed5 tay",
+                "packed": true
+            },
+            {
+                "id": "ha3",
+                "name": "\u0110i\u1ec7n tho\u1ea1i d\u1ef1 ph\u00f2ng",
+                "packed": true
+            }
+        ],
+        "Ph\u01b0\u01a1ng Anh": [
+            {
+                "id": "pa1",
+                "name": "M\u00e1y \u1ea3nh",
+                "packed": true
+            },
+            {
+                "id": "pa2",
+                "name": "Tai nghe",
+                "packed": true
+            },
+            {
+                "id": "pa3",
+                "name": "S\u00e1ch",
+                "packed": false
+            }
+        ],
+        "Trang": [
+            {
+                "id": "tr1",
+                "name": "K\u00ednh r\u00e2m",
+                "packed": true
+            },
+            {
+                "id": "tr2",
+                "name": "M\u0169",
+                "packed": false
+            },
+            {
+                "id": "tr3",
+                "name": "B\u1ed9 trang \u0111i\u1ec3m",
+                "packed": true
+            }
+        ],
+        "Duy": [
+            {
+                "id": "duy1",
+                "name": "Laptop",
+                "packed": true
+            },
+            {
+                "id": "duy2",
+                "name": "C\u00e1p HDMI",
+                "packed": false
+            },
+            {
+                "id": "duy3",
+                "name": "Tai nghe kh\u1eed ti\u1ebfng \u1ed3n",
+                "packed": true
+            }
+        ],
+        "Vi\u1ec7t Anh": [
+            {
+                "id": "va1",
+                "name": "Nintendo Switch",
+                "packed": false
+            },
+            {
+                "id": "va2",
+                "name": "Gi\u00e0y \u0111i b\u1ed9",
+                "packed": true
+            },
+            {
+                "id": "va3",
+                "name": "B\u00ecnh n\u01b0\u1edbc",
+                "packed": true
+            }
+        ],
+        "Nam": [
+            {
+                "id": "nam1",
+                "name": "G\u1eady selfie",
+                "packed": true
+            },
+            {
+                "id": "nam2",
+                "name": "B\u1ed9 s\u1ea1c \u0111a n\u0103ng",
+                "packed": false
+            },
+            {
+                "id": "nam3",
+                "name": "\u00c1o m\u01b0a",
+                "packed": true
+            }
+        ]
+    }
+}

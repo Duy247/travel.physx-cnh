@@ -1,0 +1,73 @@
+{
+    "items": [
+        {
+            "id": "item1",
+            "name": "S\u1ea1c \u0111i\u1ec7n tho\u1ea1i",
+            "carriers": []
+        },
+        {
+            "id": "item2",
+            "name": "B\u00e0n ch\u1ea3i \u0111\u00e1nh r\u0103ng",
+            "carriers": [
+                "Duy",
+                "H\u00e0",
+                "Nam"
+            ]
+        },
+        {
+            "id": "item3",
+            "name": "Kh\u0103n t\u1eafm",
+            "carriers": []
+        },
+        {
+            "id": "item4",
+            "name": "Kem ch\u1ed1ng n\u1eafng",
+            "carriers": []
+        },
+        {
+            "id": "item5",
+            "name": "M\u00e1y \u1ea3nh",
+            "carriers": [
+                "Ph\u01b0\u01a1ng Anh"
+            ]
+        },
+        {
+            "id": "item6",
+            "name": "Pin d\u1ef1 ph\u00f2ng",
+            "carriers": []
+        },
+        {
+            "id": "item7",
+            "name": "Thu\u1ed1c",
+            "carriers": [
+                "H\u00e0"
+            ]
+        },
+        {
+            "id": "item8",
+            "name": "L\u1ec1u c\u1eafm tr\u1ea1i",
+            "carriers": []
+        },
+        {
+            "id": "item9",
+            "name": "\u0110\u00e8n pin",
+            "carriers": [
+                "Ph\u01b0\u01a1ng Anh"
+            ]
+        },
+        {
+            "id": "item10",
+            "name": "B\u1ea3n \u0111\u1ed3",
+            "carriers": [
+                "H\u00e0"
+            ]
+        },
+        {
+            "id": "item17515560852809",
+            "name": "S\u00fang",
+            "carriers": [
+                "Duy"
+            ]
+        }
+    ]
+}
