@@ -1,0 +1,47 @@
+{
+  "hotels": [
+    {
+      "name": "Azerai La Residence Hue",
+      "address": "5 Le Loi, Vinh Ninh, Hue",
+      "phone": "0234383747"
+    },
+    {
+      "name": "Pilgrimage Village Boutique Resort & Spa",
+      "address": "130 Minh Mang, Hue",
+      "phone": "0234388561"
+    }
+  ],
+  "friends": [
+    {
+      "name": "Huy",
+      "phone": "0905123456"
+    }
+  ],
+  "restaurants": [
+    {
+      "name": "Hanh Restaurant",
+      "address": "11 Pho Duc Chinh, Hue",
+      "phone": "0234522118"
+    },
+    {
+      "name": "Les Jardins de La Carambole",
+      "address": "32 Dang Tran Con, Hue",
+      "phone": "0234543128"
+    },
+    {
+      "name": "Lac Thien Restaurant",
+      "address": "6 Dinh Tien Hoang, Hue",
+      "phone": "0234524117"
+    }
+  ],
+  "emergency": [
+    {
+      "name": "Hue Central Hospital",
+      "phone": "0234822325"
+    },
+    {
+      "name": "Hue Police",
+      "phone": "113"
+    }
+  ]
+}

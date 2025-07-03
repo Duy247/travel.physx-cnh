@@ -1,0 +1,72 @@
+{
+  "hotels": [
+    {
+      "name": "Sun Sea Hotel",
+      "address": "26 Núi Ngọc, TT. Cát Bà, Cát Hải, Hải Phòng",
+      "phone": "0972123234"
+    }
+  ],
+  "friends": [
+    {
+      "name": "Duy",
+      "phone": "0393718247"
+    },
+    {
+      "name": "Trang",
+      "phone": "0389441863"
+    },
+    {
+      "name": "Phương Anh",
+      "phone": "0327623577"
+    },
+    {
+      "name": "Hà",
+      "phone": "0989984776"
+    },
+    {
+      "name": "Việt Anh",
+      "phone": "0349112082"
+    }
+  ],
+  "restaurants": [
+    {
+      "name": "Nhà hàng hải sản Viễn Dương",
+      "address": "12 Núi Ngọc",
+      "phone": "0383434443"
+    },
+    {
+      "name": "Nhà hàng nổi Quang Anh",
+      "address": "95 Cái Bèo",
+      "phone": "0941851984"
+    },
+    {
+      "name": "Buffet Ốc Ba Tàu",
+      "address": "76, Cát Hải",
+      "phone": "0899999866"
+    },
+    {
+      "name": "Lẩu nướng anh em",
+      "address": "65, Đường Tùng Dinh",
+      "phone": "0767894888"
+    },
+    {
+      "name": "Phi Nhung Quán",
+      "address": "Số 2, Cảng cá Cát Bà",
+      "phone": "0988379000"
+    }
+  ],
+  "emergency": [
+    {
+      "name": "Phản ánh dịch vụ nhà hàng khách sạn",
+      "phone": "0945132599"
+    },
+    {
+      "name": "Cứu hộ biển",
+      "phone": "02253888718"
+    },
+    {
+      "name": "Trạm y tế Cát Bà",
+      "phone": "115"
+    }
+  ]
+}

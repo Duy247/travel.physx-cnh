@@ -1,0 +1,55 @@
+{
+  "hotels": [
+    {
+      "name": "Hyatt Regency Danang Resort and Spa",
+      "address": "5 Truong Sa, Ngu Hanh Son, Da Nang",
+      "phone": "0236398888"
+    },
+    {
+      "name": "Furama Resort Danang",
+      "address": "105 Vo Nguyen Giap, Ngu Hanh Son, Da Nang",
+      "phone": "0236383847"
+    }
+  ],
+  "friends": [
+    {
+      "name": "Tuan",
+      "phone": "0935789012"
+    },
+    {
+      "name": "Mai",
+      "phone": "0905876543"
+    }
+  ],
+  "restaurants": [
+    {
+      "name": "Madame Lan Restaurant",
+      "address": "04 Bach Dang, Hai Chau, Da Nang",
+      "phone": "0236381396"
+    },
+    {
+      "name": "La Maison 1888",
+      "address": "Bai Bac, Son Tra, Da Nang",
+      "phone": "0236393888"
+    },
+    {
+      "name": "Quan Ba Nghia",
+      "address": "K280/23 Hoang Dieu, Da Nang",
+      "phone": "0905368885"
+    }
+  ],
+  "emergency": [
+    {
+      "name": "Da Nang Hospital",
+      "phone": "0236383447"
+    },
+    {
+      "name": "Hoan My Da Nang Hospital",
+      "phone": "0236379777"
+    },
+    {
+      "name": "Da Nang Police",
+      "phone": "113"
+    }
+  ]
+}
