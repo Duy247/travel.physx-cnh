@@ -2,8 +2,15 @@
     "iPhone (iOS 16.6 like Mac OS X) AppleWebKit605.1.1": {
         "lat": 20.950909,
         "lng": 105.77021,
-        "time": 1751473137,
-        "timestamp": "2025-07-02 23:18:57",
-        "alternateName": null
+        "time": 1751562177,
+        "timestamp": "2025-07-04 00:02:57",
+        "alternateName": "Duy"
+    },
+    "SM-G955U": {
+        "lat": 20.950909,
+        "lng": 105.77021,
+        "time": 1751562177,
+        "timestamp": "2025-07-04 00:02:57",
+        "alternateName": "Duy 2"
     }
 }

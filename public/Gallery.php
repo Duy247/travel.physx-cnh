@@ -15,26 +15,55 @@ $cache_bust = time();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <title>Gallery - Travel PhysX CNH</title>
-    <link rel="stylesheet" href="css/style.css?v=<?php echo $cache_bust; ?>">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #262626;
+            margin: 0;
+            padding: 10px;
+        }
+        h1 {
+            text-align: center;
+            color: #dadada;
+            font-size: 24px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 10px;
+        }
+        .gallery-container {
+            width: 100%;
+            height: 600px;
+            border: 2px solid #7c7272;
+            box-sizing: border-box;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .gallery {
+            width: 100%;
+            height: 100%;
+            margin:0px;
+            border: none;
+        }
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #a68af9;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            border-radius: 2px;
+        }
+    </style>
 </head>
 <body>
-    <header class="header">
-        <h1>Travel Gallery</h1>
-        <h2>Hue - Danang - Hoian Adventure</h2>
-    </header>
-
-    <a href="index.php" class="back-button">‹</a>
-
-    <main class="main-content">
-        <div class="container">
-            <h3>Coming Soon</h3>
-            <p>Gallery page is under construction.</p>
-        </div>
-    </main>
+    <h1>Thư Viện Ảnh</h1>   
+    
+    <div class="gallery-container">
+        <iframe class="gallery" src="https://drive.google.com/embeddedfolderview?id=17xlDHqSfzBmxkAbckbkeMJTPUYMVJT_1#grid" frameborder="0"></iframe>
+    </div>
+    
+    <a href="Main.html" class="back-link">Về Trang Chủ</a>
 </body>
 </html>

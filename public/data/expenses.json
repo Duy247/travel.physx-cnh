@@ -60,9 +60,10 @@
     {
         "id": "exp_68653e60356445.17679489",
         "content": "FDS",
-        "amount": 456000,
+        "amount": 458000,
         "payer": "Nam",
         "date": "2025-07-02 16:12:48",
-        "created_at": 1751465568
+        "created_at": 1751465568,
+        "updated_at": 1751562134
     }
 ]

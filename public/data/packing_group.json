@@ -52,13 +52,16 @@
             "id": "item9",
             "name": "\u0110\u00e8n pin",
             "carriers": [
-                "Ph\u01b0\u01a1ng Anh"
+                "Duy",
+                "Ph\u01b0\u01a1ng Anh",
+                "Trang"
             ]
         },
         {
             "id": "item10",
             "name": "B\u1ea3n \u0111\u1ed3",
             "carriers": [
+                "Duy",
                 "H\u00e0"
             ]
         },

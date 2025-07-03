@@ -11,7 +11,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit(0);
 }
 
+// Define file paths
 $data_file = __DIR__ . '/../data/people_locations.json';
+$queue_path = __DIR__ . '/../data/people_queue.json';
+$lock_file_path = __DIR__ . '/../data/people_queue.lock';
+
+// Queue processing constants
+define('QUEUE_PROCESS_TIMEOUT', 10); // seconds
+define('QUEUE_LOCK_TIMEOUT', 30);    // seconds
 
 // Ensure data directory exists
 if (!is_dir(dirname($data_file))) {
@@ -64,6 +71,300 @@ function calculateDistance($lat1, $lng1, $lat2, $lng2) {
     return $earthRadius * $c;
 }
 
+// Queue Management Functions
+function acquireLock($lockFilePath) {
+    $lockFile = fopen($lockFilePath, 'c+');
+    
+    if (!$lockFile) {
+        return false;
+    }
+    
+    // Try to get an exclusive lock, don't block (LOCK_NB)
+    if (!flock($lockFile, LOCK_EX | LOCK_NB)) {
+        // If we can't get the lock, check if it's stale
+        $lockData = fread($lockFile, 1024);
+        if ($lockData) {
+            $lockInfo = json_decode($lockData, true);
+            if ($lockInfo && isset($lockInfo['timestamp'])) {
+                // If the lock is older than timeout, force it
+                if (time() - $lockInfo['timestamp'] > QUEUE_LOCK_TIMEOUT) {
+                    ftruncate($lockFile, 0);
+                    rewind($lockFile);
+                    // Try again to get the lock
+                    if (!flock($lockFile, LOCK_EX | LOCK_NB)) {
+                        fclose($lockFile);
+                        return false;
+                    }
+                } else {
+                    // Lock is still valid
+                    fclose($lockFile);
+                    return false;
+                }
+            }
+        }
+    }
+    
+    // Write lock information
+    ftruncate($lockFile, 0);
+    rewind($lockFile);
+    fwrite($lockFile, json_encode([
+        'timestamp' => time(),
+        'pid' => getmypid()
+    ]));
+    
+    // Keep the file handle open while we have the lock
+    return $lockFile;
+}
+
+function releaseLock($lockFileHandle) {
+    if ($lockFileHandle) {
+        flock($lockFileHandle, LOCK_UN);
+        fclose($lockFileHandle);
+    }
+}
+
+function addToQueue($action, $data) {
+    global $queue_path;
+    
+    // Create a unique operation ID
+    $opId = uniqid('ploc_', true);
+    
+    // Create queue item
+    $queueItem = [
+        'id' => $opId,
+        'action' => $action,
+        'data' => $data,
+        'timestamp' => time(),
+        'status' => 'pending'
+    ];
+    
+    // Load current queue
+    $queue = [];
+    if (file_exists($queue_path)) {
+        $queueContent = file_get_contents($queue_path);
+        if ($queueContent) {
+            $queue = json_decode($queueContent, true) ?: [];
+        }
+    }
+    
+    // Add new item to queue
+    $queue[] = $queueItem;
+    
+    // Save queue
+    file_put_contents($queue_path, json_encode($queue, JSON_PRETTY_PRINT));
+    
+    // Try to process queue
+    processQueue();
+    
+    return $opId;
+}
+
+function processQueue() {
+    global $queue_path, $lock_file_path;
+    
+    // Try to get lock for queue processing
+    $lockFile = acquireLock($lock_file_path);
+    if (!$lockFile) {
+        // Another process is already handling the queue
+        return false;
+    }
+    
+    // Check if queue file exists
+    if (!file_exists($queue_path)) {
+        releaseLock($lockFile);
+        return true; // No queue to process
+    }
+    
+    // Load queue
+    $queueContent = file_get_contents($queue_path);
+    $queue = json_decode($queueContent, true) ?: [];
+    
+    // Process pending items
+    $startTime = time();
+    $updated = false;
+    
+    foreach ($queue as $key => &$item) {
+        // Stop processing if we've been at it too long
+        if (time() - $startTime > QUEUE_PROCESS_TIMEOUT) {
+            break;
+        }
+        
+        // Only process pending items
+        if ($item['status'] !== 'pending') {
+            continue;
+        }
+        
+        // Process the operation based on action
+        $success = false;
+        
+        switch ($item['action']) {
+            case 'save_location':
+                $success = processSaveLocation($item['data']);
+                break;
+                
+            case 'update_name':
+                $success = processUpdateName($item['data']);
+                break;
+        }
+        
+        // Update status
+        $item['status'] = $success ? 'completed' : 'failed';
+        $item['processed_at'] = time();
+        $updated = true;
+    }
+    
+    // Save updated queue
+    if ($updated) {
+        file_put_contents($queue_path, json_encode($queue, JSON_PRETTY_PRINT));
+    }
+    
+    // Clean up completed/failed items older than 1 hour
+    cleanupQueue();
+    
+    // Release lock
+    releaseLock($lockFile);
+    
+    return true;
+}
+
+function cleanupQueue() {
+    global $queue_path;
+    
+    // Load queue
+    if (!file_exists($queue_path)) {
+        return;
+    }
+    
+    $queueContent = file_get_contents($queue_path);
+    $queue = json_decode($queueContent, true) ?: [];
+    
+    // Keep only pending items and items processed in the last hour
+    $oneHourAgo = time() - 3600;
+    $newQueue = [];
+    
+    foreach ($queue as $item) {
+        if ($item['status'] === 'pending' || 
+            ($item['processed_at'] ?? 0) > $oneHourAgo) {
+            $newQueue[] = $item;
+        }
+    }
+    
+    // Save cleaned queue
+    if (count($newQueue) !== count($queue)) {
+        file_put_contents($queue_path, json_encode($newQueue, JSON_PRETTY_PRINT));
+    }
+}
+
+// Process functions for different operations
+function processSaveLocation($data) {
+    global $data_file;
+    
+    if (!isset($data['lat']) || !isset($data['lng'])) {
+        return false;
+    }
+    
+    $lat = floatval($data['lat']);
+    $lng = floatval($data['lng']);
+    $deviceName = isset($data['deviceName']) && !empty(trim($data['deviceName'])) 
+        ? trim($data['deviceName']) 
+        : generateDeviceName();
+    
+    // Validate coordinates
+    if ($lat < -90 || $lat > 90 || $lng < -180 || $lng > 180) {
+        return false;
+    }
+    
+    $peopleData = loadPeopleData();
+    
+    // Get alternate name if provided
+    $alternateName = isset($data['alternateName']) && !empty(trim($data['alternateName'])) 
+        ? trim($data['alternateName']) 
+        : null;
+    
+    // If device exists and has an alternate name, preserve it unless explicitly overridden
+    if (isset($peopleData[$deviceName]) && $peopleData[$deviceName]['alternateName'] && !$alternateName) {
+        $alternateName = $peopleData[$deviceName]['alternateName'];
+    }
+    
+    // Update or add device location
+    // Set timezone to Asia/Ho_Chi_Minh for correct local time
+    date_default_timezone_set('Asia/Ho_Chi_Minh');
+    $peopleData[$deviceName] = [
+        'lat' => $lat,
+        'lng' => $lng,
+        'time' => time(),
+        'timestamp' => date('Y-m-d H:i:s'),
+        'alternateName' => $alternateName
+    ];
+    
+    return savePeopleData($peopleData);
+}
+
+function processUpdateName($data) {
+    global $data_file;
+    
+    if (!isset($data['deviceName']) || !isset($data['alternateName'])) {
+        return false;
+    }
+    
+    $deviceName = trim($data['deviceName']);
+    $alternateName = trim($data['alternateName']);
+    
+    $peopleData = loadPeopleData();
+    
+    if (!isset($peopleData[$deviceName])) {
+        return false;
+    }
+    
+    // Update only the alternate name
+    $peopleData[$deviceName]['alternateName'] = !empty($alternateName) ? $alternateName : null;
+    
+    return savePeopleData($peopleData);
+}
+
+// Check operation status endpoint
+function checkOperationStatus($opId) {
+    global $queue_path;
+    
+    // Try to process queue first
+    processQueue();
+    
+    // Check operation status
+    $status = 'not_found';
+    
+    if (file_exists($queue_path)) {
+        $queueContent = file_get_contents($queue_path);
+        $queue = json_decode($queueContent, true) ?: [];
+        
+        foreach ($queue as $item) {
+            if ($item['id'] === $opId) {
+                $status = $item['status'];
+                break;
+            }
+        }
+    }
+    
+    return $status;
+}
+
+// Special handling for operation status checks
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['check_operation'])) {
+    $operationId = isset($_GET['operation_id']) ? $_GET['operation_id'] : '';
+    
+    if (!$operationId) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'Missing operation ID']);
+    } else {
+        $status = checkOperationStatus($operationId);
+        echo json_encode([
+            'success' => true,
+            'operation_id' => $operationId,
+            'status' => $status
+        ]);
+    }
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Save location data
     $input = json_decode(file_get_contents('php://input'), true);
@@ -87,44 +388,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
     
-    $peopleData = loadPeopleData();
+    // Add to queue instead of processing immediately
+    $opId = addToQueue('save_location', $input);
     
-    // Simply update the device location if it already exists
-    // This handles GPS updates for the same device moving around
-    // The device name detection from JavaScript should be consistent enough
-    // to avoid creating multiple entries for the same device
-    
-    // Get alternate name if provided
-    $alternateName = isset($input['alternateName']) && !empty(trim($input['alternateName'])) 
-        ? trim($input['alternateName']) 
-        : null;
-    
-    // If device exists and has an alternate name, preserve it unless explicitly overridden
-    if (isset($peopleData[$deviceName]) && $peopleData[$deviceName]['alternateName'] && !$alternateName) {
-        $alternateName = $peopleData[$deviceName]['alternateName'];
-    }
-    
-    // Update or add device location
     // Set timezone to Asia/Ho_Chi_Minh for correct local time
     date_default_timezone_set('Asia/Ho_Chi_Minh');
-    $peopleData[$deviceName] = [
-        'lat' => $lat,
-        'lng' => $lng,
-        'time' => time(),
-        'timestamp' => date('Y-m-d H:i:s'),
-        'alternateName' => $alternateName
-    ];
     
-    if (savePeopleData($peopleData)) {
-        echo json_encode([
-            'success' => true,
-            'deviceName' => $deviceName,
-            'message' => 'Location saved successfully'
-        ]);
-    } else {
-        http_response_code(500);
-        echo json_encode(['error' => 'Failed to save location data']);
-    }
+    // Provide immediate feedback with temporary data
+    echo json_encode([
+        'success' => true,
+        'deviceName' => $deviceName,
+        'message' => 'Location queued for saving',
+        'operation_id' => $opId,
+        'queued' => true,
+        'timestamp' => date('Y-m-d H:i:s')
+    ]);
     
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Retrieve all people locations
@@ -172,20 +450,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
     
-    // Update only the alternate name
-    $peopleData[$deviceName]['alternateName'] = !empty($alternateName) ? $alternateName : null;
+    // Add to queue instead of processing immediately
+    $opId = addToQueue('update_name', $input);
     
-    if (savePeopleData($peopleData)) {
-        echo json_encode([
-            'success' => true,
-            'message' => 'Alternate name updated successfully',
-            'deviceName' => $deviceName,
-            'alternateName' => $peopleData[$deviceName]['alternateName']
-        ]);
-    } else {
-        http_response_code(500);
-        echo json_encode(['error' => 'Failed to update alternate name']);
-    }
+    // Provide immediate feedback
+    echo json_encode([
+        'success' => true,
+        'message' => 'Name update queued for processing',
+        'deviceName' => $deviceName,
+        'alternateName' => $alternateName,
+        'operation_id' => $opId,
+        'queued' => true
+    ]);
     
 } else {
     http_response_code(405);
