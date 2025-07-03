@@ -23,13 +23,18 @@ $cache_bust = time();
     <script src="js/cache-buster.js?v=<?= $cache_bust ?>"></script>
 </head>
 <body class="no-select mobile-optimized">
-    <a href="index.php" class="back-button">&larr;</a>
+    <a href="index.php" class="back-button"><i class="fas fa-arrow-left"></i></a>
     
     <div class="packing-container">
         <div class="packing-header fade-in">
             <h1>Theo Dõi Đồ Cá Nhân</h1>
             <h2>Quản lý đồ cá nhân của bạn</h2>
         </div>
+        
+        <!-- Add Item Button -->
+        <button id="add-item-btn" class="btn btn-primary add-item-button">
+            <i class="fas fa-plus"></i> Thêm Đồ Cá Nhân
+        </button>
         
         <!-- Login Button -->
         <button id="login-button" class="login-button">
@@ -68,6 +73,15 @@ $cache_bust = time();
             </div>
         </div>
         
+        <!-- Add Item Modal -->
+        <div id="add-item-modal" class="member-select-modal">
+            <h3>Thêm Đồ Cá Nhân</h3>
+            <div class="form-group">
+                <input type="text" id="new-item-name" class="form-control" placeholder="Tên Đồ">
+            </div>
+            <button id="save-item-btn" class="btn btn-primary" style="width: 100%;">Lưu</button>
+        </div>
+        
         <div id="content-container" style="display: none;">
             <div class="search-container fade-in">
                 <input type="text" id="search-input" class="search-input" placeholder="Tìm đồ...">
@@ -75,16 +89,6 @@ $cache_bust = time();
             
             <div class="items-container fade-in">
                 <div id="personal-items-list"></div>
-            </div>
-            
-            <div class="add-item-container fade-in">
-                <button id="add-item-btn" class="btn btn-primary">Thêm Đồ Cá Nhân</button>
-                <div id="add-item-form" class="add-item-form" style="display: none;">
-                    <div class="form-group">
-                        <input type="text" id="new-item-name" class="form-control" placeholder="Tên Đồ">
-                        <button id="save-item-btn" class="btn btn-primary">Lưu</button>
-                    </div>
-                </div>
             </div>
         </div>
         
@@ -96,7 +100,7 @@ $cache_bust = time();
         const searchInput = document.getElementById('search-input');
         const personalItemsList = document.getElementById('personal-items-list');
         const addItemBtn = document.getElementById('add-item-btn');
-        const addItemForm = document.getElementById('add-item-form');
+        const addItemModal = document.getElementById('add-item-modal');
         const newItemNameInput = document.getElementById('new-item-name');
         const saveItemBtn = document.getElementById('save-item-btn');
         const passwordContainer = document.getElementById('password-container');
@@ -291,7 +295,7 @@ $cache_bust = time();
                 
                 if (data.success) {
                     newItemNameInput.value = '';
-                    addItemForm.style.display = 'none';
+                    addItemModal.style.display = 'none';
                     loadPersonalItems();
                 } else {
                     console.error('Error adding item:', data.message);
@@ -349,7 +353,8 @@ $cache_bust = time();
             memberPassword.focus(); // Focus on the password input
         });
         
-        loginButton.addEventListener('click', function() {
+        // Enhanced login button handling to ensure clicks on the icon also trigger the action
+        function handleLoginButtonClick(event) {
             if (authenticatedMember) {
                 // If already logged in, log out
                 authenticatedMember = '';
@@ -362,7 +367,10 @@ $cache_bust = time();
                 // Show the member selection modal
                 memberSelectModal.style.display = 'block';
             }
-        });
+        }
+        
+        // Add click event listener to the button
+        loginButton.addEventListener('click', handleLoginButtonClick);
         
         // Close modals when clicking outside
         document.addEventListener('click', function(event) {
@@ -380,6 +388,13 @@ $cache_bust = time();
                 // Don't close when interacting with the member select modal
                 passwordContainer.style.display = 'none';
             }
+            
+            // Close add item modal when clicking outside
+            if (addItemModal.style.display === 'block' && 
+                !addItemModal.contains(event.target) && 
+                event.target !== addItemBtn) {
+                addItemModal.style.display = 'none';
+            }
         });
         
         searchInput.addEventListener('input', loadPersonalItems);
@@ -389,7 +404,8 @@ $cache_bust = time();
                 alert('Bạn cần đăng nhập trước khi thêm đồ');
                 return;
             }
-            addItemForm.style.display = addItemForm.style.display === 'none' ? 'block' : 'none';
+            addItemModal.style.display = 'block';
+            newItemNameInput.focus();
         });
         
         saveItemBtn.addEventListener('click', addPersonalItem);
@@ -407,13 +423,33 @@ $cache_bust = time();
             contentContainer.style.display = 'none';
             passwordContainer.style.display = 'none';
             memberSelectModal.style.display = 'none';
+            addItemModal.style.display = 'none';
             userInfo.style.display = 'none';
+            
+            // Ensure the login button is always clickable by applying correct styles
+            loginButton.style.touchAction = 'manipulation'; // Improves touch response
             
             // Prevent event propagation from the modal contents to document
             document.querySelectorAll('.password-modal, .member-select-modal').forEach(modal => {
                 modal.addEventListener('click', function(e) {
                     e.stopPropagation();
                 });
+            });
+            
+            // Additional check for icon click (though this should be unnecessary with pointer-events: none in CSS)
+            const iconInLoginButton = loginButton.querySelector('i');
+            if (iconInLoginButton) {
+                iconInLoginButton.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    handleLoginButtonClick(e);
+                });
+            }
+            
+            // Enable Enter key for the new item input
+            newItemNameInput.addEventListener('keyup', function(event) {
+                if (event.key === "Enter") {
+                    addPersonalItem();
+                }
             });
         });
     </script>

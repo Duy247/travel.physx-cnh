@@ -59,7 +59,7 @@ switch ($action) {
     case 'add_group_item':
         $postData = json_decode(file_get_contents('php://input'), true);
         
-        if (isset($postData['name']) && isset($postData['carrier'])) {
+        if (isset($postData['name'])) {
             $data = readJsonFile($groupPackingPath);
             
             // Generate a unique ID
@@ -68,8 +68,13 @@ switch ($action) {
             $newItem = [
                 'id' => $id,
                 'name' => $postData['name'],
-                'carriers' => [$postData['carrier']]
+                'carriers' => []
             ];
+            
+            // Add carrier if specified
+            if (isset($postData['carrier'])) {
+                $newItem['carriers'] = [$postData['carrier']];
+            }
             
             $data['items'][] = $newItem;
             

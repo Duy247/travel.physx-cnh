@@ -23,13 +23,18 @@ $cache_bust = time();
     <script src="js/cache-buster.js?v=<?= $cache_bust ?>"></script>
 </head>
 <body class="no-select mobile-optimized">
-    <a href="index.php" class="back-button">&larr;</a>
+    <a href="index.php" class="back-button"><i class="fas fa-arrow-left"></i></a>
     
     <div class="packing-container">
         <div class="packing-header fade-in">
             <h1>Theo Dõi Đồ Nhóm</h1>
             <h2>Quản lý những gì cả nhóm cần mang</h2>
         </div>
+        
+        <!-- Add Item Button -->
+        <button id="add-item-btn" class="btn btn-primary add-item-button">
+            <i class="fas fa-plus"></i> Thêm Đồ
+        </button>
         
         <!-- Login Button -->
         <button id="login-button" class="login-button">
@@ -56,22 +61,21 @@ $cache_bust = time();
             <button id="select-member-btn" class="btn btn-primary" style="width: 100%;">Chọn</button>
         </div>
         
+        <!-- Add Item Modal -->
+        <div id="add-item-modal" class="member-select-modal">
+            <h3>Thêm Đồ Mới</h3>
+            <div class="form-group">
+                <input type="text" id="new-item-name" class="form-control" placeholder="Tên Đồ">
+            </div>
+            <button id="save-item-btn" class="btn btn-primary" style="width: 100%;">Lưu</button>
+        </div>
+        
         <div class="search-container fade-in">
             <input type="text" id="search-input" class="search-input" placeholder="Tìm đồ...">
         </div>
         
         <div class="items-container fade-in">
             <div id="inventory-list"></div>
-        </div>
-        
-        <div class="add-item-container fade-in">
-            <button id="add-item-btn" class="btn btn-primary">Thêm Đồ</button>
-            <div id="add-item-form" class="add-item-form" style="display: none;">
-                <div class="form-group">
-                    <input type="text" id="new-item-name" class="form-control" placeholder="Tên Đồ">
-                    <button id="save-item-btn" class="btn btn-primary">Lưu</button>
-                </div>
-            </div>
         </div>
         
     </div>
@@ -82,7 +86,7 @@ $cache_bust = time();
         const searchInput = document.getElementById('search-input');
         const inventoryList = document.getElementById('inventory-list');
         const addItemBtn = document.getElementById('add-item-btn');
-        const addItemForm = document.getElementById('add-item-form');
+        const addItemModal = document.getElementById('add-item-modal');
         const newItemNameInput = document.getElementById('new-item-name');
         const saveItemBtn = document.getElementById('save-item-btn');
         const loginButton = document.getElementById('login-button');
@@ -280,28 +284,30 @@ $cache_bust = time();
                 return;
             }
             
-            if (!selectedMember) {
-                alert('Vui lòng chọn thành viên');
-                return;
-            }
-            
             try {
+                // Create request body - if selectedMember exists, include it as carrier
+                const requestBody = {
+                    name: itemName
+                };
+                
+                // Only add carrier if a member is selected
+                if (selectedMember) {
+                    requestBody.carrier = selectedMember;
+                }
+                
                 const response = await fetch(`${API_URL}?action=add_group_item`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({
-                        name: itemName,
-                        carrier: selectedMember
-                    })
+                    body: JSON.stringify(requestBody)
                 });
                 
                 const data = await response.json();
                 
                 if (data.success) {
                     newItemNameInput.value = '';
-                    addItemForm.style.display = 'none';
+                    addItemModal.style.display = 'none';
                     loadInventory();
                 } else {
                     console.error('Error adding item:', data.message);
@@ -319,16 +325,18 @@ $cache_bust = time();
         });
         
         addItemBtn.addEventListener('click', function() {
-            if (!selectedMember) {
-                alert('Vui lòng chọn thành viên trước');
-                return;
-            }
-            addItemForm.style.display = addItemForm.style.display === 'none' ? 'block' : 'none';
+            // Allow adding items without selecting a member
+            addItemModal.style.display = 'block';
+            newItemNameInput.focus();
         });
         
-        saveItemBtn.addEventListener('click', addNewItem);
+        saveItemBtn.addEventListener('click', function() {
+            addNewItem();
+            addItemModal.style.display = 'none';
+        });
         
-        loginButton.addEventListener('click', function() {
+        // Enhanced login button handling to ensure clicks on the icon also trigger the action
+        function handleLoginButtonClick(event) {
             if (selectedMember) {
                 // If already logged in, log out
                 selectedMember = '';
@@ -339,7 +347,10 @@ $cache_bust = time();
                 // Show the member selection modal
                 memberSelectModal.style.display = 'block';
             }
-        });
+        }
+        
+        // Add click event listener to the button
+        loginButton.addEventListener('click', handleLoginButtonClick);
         
         selectMemberBtn.addEventListener('click', function() {
             const newSelectedMember = memberSelect.value;
@@ -368,13 +379,38 @@ $cache_bust = time();
                 memberSelectModal.style.display === 'block') {
                 memberSelectModal.style.display = 'none';
             }
+            
+            if (!addItemModal.contains(event.target) && 
+                event.target !== addItemBtn && 
+                addItemModal.style.display === 'block') {
+                addItemModal.style.display = 'none';
+            }
         });
         
         // Initial load
         document.addEventListener('DOMContentLoaded', function() {
             memberSelectModal.style.display = 'none';
+            addItemModal.style.display = 'none';
             userInfo.style.display = 'none';
             loadInventory();
+            
+            // Ensure the login button is always clickable by applying correct styles
+            loginButton.style.touchAction = 'manipulation'; // Improves touch response
+            
+            // Prevent event propagation from the modal contents to document
+            document.querySelectorAll('.member-select-modal').forEach(modal => {
+                modal.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            });
+            
+            // Enable Enter key for the item input
+            newItemNameInput.addEventListener('keyup', function(event) {
+                if (event.key === "Enter") {
+                    addNewItem();
+                    addItemModal.style.display = 'none';
+                }
+            });
         });
     </script>
 </body>
