@@ -1,28 +1,45 @@
 [
     {
-        "id": "expop_6866b795688837.66534354",
-        "action": "update_expense",
+        "id": "expop_6867d697a2e067.78892414",
+        "action": "delete_expense",
         "data": {
-            "id": "exp_68653e60356445.17679489",
-            "content": "FDS",
-            "amount": 457000,
-            "payer": "Nam"
+            "id": "exp_68653e60356445.17679489"
         },
-        "timestamp": 1751562133,
+        "timestamp": 1751635607,
         "status": "completed",
-        "processed_at": 1751562133
+        "processed_at": 1751635607
     },
     {
-        "id": "expop_6866b7962bf1e1.69534648",
+        "id": "expop_6867d8e5d4cee1.20644428",
+        "action": "delete_expense",
+        "data": {
+            "id": "exp_68653e57ec7841.89446548"
+        },
+        "timestamp": 1751636197,
+        "status": "completed",
+        "processed_at": 1751636197
+    },
+    {
+        "id": "expop_6867d8f71b0bf2.42365065",
         "action": "update_expense",
         "data": {
-            "id": "exp_68653e60356445.17679489",
-            "content": "FDS",
-            "amount": 458000,
-            "payer": "Nam"
+            "id": "exp_68653a82e5bc02.05300766",
+            "content": "C\u01a1m",
+            "amount": 500000,
+            "payer": "Duy"
         },
-        "timestamp": 1751562134,
+        "timestamp": 1751636215,
         "status": "completed",
-        "processed_at": 1751562134
+        "processed_at": 1751636215
+    },
+    {
+        "id": "expop_6867d90dbc8c05.27440354",
+        "action": "delete_expense",
+        "data": {
+            "id": "exp_68653e480a5403.93798670"
+        },
+        "timestamp": 1751636237,
+        "status": "completed",
+        "processed_at": 1751636237
     }
 ]

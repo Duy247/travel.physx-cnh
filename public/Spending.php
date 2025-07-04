@@ -1091,15 +1091,20 @@ $cache_bust = time();
         // API functions
         async function fetchExpenses() {
             try {
-                const response = await fetch(API_BASE);
+                // Add cache prevention by appending a timestamp
+                const timestamp = new Date().getTime();
+                const response = await fetch(`${API_BASE}?t=${timestamp}`);
+                
                 if (!response.ok) throw new Error('Failed to fetch expenses');
                 expenses = await response.json();
                 displayExpenses();
                 displaySummary();
                 displayBalance();
+                return true;
             } catch (error) {
                 console.error('Error fetching expenses:', error);
                 showMessage('Lỗi khi tải danh sách chi tiêu', 'error');
+                return false;
             }
         }
 
@@ -1113,13 +1118,12 @@ $cache_bust = time();
                     body: JSON.stringify(expenseData)
                 });
 
-                if (!response.ok) throw new Error('Failed to add expense');
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`Failed to add expense: ${response.status} ${errorText}`);
+                }
                 
-                const newExpense = await response.json();
-                expenses.push(newExpense);
-                displayExpenses();
-                displaySummary();
-                displayBalance();
+                await fetchExpenses(); // Reload all expenses from the API
                 showMessage('Thêm chi tiêu thành công!');
                 
                 // Reset form and close modal
@@ -1127,9 +1131,11 @@ $cache_bust = time();
                 document.getElementById('formatted-amount').textContent = '';
                 closeAddModal();
                 
+                return true;
             } catch (error) {
                 console.error('Error adding expense:', error);
                 showMessage('Lỗi khi thêm chi tiêu', 'error');
+                return false;
             }
         }
 
@@ -1143,23 +1149,20 @@ $cache_bust = time();
                     body: JSON.stringify({ id, ...expenseData })
                 });
 
-                if (!response.ok) throw new Error('Failed to update expense');
-                
-                const updatedExpense = await response.json();
-                const index = expenses.findIndex(exp => exp.id === id);
-                if (index !== -1) {
-                    expenses[index] = updatedExpense;
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(`Failed to update expense: ${response.status} ${errorText}`);
                 }
                 
-                displayExpenses();
-                displaySummary();
-                displayBalance();
+                await fetchExpenses(); // Reload all expenses from the API
                 showMessage('Cập nhật chi tiêu thành công!');
                 closeEditModal();
                 
+                return true;
             } catch (error) {
                 console.error('Error updating expense:', error);
                 showMessage('Lỗi khi cập nhật chi tiêu', 'error');
+                return false;
             }
         }
 
@@ -1177,17 +1180,32 @@ $cache_bust = time();
                     body: JSON.stringify({ id })
                 });
 
-                if (!response.ok) throw new Error('Failed to delete expense');
-                
-                expenses = expenses.filter(exp => exp.id !== id);
-                displayExpenses();
-                displaySummary();
-                displayBalance();
-                showMessage('Xóa chi tiêu thành công!');
-                
+                // Handle 200-299 status range as success even if there's no content
+                if (response.status >= 200 && response.status < 300) {
+                    await fetchExpenses(); // Reload all expenses from the API
+                    showMessage('Xóa chi tiêu thành công!');
+                    return true;
+                } else {
+                    const errorText = await response.text();
+                    throw new Error(`Server responded with status: ${response.status} ${errorText}`);
+                }
             } catch (error) {
                 console.error('Error deleting expense:', error);
-                showMessage('Lỗi khi xóa chi tiêu', 'error');
+                
+                // Check if data was actually deleted despite the error
+                const originalCount = expenses.length;
+                const wasDeleted = await fetchExpenses() && 
+                                    expenses.findIndex(exp => exp.id === id) === -1 &&
+                                    expenses.length < originalCount;
+                
+                if (wasDeleted) {
+                    // The record was actually deleted despite the error
+                    showMessage('Chi tiêu đã được xóa thành công!');
+                    return true;
+                } else {
+                    showMessage('Lỗi khi xóa chi tiêu', 'error');
+                    return false;
+                }
             }
         }
 
@@ -1578,10 +1596,41 @@ $cache_bust = time();
             }
         }
 
+        // Refresh data periodically
+        function setupAutoRefresh(intervalMinutes = 5) {
+            // Convert minutes to milliseconds
+            const interval = intervalMinutes * 60 * 1000;
+            
+            // Set up interval to refresh data
+            const refreshTimer = setInterval(async () => {
+                console.log(`Auto-refreshing data (${new Date().toLocaleTimeString()})`);
+                await fetchExpenses();
+            }, interval);
+            
+            // Clear interval when page is hidden/closed
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState === 'hidden') {
+                    clearInterval(refreshTimer);
+                } else {
+                    // Immediately refresh when page becomes visible again
+                    fetchExpenses();
+                    
+                    // Restart the timer
+                    clearInterval(refreshTimer);
+                    setupAutoRefresh(intervalMinutes);
+                }
+            });
+            
+            return refreshTimer;
+        }
+
         // Event listeners
         document.addEventListener('DOMContentLoaded', function() {
             // Load expenses on page load
             fetchExpenses();
+            
+            // Set up auto refresh every 5 minutes
+            setupAutoRefresh(5);
 
             // Set default date filter to last 30 days
             const today = new Date();
@@ -1610,7 +1659,7 @@ $cache_bust = time();
 
             // Add expense form
             document.getElementById('expense-form').addEventListener('submit', async function(e) {
-                //e.preventDefault();
+                e.preventDefault();
                 
                 const addBtn = document.getElementById('add-expense-btn');
                 setLoading(addBtn, true);
@@ -1627,7 +1676,7 @@ $cache_bust = time();
 
             // Edit expense form
             document.getElementById('edit-expense-form').addEventListener('submit', async function(e) {
-                //e.preventDefault();
+                e.preventDefault();
                 
                 if (!currentEditId) return;
                 
