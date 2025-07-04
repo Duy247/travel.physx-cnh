@@ -117,8 +117,11 @@ $home_link = "index.php";
         }
         
         .back-button {
+            position: absolute;
+            top: 18px;
+            left: 18px;
             display: inline-block;
-            margin-top: 2rem;
+            margin-top: 0;
             padding: 0.8rem 2rem;
             background: rgba(99, 102, 241, 0.2);
             color: #e4e4e7;
@@ -132,6 +135,7 @@ $home_link = "index.php";
             -webkit-backdrop-filter: blur(10px);
             transition: all 0.2s ease;
             box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+            z-index: 3;
         }
         
         .back-button:hover, .back-button:focus {
@@ -478,7 +482,7 @@ $home_link = "index.php";
                         <div style="width:100%; height:100%; overflow:hidden;">
                             <iframe src="https://drive.google.com/embeddedfolderview?id=17xlDHqSfzBmxkAbckbkeMJTPUYMVJT_1#grid"
                                     frameborder="0"
-                                    style="width:100%; height:100%; border:none; zoom:0.97; -ms-zoom:0.97; -webkit-transform:scale(0.97); -webkit-transform-origin:0 0; overflow:hidden; scrollbar-width:none;"></iframe>
+                                    style="width:100%; height:100%; border:none; zoom:0.95; -ms-zoom:0.95; -webkit-transform:scale(0.95); -webkit-transform-origin:0 0; overflow:hidden; scrollbar-width:none;"></iframe>
                         </div>
                     `;
                 }
