@@ -661,7 +661,7 @@ function getLocationName($key, $locations) {
     <div class="contacts-container">
         <!-- Contact type filter -->
         <div class="filter-options">
-            <button class="filter-option active" data-group="all">Tất cả</button>
+            <button class="filter-option" data-group="all">Tất cả</button>
             <button class="filter-option" data-group="friends">Các Fen</button>
             <button class="filter-option" data-group="hotels">Khách sạn</button>    
             <button class="filter-option" data-group="restaurants">Ăn trưa, tối</button>  
