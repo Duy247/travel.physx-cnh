@@ -581,7 +581,7 @@ if (count(get_included_files()) <= 1) {
                         <div style="color: #a1a1aa; font-size: 0.85rem;">
                             <span>Size: {$fileSizeFormatted}</span>
                             <span style="float: right;">Modified: 
-                                {$fileName} {$fileSize}
+                                {$fileName}
                             </span>
                         </div>
                         <div class="file-actions">
