@@ -1,45 +1,15 @@
 [
     {
-        "id": "expop_6867d697a2e067.78892414",
-        "action": "delete_expense",
-        "data": {
-            "id": "exp_68653e60356445.17679489"
-        },
-        "timestamp": 1751635607,
-        "status": "completed",
-        "processed_at": 1751635607
-    },
-    {
-        "id": "expop_6867d8e5d4cee1.20644428",
-        "action": "delete_expense",
-        "data": {
-            "id": "exp_68653e57ec7841.89446548"
-        },
-        "timestamp": 1751636197,
-        "status": "completed",
-        "processed_at": 1751636197
-    },
-    {
-        "id": "expop_6867d8f71b0bf2.42365065",
+        "id": "expop_686950756aa159.58714322",
         "action": "update_expense",
         "data": {
-            "id": "exp_68653a82e5bc02.05300766",
-            "content": "C\u01a1m",
-            "amount": 500000,
-            "payer": "Duy"
+            "id": "exp_68653e3868e1b6.85408123",
+            "content": "Gaf",
+            "amount": 7600000,
+            "payer": "Trang"
         },
-        "timestamp": 1751636215,
+        "timestamp": 1751732341,
         "status": "completed",
-        "processed_at": 1751636215
-    },
-    {
-        "id": "expop_6867d90dbc8c05.27440354",
-        "action": "delete_expense",
-        "data": {
-            "id": "exp_68653e480a5403.93798670"
-        },
-        "timestamp": 1751636237,
-        "status": "completed",
-        "processed_at": 1751636237
+        "processed_at": 1751732341
     }
 ]

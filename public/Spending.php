@@ -877,14 +877,21 @@ $cache_bust = time();
                     <label for="filter-payer" class="filter-label">
                         <i class="fas fa-user"></i> Người chi trả
                     </label>
+                    <?php
+                        // Read members from data/member.json
+                        $membersFile = __DIR__ . '/data/member.json';
+                        $members = [];
+                        if (file_exists($membersFile)) {
+                            $json = file_get_contents($membersFile);
+                            $members = json_decode($json, true);
+                            if (!is_array($members)) $members = [];
+                        }
+                    ?>
                     <select id="filter-payer" class="filter-select">
                         <option value="">Tất cả</option>
-                        <option value="Hà">Hà</option>
-                        <option value="Phương Anh">Phương Anh</option>
-                        <option value="Trang">Trang</option>
-                        <option value="Duy">Duy</option>
-                        <option value="Việt Anh">Việt Anh</option>
-                        <option value="Nam">Nam</option>
+                        <?php foreach ($members as $member): ?>
+                            <option value="<?= htmlspecialchars($member) ?>"><?= htmlspecialchars($member) ?></option>
+                        <?php endforeach; ?>
                     </select>
                 </div>
                 <div class="filter-group">
@@ -983,14 +990,22 @@ $cache_bust = time();
                         <div id="formatted-amount" class="formatted-amount"></div>
                     </div>
                     <div class="form-group">
+                        <?php
+                            // Read members from data/member.json
+                            $membersFile = __DIR__ . '/data/member.json';
+                            $members = [];
+                            if (file_exists($membersFile)) {
+                                $json = file_get_contents($membersFile);
+                                // Try to decode as JSON, fallback to empty array if fails
+                                $members = json_decode($json, true);
+                                if (!is_array($members)) $members = [];
+                            }
+                        ?>
                         <select id="payer" class="form-select" required>
                             <option value="">Chọn người chi trả</option>
-                            <option value="Hà">Hà</option>
-                            <option value="Phương Anh">Phương Anh</option>
-                            <option value="Trang">Trang</option>
-                            <option value="Duy">Duy</option>
-                            <option value="Việt Anh">Việt Anh</option>
-                            <option value="Nam">Nam</option>
+                            <?php foreach ($members as $member): ?>
+                                <option value="<?= htmlspecialchars($member) ?>"><?= htmlspecialchars($member) ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                 </div>
@@ -1018,14 +1033,21 @@ $cache_bust = time();
                         <div id="edit-formatted-amount" class="formatted-amount"></div>
                     </div>
                     <div class="form-group">
+                        <?php
+                            // Read members from data/member.json
+                            $membersFile = __DIR__ . '/data/member.json';
+                            $members = [];
+                            if (file_exists($membersFile)) {
+                                $json = file_get_contents($membersFile);
+                                $members = json_decode($json, true);
+                                if (!is_array($members)) $members = [];
+                            }
+                        ?>
                         <select id="edit-payer" class="form-select" required>
                             <option value="">Chọn người chi trả</option>
-                            <option value="Hà">Hà</option>
-                            <option value="Phương Anh">Phương Anh</option>
-                            <option value="Trang">Trang</option>
-                            <option value="Duy">Duy</option>
-                            <option value="Việt Anh">Việt Anh</option>
-                            <option value="Nam">Nam</option>
+                            <?php foreach ($members as $member): ?>
+                                <option value="<?= htmlspecialchars($member) ?>"><?= htmlspecialchars($member) ?></option>
+                            <?php endforeach; ?>
                         </select>
                     </div>
                 </div>

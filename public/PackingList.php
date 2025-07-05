@@ -47,16 +47,24 @@ $cache_bust = time();
         </div>
         
         <!-- Member Selection Modal -->
+        <?php
+        // Read members from data/member.json
+        $members = [];
+        $memberFile = __DIR__ . '/data/member.json';
+        if (file_exists($memberFile)) {
+            $json = file_get_contents($memberFile);
+            $members = json_decode($json, true);
+        }
+        ?>
         <div id="member-select-modal" class="member-select-modal">
             <h3>Chọn Thành Viên</h3>
             <select id="member" class="member-select">
                 <option value="">Báo Danh</option>
-                <option value="Hà">Hà</option>
-                <option value="Phương Anh">Phương Anh</option>
-                <option value="Trang">Trang</option>
-                <option value="Duy">Duy</option>
-                <option value="Việt Anh">Việt Anh</option>
-                <option value="Nam">Nam</option>
+                <?php if (!empty($members) && is_array($members)): ?>
+                    <?php foreach ($members as $member): ?>
+                        <option value="<?= htmlspecialchars($member) ?>"><?= htmlspecialchars($member) ?></option>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </select>
             <button id="select-member-btn" class="btn btn-primary" style="width: 100%;">Chọn</button>
         </div>

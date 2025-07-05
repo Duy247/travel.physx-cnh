@@ -489,7 +489,7 @@
 
 .member-select-modal {
     position: fixed;
-    bottom: 90px;
+    bottom: 180px;
     right: 20px;
     background-color: white;
     border-radius: 10px;

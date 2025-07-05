@@ -1,0 +1,41 @@
+# Protect sensitive files
+<FilesMatch "^(admin\.php|includes/admin_security\.php)$">
+  # Apache 2.4+
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  
+  # Apache 2.2
+  <IfModule !mod_authz_core.c>
+    Order deny,allow
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+# Disable directory browsing
+Options -Indexes
+
+# Protect .htaccess files
+<Files ~ "^\.ht">
+  # Apache 2.4+
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  
+  # Apache 2.2
+  <IfModule !mod_authz_core.c>
+    Order deny,allow
+    Deny from all
+  </IfModule>
+</Files>
+
+# Prevent access to PHP files from public folders except index.php
+<FilesMatch "\.php$">
+  <IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_URI} ^/public/
+    RewriteCond %{REQUEST_URI} !^/public/index\.php
+    RewriteCond %{REQUEST_URI} !^/public/api/
+    RewriteRule .* - [F,L]
+  </IfModule>
+</FilesMatch>
