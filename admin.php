@@ -82,7 +82,7 @@ if (isset($_SESSION['admin_authenticated']) && $_SESSION['admin_authenticated'] 
             font-weight: 500;
         }
         input[type="password"] {
-            width: 100%;
+            width: 90%;
             padding: 1rem;
             background: rgba(39, 39, 42, 0.8);
             border: 1px solid rgba(255, 255, 255, 0.2);
