@@ -1,18 +1,19 @@
 <?php
+// Start output buffering to prevent "headers already sent" errors
+ob_start();
+
 // Include security middleware and password manager
 require_once __DIR__ . '/includes/admin_security.php';
 require_once __DIR__ . '/includes/password_manager.php';
 
-// Check if the script is accessed directly
-if (count(get_included_files()) <= 1) {
-    // Direct access - require password
-    session_start();
+// Always perform authentication check for this file
+session_start();
 
-    // Check if user is already authenticated
-    $isAuthenticated = false;
-    if (isset($_SESSION['admin_authenticated']) && $_SESSION['admin_authenticated'] === true) {
-        $isAuthenticated = true;
-    }
+// Check if user is already authenticated
+$isAuthenticated = false;
+if (isset($_SESSION['admin_authenticated']) && $_SESSION['admin_authenticated'] === true) {
+    $isAuthenticated = true;
+}
 
     // Process login attempt
     if (isset($_POST['password'])) {
@@ -148,7 +149,6 @@ if (count(get_included_files()) <= 1) {
         <?php
         exit;
     }
-}
 ?>
 
 <!DOCTYPE html>
@@ -619,3 +619,7 @@ if (count(get_included_files()) <= 1) {
     </script>
 </body>
 </html>
+<?php
+// Flush the output buffer at the end of the file
+ob_end_flush();
+?>

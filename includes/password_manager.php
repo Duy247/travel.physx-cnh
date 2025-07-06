@@ -60,5 +60,33 @@ function isValidPassword($password) {
     }
     
     // Fall back to date-based password
-    return $password === getTodayPassword();
+    $todayPassword = getTodayPassword();
+    
+    // Also accept the password with or without leading zeros for day/month
+    $cleanedPassword = $password;
+    $cleanedToday = $todayPassword;
+    
+    // Try to standardize format by removing potential spaces or non-alphanumeric characters
+    $cleanedPassword = trim($cleanedPassword);
+    
+    // Check for exact match first
+    if ($password === $todayPassword) {
+        return true;
+    }
+    
+    // Create an alternative format with single digits for day/month when < 10
+    $dateParts = explode('/', $todayPassword);
+    if (count($dateParts) === 3) {
+        $day = intval($dateParts[0]);
+        $month = intval($dateParts[1]);
+        $year = $dateParts[2];
+        
+        // Alternative format with no leading zeros
+        $altFormat = "{$day}/{$month}/{$year}";
+        if ($password === $altFormat) {
+            return true;
+        }
+    }
+    
+    return false;
 }
