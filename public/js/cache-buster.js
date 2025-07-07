@@ -75,7 +75,7 @@
             caches.keys().then(function(names) {
                 names.forEach(function(name) {
                     // Only clear caches that might contain HTML/CSS/JS
-                    if (name.includes('html') || name.includes('css') || name.includes('js') || name.includes('api')) {
+                    if (name.includes('html') || name.includes('css') || name.includes('js') || name.includes('api') || name.includes('password.json')) {
                         caches.delete(name);
                     }
                 });
