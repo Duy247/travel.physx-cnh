@@ -1452,26 +1452,28 @@ $cache_bust = time();
             // Calculate the total amount spent by each person
             const payerAmounts = {};
             let totalAmount = 0;
-            let peopleCount = 0;
-            
+
             expensesToBalance.forEach(expense => {
                 const amount = parseFloat(expense.amount);
                 totalAmount += amount;
-                
+
                 if (payerAmounts[expense.payer]) {
                     payerAmounts[expense.payer] += amount;
                 } else {
                     payerAmounts[expense.payer] = amount;
-                    peopleCount++;
                 }
             });
+
+            // Count unique payers only
+            const uniquePayers = Object.keys(payerAmounts);
+            const peopleCount = uniquePayers.length;
 
             // Calculate the average amount per person
             const averageAmount = totalAmount / peopleCount;
 
             // Calculate how much each person should pay or receive
             const balances = {};
-            for (const payer in payerAmounts) {
+            for (const payer of uniquePayers) {
                 balances[payer] = payerAmounts[payer] - averageAmount;
             }
 
