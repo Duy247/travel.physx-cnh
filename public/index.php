@@ -21,6 +21,7 @@ $cache_bust = time();
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Travel PhysX CNH</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico?v=<?php echo $cache_bust; ?>">
     <link rel="stylesheet" href="css/style.css?v=<?php echo $cache_bust; ?>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">

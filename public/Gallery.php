@@ -23,6 +23,7 @@ $home_link = "index.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Thư Viện Ảnh</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico?v=<?php echo $cache_bust; ?>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <script src="js/cache-buster.js?v=<?php echo $cache_bust; ?>"></script>
     <script>
