@@ -72,7 +72,7 @@ $cache_bust = time();
                         <a href="Info.php" class="nav-item" data-nav="info">
                             <span>Emergency Info</span>
                         </a>
-                        <a href="Gallery.php" class="nav-item" data-nav="gallery">
+                        <a href="https://photos.physx-cnh.com" class="nav-item" data-nav="gallery">
                             <span>Gallery</span>
                         </a>
                         <div class="nav-spacer-bottom"></div>
