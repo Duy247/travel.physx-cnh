@@ -3,7 +3,14 @@
         "date": "30/07",
         "location": "HÀ NỘI",
         "map": "",
-        "time": "20:00",
+        "time": "15:00",
+        "task": "Đội Hà Nội: Di chuyển ra bến xe Yên Nghĩa"
+    },
+    {
+        "date": "30/07",
+        "location": "HÀ NỘI",
+        "map": "",
+        "time": "16:00",
         "task": "Đội Hà Nội: Lên xe giường nằm đi Huế"
     },
     {
@@ -290,7 +297,7 @@
         "date": "",
         "location": "",
         "map": "",
-        "time": "10:30",
+        "time": "13:30",
         "task": "Đội MB: Bay Đà Nẵng → Hà Nội"
     },
     {
