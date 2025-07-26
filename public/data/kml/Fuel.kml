@@ -2,12 +2,12 @@
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
 <Document id="1rrV-ftble_DrXT3_9l5g6Wafftz88SGN">
 	<name>Fuel</name>
-	<gx:CascadingStyle kml:id="__managed_style_223F09D6A032104CCB8F">
+	<gx:CascadingStyle kml:id="__managed_style_2CBB703D39397C92EFB3">
 		<Style>
 			<IconStyle>
 				<scale>1.2</scale>
 				<Icon>
-					<href>https://earth.google.com/earth/rpc/cc/icon?color=000000&amp;id=2000&amp;scale=4</href>
+					<href>https://earth.google.com/earth/document/icon?color=f57c00&amp;id=2000&amp;scale=4</href>
 				</Icon>
 				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
 			</IconStyle>
@@ -25,11 +25,11 @@
 			</BalloonStyle>
 		</Style>
 	</gx:CascadingStyle>
-	<gx:CascadingStyle kml:id="__managed_style_12EBA3AD6E32104CCB8F">
+	<gx:CascadingStyle kml:id="__managed_style_1CC74385C1397C92EFB3">
 		<Style>
 			<IconStyle>
 				<Icon>
-					<href>https://earth.google.com/earth/rpc/cc/icon?color=000000&amp;id=2000&amp;scale=4</href>
+					<href>https://earth.google.com/earth/document/icon?color=f57c00&amp;id=2000&amp;scale=4</href>
 				</Icon>
 				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
 			</IconStyle>
@@ -47,149 +47,214 @@
 			</BalloonStyle>
 		</Style>
 	</gx:CascadingStyle>
-	<StyleMap id="__managed_style_0F40FDE18C32104CCB8F">
+	<StyleMap id="__managed_style_012D324DB0397C92EFB3">
 		<Pair>
 			<key>normal</key>
-			<styleUrl>#__managed_style_12EBA3AD6E32104CCB8F</styleUrl>
+			<styleUrl>#__managed_style_1CC74385C1397C92EFB3</styleUrl>
 		</Pair>
 		<Pair>
 			<key>highlight</key>
-			<styleUrl>#__managed_style_223F09D6A032104CCB8F</styleUrl>
+			<styleUrl>#__managed_style_2CBB703D39397C92EFB3</styleUrl>
 		</Pair>
 	</StyleMap>
-	<gx:CascadingStyle kml:id="__managed_style_5BEF6A0BB632104C9421">
-		<Style>
-			<IconStyle>
-				<scale>1.2</scale>
-				<Icon>
-					<href>https://earth.google.com/earth/rpc/cc/icon?color=66bb6a&amp;id=2000&amp;scale=4</href>
-				</Icon>
-				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
-			</IconStyle>
-			<LabelStyle>
-			</LabelStyle>
-			<LineStyle>
-				<color>ff2dc0fb</color>
-				<width>6</width>
-			</LineStyle>
-			<PolyStyle>
-				<color>40ffffff</color>
-			</PolyStyle>
-			<BalloonStyle>
-				<gx:displayMode>card</gx:displayMode>
-			</BalloonStyle>
-		</Style>
-	</gx:CascadingStyle>
-	<gx:CascadingStyle kml:id="__managed_style_41709FBED932104C9421">
-		<Style>
-			<IconStyle>
-				<Icon>
-					<href>https://earth.google.com/earth/rpc/cc/icon?color=66bb6a&amp;id=2000&amp;scale=4</href>
-				</Icon>
-				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
-			</IconStyle>
-			<LabelStyle>
-			</LabelStyle>
-			<LineStyle>
-				<color>ff2dc0fb</color>
-				<width>4</width>
-			</LineStyle>
-			<PolyStyle>
-				<color>40ffffff</color>
-			</PolyStyle>
-			<BalloonStyle>
-				<gx:displayMode>card</gx:displayMode>
-			</BalloonStyle>
-		</Style>
-	</gx:CascadingStyle>
-	<StyleMap id="__managed_style_374B83348B32104C9421">
-		<Pair>
-			<key>normal</key>
-			<styleUrl>#__managed_style_41709FBED932104C9421</styleUrl>
-		</Pair>
-		<Pair>
-			<key>highlight</key>
-			<styleUrl>#__managed_style_5BEF6A0BB632104C9421</styleUrl>
-		</Pair>
-	</StyleMap>
-	<Placemark id="0CADC731853204F9EEA3">
-		<name>Khách Sạn Sun - Sea</name>
-		<gx:mid>/g/11b67txbl1</gx:mid>
-		<gx:fid>0x314a4435a50eaf5d:0xf353e685962c8413</gx:fid>
+	<Placemark id="0547DB0A1C397C92E39C">
+		<name>Petrolimex Gas Station Store No.01</name>
+		<gx:mid>/g/1tfhcx87</gx:mid>
+		<gx:fid>0x3141a16a526c665d:0x5e3358c1b55689c3</gx:fid>
 		<LookAt>
-			<longitude>107.0504225</longitude>
-			<latitude>20.7255022</latitude>
+			<longitude>107.5989866</longitude>
+			<latitude>16.4593681</latitude>
 			<altitude>0</altitude>
 			<heading>0</heading>
 			<tilt>0</tilt>
 			<gx:fovy>35</gx:fovy>
-			<range>980.5036148070611</range>
+			<range>1008.268399078502</range>
 			<altitudeMode>relativeToGround</altitudeMode>
 		</LookAt>
-		<styleUrl>#__managed_style_374B83348B32104C9421</styleUrl>
+		<styleUrl>#__managed_style_012D324DB0397C92EFB3</styleUrl>
 		<Point>
 			<altitudeMode>relativeToGround</altitudeMode>
-			<coordinates>107.0504225,20.7255022,0</coordinates>
+			<coordinates>107.5989866,16.4593681,0</coordinates>
 		</Point>
 	</Placemark>
-	<Placemark id="0EA79D70BE32104CC3AC">
-		<name>PVOIL CHXD CÁT BÀ</name>
-		<gx:mid>/g/11c6q70_4_</gx:mid>
-		<gx:fid>0x314a44370b1250f7:0xf4e8f2b08462b9ca</gx:fid>
+	<Placemark id="0F0CB2971A397C9308AC">
+		<name>Petrolimex Gas Station Store No.03</name>
+		<gx:mid>/g/1thf60__</gx:mid>
+		<gx:fid>0x3141a16a526c665d:0x617b57acd6ae4415</gx:fid>
 		<LookAt>
-			<longitude>107.0442959</longitude>
-			<latitude>20.7253927</latitude>
+			<longitude>107.6013077</longitude>
+			<latitude>16.4804572</latitude>
 			<altitude>0</altitude>
 			<heading>0</heading>
 			<tilt>0</tilt>
 			<gx:fovy>35</gx:fovy>
-			<range>980.5044039588612</range>
+			<range>1008.146012386491</range>
 			<altitudeMode>relativeToGround</altitudeMode>
 		</LookAt>
-		<styleUrl>#__managed_style_0F40FDE18C32104CCB8F</styleUrl>
+		<styleUrl>#__managed_style_012D324DB0397C92EFB3</styleUrl>
 		<Point>
 			<altitudeMode>relativeToGround</altitudeMode>
-			<coordinates>107.0442959,20.7253927,0</coordinates>
+			<coordinates>107.6013567,16.48046,0</coordinates>
 		</Point>
 	</Placemark>
-	<Placemark id="0D2936AF0432104CEAD4">
-		<name>Petrolimex Gas Station Store No.25</name>
-		<gx:mid>/g/11vf8cj07k</gx:mid>
-		<gx:fid>0x314a45847fc265f1:0xfe48e8fd775fbede</gx:fid>
+	<Placemark id="0ECB8980B1397C932B7C">
+		<name>Petrolimex Gas Station Store No.04</name>
+		<gx:mid>/g/1pp2v1pf_</gx:mid>
+		<gx:fid>0x3141a6cc5a8e5457:0xd90186aa32932cf3</gx:fid>
 		<LookAt>
-			<longitude>107.0463933</longitude>
-			<latitude>20.7321337</latitude>
+			<longitude>107.5706756</longitude>
+			<latitude>16.4680386</latitude>
 			<altitude>0</altitude>
 			<heading>0</heading>
 			<tilt>0</tilt>
 			<gx:fovy>35</gx:fovy>
-			<range>980.4558152626955</range>
+			<range>1008.218099546067</range>
 			<altitudeMode>relativeToGround</altitudeMode>
 		</LookAt>
-		<styleUrl>#__managed_style_0F40FDE18C32104CCB8F</styleUrl>
+		<styleUrl>#__managed_style_012D324DB0397C92EFB3</styleUrl>
 		<Point>
 			<altitudeMode>relativeToGround</altitudeMode>
-			<coordinates>107.0463933,20.7321337,0</coordinates>
+			<coordinates>107.5706729,16.468042,0</coordinates>
 		</Point>
 	</Placemark>
-	<Placemark id="0E40063E9832104D0CF6">
-		<name>Công Ty Tnhh Kinh Doanh Xăng Dầu Thái Nguyên</name>
-		<gx:mid>/g/11b699l5wg</gx:mid>
-		<gx:fid>0x314a444b05942f6b:0x260a4df6065d4e7f</gx:fid>
+	<Placemark id="054C7C49C4397C934404">
+		<name>Petrolimex Gas Station Store No.05</name>
+		<gx:mid>/g/11g6bg3yxh</gx:mid>
+		<gx:fid>0x3141a6dfb8acad51:0x1ef369b88befa7ab</gx:fid>
 		<LookAt>
-			<longitude>107.0514732</longitude>
-			<latitude>20.7310757</latitude>
+			<longitude>107.5523125</longitude>
+			<latitude>16.4828125</latitude>
 			<altitude>0</altitude>
 			<heading>0</heading>
 			<tilt>0</tilt>
 			<gx:fovy>35</gx:fovy>
-			<range>980.4634422292083</range>
+			<range>1008.132334551143</range>
 			<altitudeMode>relativeToGround</altitudeMode>
 		</LookAt>
-		<styleUrl>#__managed_style_0F40FDE18C32104CCB8F</styleUrl>
+		<styleUrl>#__managed_style_012D324DB0397C92EFB3</styleUrl>
 		<Point>
 			<altitudeMode>relativeToGround</altitudeMode>
-			<coordinates>107.0514732,20.7310757,0</coordinates>
+			<coordinates>107.5523259,16.4828513,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="04629C2A4E397C936D21">
+		<name>Petrolimex Gas Station Store No.09</name>
+		<gx:mid>/g/1hc33dqgy</gx:mid>
+		<gx:fid>0x3141a1565ccfdbf1:0x6ea601e7590f0975</gx:fid>
+		<LookAt>
+			<longitude>107.5818285</longitude>
+			<latitude>16.4390547</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1008.386142667383</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_012D324DB0397C92EFB3</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.5818383,16.4390193,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="006BD03E7C397CBB5773">
+		<name>Petrolimex Gas Station Store No.15</name>
+		<gx:mid>/g/1tgw_hq1</gx:mid>
+		<gx:fid>0x3142177bfa3791a3:0x278979c964291bdd</gx:fid>
+		<LookAt>
+			<longitude>108.2444182</longitude>
+			<latitude>16.0555347</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1010.583075259199</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_012D324DB0397C92EFB3</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>108.2444182,16.0555347,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0449AEB816397CBBA5D0">
+		<name>Petrolimex</name>
+		<gx:mid>/g/1tdl85vz</gx:mid>
+		<gx:fid>0x314219cf6c054531:0x1c5753643843920a</gx:fid>
+		<LookAt>
+			<longitude>108.2219098</longitude>
+			<latitude>16.0538203</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1010.592784568332</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_012D324DB0397C92EFB3</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>108.2219286,16.0538022,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="044BBAA34B397CBCA27B">
+		<name>Petrolimex Gas Station Store No.08</name>
+		<gx:mid>/g/11fklfpp3k</gx:mid>
+		<gx:fid>0x3142190fb0141d01:0xc0007947a16d72f5</gx:fid>
+		<LookAt>
+			<longitude>108.2144459</longitude>
+			<latitude>16.073892</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1010.479048593333</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_012D324DB0397C92EFB3</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>108.2143851,16.0739969,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="069DE49220397CBCF88B">
+		<name>Petrolimex Gas Station Store No. 06</name>
+		<gx:mid>/g/11hbg8t6rp</gx:mid>
+		<gx:fid>0x3142183c80886149:0x4e344e9ab964a3fd</gx:fid>
+		<LookAt>
+			<longitude>108.2229753</longitude>
+			<latitude>16.0810312</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1010.438561642762</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_012D324DB0397C92EFB3</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>108.2229238,16.0810621,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="010D47AA45397CBD6576">
+		<name>Petrolimex</name>
+		<gx:mid>/g/11ckvl6312</gx:mid>
+		<gx:fid>0x31421820ed8b23a1:0x90fe140702374596</gx:fid>
+		<LookAt>
+			<longitude>108.2362301</longitude>
+			<latitude>16.081787</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1010.43427443606</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_012D324DB0397C92EFB3</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>108.2362259,16.0817906,0</coordinates>
 		</Point>
 	</Placemark>
 </Document>

@@ -2,12 +2,12 @@
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
 <Document id="1vRiel5w2T--eehbniB1eFaoxpxHxMtJg">
 	<name>Touring</name>
-	<gx:CascadingStyle kml:id="__managed_style_22C5367DBD3206AE59A5">
+	<gx:CascadingStyle kml:id="__managed_style_22A5F4FF2A397CA273DE">
 		<Style>
 			<IconStyle>
-				<scale>1.2</scale>
+				<scale>1.8</scale>
 				<Icon>
-					<href>https://earth.google.com/earth/rpc/cc/icon?color=66bb6a&amp;id=2000&amp;scale=4</href>
+					<href>https://earth.google.com/earth/document/icon?color=388e3c&amp;id=2000&amp;scale=4</href>
 				</Icon>
 				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
 			</IconStyle>
@@ -25,66 +25,80 @@
 			</BalloonStyle>
 		</Style>
 	</gx:CascadingStyle>
-	<gx:CascadingStyle kml:id="__managed_style_1BF73A64323206AE59A5">
-		<Style>
-			<IconStyle>
-				<Icon>
-					<href>https://earth.google.com/earth/rpc/cc/icon?color=66bb6a&amp;id=2000&amp;scale=4</href>
-				</Icon>
-				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
-			</IconStyle>
-			<LabelStyle>
-			</LabelStyle>
-			<LineStyle>
-				<color>ff2dc0fb</color>
-				<width>4</width>
-			</LineStyle>
-			<PolyStyle>
-				<color>40ffffff</color>
-			</PolyStyle>
-			<BalloonStyle>
-				<gx:displayMode>card</gx:displayMode>
-			</BalloonStyle>
-		</Style>
-	</gx:CascadingStyle>
-	<gx:CascadingStyle kml:id="__managed_style_18F315DE6C3206AE599F">
-		<Style>
-			<IconStyle>
-				<Icon>
-					<href>https://earth.google.com/earth/rpc/cc/icon?color=42a5f5&amp;id=2000&amp;scale=4</href>
-				</Icon>
-				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
-			</IconStyle>
-			<LabelStyle>
-			</LabelStyle>
-			<LineStyle>
-				<color>ff2dc0fb</color>
-				<width>4</width>
-			</LineStyle>
-			<PolyStyle>
-				<color>40ffffff</color>
-			</PolyStyle>
-			<BalloonStyle>
-				<gx:displayMode>card</gx:displayMode>
-			</BalloonStyle>
-		</Style>
-	</gx:CascadingStyle>
-	<StyleMap id="__managed_style_0E384644543206AE59A5">
+	<StyleMap id="__managed_style_04306446EB397CA273DE">
 		<Pair>
 			<key>normal</key>
-			<styleUrl>#__managed_style_1BF73A64323206AE59A5</styleUrl>
+			<styleUrl>#__managed_style_1B171C1794397CA273DE</styleUrl>
 		</Pair>
 		<Pair>
 			<key>highlight</key>
-			<styleUrl>#__managed_style_22C5367DBD3206AE59A5</styleUrl>
+			<styleUrl>#__managed_style_22A5F4FF2A397CA273DE</styleUrl>
 		</Pair>
 	</StyleMap>
-	<gx:CascadingStyle kml:id="__managed_style_2F5643824E3206AE599F">
+	<gx:CascadingStyle kml:id="__managed_style_281B1579EE397C951D34">
+		<styleUrl>https://earth.google.com/balloon_components/base/1.1.0.0/none_template.kml#main</styleUrl>
+		<Style>
+			<IconStyle>
+				<scale>1.8</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=388e3c&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>6</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<displayMode>hide</displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_1A5B3E4854397C951D34">
+		<styleUrl>https://earth.google.com/balloon_components/base/1.1.0.0/none_template.kml#main</styleUrl>
+		<Style>
+			<IconStyle>
+				<scale>1.5</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=388e3c&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<displayMode>hide</displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_0A409727B9397C951D34">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#__managed_style_1A5B3E4854397C951D34</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#__managed_style_281B1579EE397C951D34</styleUrl>
+		</Pair>
+	</StyleMap>
+	<gx:CascadingStyle kml:id="__managed_style_2B365B3618397C8494C1">
 		<Style>
 			<IconStyle>
 				<scale>1.2</scale>
 				<Icon>
-					<href>https://earth.google.com/earth/rpc/cc/icon?color=42a5f5&amp;id=2000&amp;scale=4</href>
+					<href>https://earth.google.com/earth/document/icon?color=388e3c&amp;id=2000&amp;scale=4</href>
 				</Icon>
 				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
 			</IconStyle>
@@ -102,94 +116,439 @@
 			</BalloonStyle>
 		</Style>
 	</gx:CascadingStyle>
-	<StyleMap id="__managed_style_0FD11E37973206AE599F">
+	<gx:CascadingStyle kml:id="__managed_style_1B171C1794397CA273DE">
+		<Style>
+			<IconStyle>
+				<scale>1.5</scale>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=388e3c&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<gx:displayMode>card</gx:displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<gx:CascadingStyle kml:id="__managed_style_1EE453A3C8397C8494C1">
+		<Style>
+			<IconStyle>
+				<Icon>
+					<href>https://earth.google.com/earth/document/icon?color=388e3c&amp;id=2000&amp;scale=4</href>
+				</Icon>
+				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
+			</IconStyle>
+			<LabelStyle>
+			</LabelStyle>
+			<LineStyle>
+				<color>ff2dc0fb</color>
+				<width>4</width>
+			</LineStyle>
+			<PolyStyle>
+				<color>40ffffff</color>
+			</PolyStyle>
+			<BalloonStyle>
+				<gx:displayMode>card</gx:displayMode>
+			</BalloonStyle>
+		</Style>
+	</gx:CascadingStyle>
+	<StyleMap id="__managed_style_0D4697C21F397C8494C1">
 		<Pair>
 			<key>normal</key>
-			<styleUrl>#__managed_style_18F315DE6C3206AE599F</styleUrl>
+			<styleUrl>#__managed_style_1EE453A3C8397C8494C1</styleUrl>
 		</Pair>
 		<Pair>
 			<key>highlight</key>
-			<styleUrl>#__managed_style_2F5643824E3206AE599F</styleUrl>
+			<styleUrl>#__managed_style_2B365B3618397C8494C1</styleUrl>
 		</Pair>
 	</StyleMap>
-	<Placemark id="09131FEF333204F627A2">
-		<name>Làng Chài Cái Bèo (Homestay &amp; Restaurant)</name>
-		<gx:mid>/g/11vwdwgrv4</gx:mid>
-		<gx:fid>0x314a4556f23f0535:0xdd88a8e2ebaa6d92</gx:fid>
+	<Placemark id="0F71F94C32397C9EAB0C">
+		<name>Bến Xe Yên Nghĩa</name>
+		<gx:mid>/g/1v_n8_l0</gx:mid>
+		<gx:fid>0x313452f27f93ba0b:0x2608774eb9cb74ee</gx:fid>
 		<LookAt>
-			<longitude>107.0617871</longitude>
-			<latitude>20.7411015</latitude>
+			<longitude>105.7476529</longitude>
+			<latitude>20.9496402</latitude>
 			<altitude>0</altitude>
 			<heading>0</heading>
 			<tilt>0</tilt>
 			<gx:fovy>35</gx:fovy>
-			<range>980.3911532020873</range>
+			<range>978.8801774955708</range>
 			<altitudeMode>relativeToGround</altitudeMode>
 		</LookAt>
-		<styleUrl>#__managed_style_0FD11E37973206AE599F</styleUrl>
+		<styleUrl>#__managed_style_0D4697C21F397C8494C1</styleUrl>
 		<Point>
 			<altitudeMode>relativeToGround</altitudeMode>
-			<coordinates>107.0602218009044,20.73989208569946,0</coordinates>
+			<coordinates>105.7476529,20.9496402,0</coordinates>
 		</Point>
 	</Placemark>
-	<Placemark id="095C4550D53204F6F063">
-		<name>Lan Ha Bay</name>
-		<gx:mid>/g/1q6h_dd_h</gx:mid>
-		<gx:fid>0x314a45b5d29a9b11:0x4dd4f928dad786a9</gx:fid>
+	<Placemark id="008D3B2B9B397C83F029">
+		<name>Le Robinet Villa</name>
+		<gx:mid>/g/11jt4h0l3j</gx:mid>
+		<gx:fid>0x3141a16ad971048d:0xf98a556eaf860219</gx:fid>
 		<LookAt>
-			<longitude>107.0423563</longitude>
-			<latitude>20.7349275</latitude>
+			<longitude>107.5755766</longitude>
+			<latitude>16.4662362</latitude>
 			<altitude>0</altitude>
 			<heading>0</heading>
 			<tilt>0</tilt>
 			<gx:fovy>35</gx:fovy>
-			<range>10870.63337830978</range>
+			<range>1008.228557758544</range>
 			<altitudeMode>relativeToGround</altitudeMode>
 		</LookAt>
-		<styleUrl>#__managed_style_0FD11E37973206AE599F</styleUrl>
+		<styleUrl>#__managed_style_0A409727B9397C951D34</styleUrl>
 		<Point>
 			<altitudeMode>relativeToGround</altitudeMode>
-			<coordinates>107.0465615,20.7237207,0</coordinates>
+			<coordinates>107.5755766,16.4662362,0</coordinates>
 		</Point>
 	</Placemark>
-	<Placemark id="048BBE84EF3204F96286">
-		<name>đảo Thoi Vạn Bội</name>
-		<gx:mid>/g/1q6jgr_g8</gx:mid>
-		<gx:fid>0x314a450b5d947ba1:0xd51d0c3d3c095401</gx:fid>
+	<Placemark id="0F8C25B530397C852D34">
+		<name>Meridian Gate</name>
+		<gx:mid>/m/0gtwzxc</gx:mid>
+		<gx:fid>0x3141a133c94c1643:0x43fd52385dcfacbf</gx:fid>
 		<LookAt>
-			<longitude>107.0767236</longitude>
-			<latitude>20.7532244</latitude>
+			<longitude>107.5791741</longitude>
+			<latitude>16.4676928</latitude>
 			<altitude>0</altitude>
 			<heading>0</heading>
 			<tilt>0</tilt>
 			<gx:fovy>35</gx:fovy>
-			<range>2182.123815389093</range>
+			<range>1008.220106094324</range>
 			<altitudeMode>relativeToGround</altitudeMode>
 		</LookAt>
-		<styleUrl>#__managed_style_0FD11E37973206AE599F</styleUrl>
+		<styleUrl>#__managed_style_0D4697C21F397C8494C1</styleUrl>
 		<Point>
 			<altitudeMode>relativeToGround</altitudeMode>
-			<coordinates>107.0764597,20.7527612,0</coordinates>
+			<coordinates>107.5791741,16.4676928,0</coordinates>
 		</Point>
 	</Placemark>
-	<Placemark id="0CADC731853204F9EEA3">
-		<name>Khách Sạn Sun - Sea</name>
-		<gx:mid>/g/11b67txbl1</gx:mid>
-		<gx:fid>0x314a4435a50eaf5d:0xf353e685962c8413</gx:fid>
+	<Placemark id="0894DCB5C8397C942BA0">
+		<name>Quoc Hoc - Hue High School For The Gifted</name>
+		<gx:mid>/m/04jcp9c</gx:mid>
+		<gx:fid>0x3141a137de72dcfd:0x8b5ead90ff77bf71</gx:fid>
 		<LookAt>
-			<longitude>107.0504225</longitude>
-			<latitude>20.7255022</latitude>
+			<longitude>107.5833575</longitude>
+			<latitude>16.4600447</latitude>
 			<altitude>0</altitude>
 			<heading>0</heading>
 			<tilt>0</tilt>
 			<gx:fovy>35</gx:fovy>
-			<range>980.5036148070611</range>
+			<range>1008.264474878591</range>
 			<altitudeMode>relativeToGround</altitudeMode>
 		</LookAt>
-		<styleUrl>#__managed_style_0E384644543206AE59A5</styleUrl>
+		<styleUrl>#__managed_style_0D4697C21F397C8494C1</styleUrl>
 		<Point>
 			<altitudeMode>relativeToGround</altitudeMode>
-			<coordinates>107.0504225,20.7255022,0</coordinates>
+			<coordinates>107.5833575,16.4600447,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0F2F068236397C9586FC">
+		<name>Ho Quyen</name>
+		<gx:mid>/g/121p7s_g</gx:mid>
+		<gx:fid>0x3141a6a3111fae21:0xee37c2f4fe7f901a</gx:fid>
+		<LookAt>
+			<longitude>107.5545671</longitude>
+			<latitude>16.4484919</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1008.33145861434</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0D4697C21F397C8494C1</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.5545671,16.4484919,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0612499DF3397C980469">
+		<name>Thuy Xuan Incense-making Village</name>
+		<gx:mid>/g/11tx_sks5k</gx:mid>
+		<gx:fid>0x3141a553ec5e01d7:0xf9a3ba0f71453316</gx:fid>
+		<LookAt>
+			<longitude>107.5622345</longitude>
+			<latitude>16.4355016</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1008.406723414493</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0D4697C21F397C8494C1</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.5622748,16.4355198,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0D1C515A57397C99E486">
+		<name>Thuyền Rồng Huế</name>
+		<gx:mid>/g/11s55_v0b1</gx:mid>
+		<gx:fid>0x3141a13eced5c141:0xacdf4f404e36f095</gx:fid>
+		<LookAt>
+			<longitude>107.5757673</longitude>
+			<latitude>16.4593388</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1008.268569011555</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0D4697C21F397C8494C1</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.5757673,16.4593388,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0762289685397C9A838E">
+		<name>Stage of Flag</name>
+		<gx:mid>/g/121_js5v</gx:mid>
+		<gx:fid>0x3141a13158c3856d:0x322258e5f7ad1248</gx:fid>
+		<LookAt>
+			<longitude>107.5802895</longitude>
+			<latitude>16.4662865</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1008.228265913576</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0D4697C21F397C8494C1</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.5802895,16.4662865,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="00DCF659E3397C9AEA9E">
+		<name>Hue Railway Station</name>
+		<gx:mid>/m/02qgt1q</gx:mid>
+		<gx:fid>0x3141a14bb74df91f:0xd09de696a463d02f</gx:fid>
+		<LookAt>
+			<longitude>107.5780693</longitude>
+			<latitude>16.456436</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1008.285403131538</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0D4697C21F397C8494C1</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.5780693,16.456436,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="02CB5EA95B397CA1E2D7">
+		<name>GA ĐÀ NẴNG</name>
+		<gx:mid>/g/11qnb2glkx</gx:mid>
+		<gx:fid>0x314219fb1e7f7191:0x86f207e3bce38fe5</gx:fid>
+		<LookAt>
+			<longitude>108.2093068</longitude>
+			<latitude>16.07159949999999</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1010.492045887699</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0D4697C21F397C8494C1</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>108.2093025,16.071621,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0702A8F27D397CA25A90">
+		<name>Khách Sạn Le Indochina Hotel &amp; Beach Đà Nẵng</name>
+		<gx:mid>/g/11p6s7109l</gx:mid>
+		<gx:fid>0x314217eef79f1e05:0xe4ea9c35ed53707</gx:fid>
+		<LookAt>
+			<longitude>108.2472358</longitude>
+			<latitude>16.040547</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1010.667922811988</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_04306446EB397CA273DE</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>108.2472358,16.040547,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0646E6B9B0397CA46694">
+		<name>Ban Co Peak</name>
+		<gx:mid>/g/11bbwpgtdk</gx:mid>
+		<gx:fid>0x31423d6e34ee0105:0x69e23a6263ffc6ec</gx:fid>
+		<LookAt>
+			<longitude>108.2719826</longitude>
+			<latitude>16.1189365</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1010.223309677271</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0D4697C21F397C8494C1</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>108.2719826,16.1189365,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0D9F628D2C397CA52556">
+		<name>Bãi tắm hàng dừa Mỹ Khê</name>
+		<gx:mid>/g/11y5v_nzyz</gx:mid>
+		<gx:fid>0x314217005959ac11:0xcfb8ac37d9cc9d52</gx:fid>
+		<LookAt>
+			<longitude>108.2517088</longitude>
+			<latitude>16.042512</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1010.656802980255</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0D4697C21F397C8494C1</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>108.2517088,16.042512,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0828BEC75A397CA62B74">
+		<name>Hội An</name>
+		<gx:mid>/m/06fbpd</gx:mid>
+		<gx:fid>0x31420dd4e1353a7b:0xae336435edfcca3</gx:fid>
+		<LookAt>
+			<longitude>108.41707305</longitude>
+			<latitude>15.9182921</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>44711.15762221798</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0D4697C21F397C8494C1</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>108.3267487,15.8799241,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="04F581232D397CA6A548">
+		<name>Museum of Trade Ceramics</name>
+		<gx:mid>/m/03m6075</gx:mid>
+		<gx:fid>0x31420e7efb9ee7eb:0xcb737d31aba2e61e</gx:fid>
+		<LookAt>
+			<longitude>108.3295509</longitude>
+			<latitude>15.8772894</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1011.587233610465</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0D4697C21F397C8494C1</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>108.3295509,15.8772894,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0A98F74FF0397CA791A0">
+		<name>Han River Bridge</name>
+		<gx:mid>/m/05q4n12</gx:mid>
+		<gx:fid>0x31421831cd8a36d1:0x384de766f6cc5a4e</gx:fid>
+		<LookAt>
+			<longitude>108.2267961</longitude>
+			<latitude>16.0721501</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1010.488924431114</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0D4697C21F397C8494C1</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>108.2267961,16.0721501,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0FBC89624E397CAA88CF">
+		<name>Han Market</name>
+		<gx:mid>/g/11fwjy0k_q</gx:mid>
+		<gx:fid>0x31421832397ecc0d:0x90b24f8b8cb2873f</gx:fid>
+		<LookAt>
+			<longitude>108.2242217</longitude>
+			<latitude>16.0681959</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1010.511339274992</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0D4697C21F397C8494C1</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>108.2242217,16.0681959,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="010E37AA88397CAAE904">
+		<name>Chợ Cồn Hùng Vương</name>
+		<gx:mid>/g/12xqdc50c</gx:mid>
+		<gx:fid>0x31421835786b0477:0xd597c85313a1dbc4</gx:fid>
+		<LookAt>
+			<longitude>108.2146388</longitude>
+			<latitude>16.0674655</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1010.515479055123</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0D4697C21F397C8494C1</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>108.2146388,16.0674655,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="01B7E013B7397CAB1560">
+		<name>Son Tra Night Market</name>
+		<gx:mid>/g/11gycz_b_2</gx:mid>
+		<gx:fid>0x3142195a335892bd:0x8f53976f3c0fe60</gx:fid>
+		<LookAt>
+			<longitude>108.2319775</longitude>
+			<latitude>16.0616329</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1010.548530756764</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_0D4697C21F397C8494C1</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>108.2319775,16.0616329,0</coordinates>
 		</Point>
 	</Placemark>
 </Document>

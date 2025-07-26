@@ -91,7 +91,7 @@ $cache_bust = time();
         <div class="map-stats-content">
             <div class="map-stats-item">
                 <span class="map-stats-label">Hạng mục:</span>
-                <span class="map-stats-value" id="activeCategory">All Locations</span>
+                <span class="map-stats-value" id="activeCategory">Tour Points</span>
             </div>
             <div class="map-stats-item">
                 <span class="map-stats-label">Tổng vị trí:</span>
@@ -107,10 +107,6 @@ $cache_bust = time();
     <!-- Map Legend -->
     <div class="map-legend show" id="mapLegend">
         <div class="map-legend-title">Chọn Hạng mục</div>
-        <div class="map-legend-item active" data-kml="all">
-            <div class="map-legend-color" style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);"></div>
-            <span>All Locations</span>
-        </div>
         <div class="map-legend-item" data-kml="breakfast">
             <div class="map-legend-color" style="background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);"></div>
             <span>Breakfast</span>
@@ -127,7 +123,7 @@ $cache_bust = time();
             <div class="map-legend-color" style="background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);"></div>
             <span>Coffee</span>
         </div>
-        <div class="map-legend-item" data-kml="tour">
+        <div class="map-legend-item active" data-kml="tour">
             <div class="map-legend-color" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);"></div>
             <span>Tour Points</span>
         </div>

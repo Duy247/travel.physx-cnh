@@ -2,34 +2,12 @@
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
 <Document id="1zWrXVuqMW62MQTZggq9nnpIhfEuaFs5_">
 	<name>Cafe</name>
-	<gx:CascadingStyle kml:id="__managed_style_7FE6494BC33206CDF84E">
-		<Style>
-			<IconStyle>
-				<Icon>
-					<href>https://earth.google.com/earth/rpc/cc/icon?color=5d4037&amp;id=2000&amp;scale=4</href>
-				</Icon>
-				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
-			</IconStyle>
-			<LabelStyle>
-			</LabelStyle>
-			<LineStyle>
-				<color>ff2dc0fb</color>
-				<width>4</width>
-			</LineStyle>
-			<PolyStyle>
-				<color>40ffffff</color>
-			</PolyStyle>
-			<BalloonStyle>
-				<gx:displayMode>card</gx:displayMode>
-			</BalloonStyle>
-		</Style>
-	</gx:CascadingStyle>
-	<gx:CascadingStyle kml:id="__managed_style_813E0969813206CDF84E">
+	<gx:CascadingStyle kml:id="__managed_style_29FC80C88B397C8FE601">
 		<Style>
 			<IconStyle>
 				<scale>1.2</scale>
 				<Icon>
-					<href>https://earth.google.com/earth/rpc/cc/icon?color=5d4037&amp;id=2000&amp;scale=4</href>
+					<href>https://earth.google.com/earth/document/icon?color=1976d2&amp;id=2000&amp;scale=4</href>
 				</Icon>
 				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
 			</IconStyle>
@@ -47,99 +25,11 @@
 			</BalloonStyle>
 		</Style>
 	</gx:CascadingStyle>
-	<StyleMap id="__managed_style_6408756E743206CDF84E">
-		<Pair>
-			<key>normal</key>
-			<styleUrl>#__managed_style_7FE6494BC33206CDF84E</styleUrl>
-		</Pair>
-		<Pair>
-			<key>highlight</key>
-			<styleUrl>#__managed_style_813E0969813206CDF84E</styleUrl>
-		</Pair>
-	</StyleMap>
-	<gx:CascadingStyle kml:id="__managed_style_550894FD143206CDF84E">
-		<Style>
-			<IconStyle>
-				<scale>1.2</scale>
-				<Icon>
-					<href>https://earth.google.com/earth/rpc/cc/icon?color=5d4037&amp;id=2000&amp;scale=4</href>
-				</Icon>
-				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
-			</IconStyle>
-			<LabelStyle>
-			</LabelStyle>
-			<LineStyle>
-				<color>ff2dc0fb</color>
-				<width>6</width>
-			</LineStyle>
-			<PolyStyle>
-				<color>40ffffff</color>
-			</PolyStyle>
-			<BalloonStyle>
-				<displayMode>hide</displayMode>
-			</BalloonStyle>
-		</Style>
-	</gx:CascadingStyle>
-	<gx:CascadingStyle kml:id="__managed_style_42E4900BF83206CDF84E">
+	<gx:CascadingStyle kml:id="__managed_style_10AD17EE9A397C8FE601">
 		<Style>
 			<IconStyle>
 				<Icon>
-					<href>https://earth.google.com/earth/rpc/cc/icon?color=5d4037&amp;id=2000&amp;scale=4</href>
-				</Icon>
-				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
-			</IconStyle>
-			<LabelStyle>
-			</LabelStyle>
-			<LineStyle>
-				<color>ff2dc0fb</color>
-				<width>4</width>
-			</LineStyle>
-			<PolyStyle>
-				<color>40ffffff</color>
-			</PolyStyle>
-			<BalloonStyle>
-				<displayMode>hide</displayMode>
-			</BalloonStyle>
-		</Style>
-	</gx:CascadingStyle>
-	<StyleMap id="__managed_style_37CEBE5FAE3206CDF84E">
-		<Pair>
-			<key>normal</key>
-			<styleUrl>#__managed_style_42E4900BF83206CDF84E</styleUrl>
-		</Pair>
-		<Pair>
-			<key>highlight</key>
-			<styleUrl>#__managed_style_550894FD143206CDF84E</styleUrl>
-		</Pair>
-	</StyleMap>
-	<gx:CascadingStyle kml:id="__managed_style_2B69E58AA93206CDF851">
-		<Style>
-			<IconStyle>
-				<scale>1.2</scale>
-				<Icon>
-					<href>https://earth.google.com/earth/rpc/cc/icon?color=66bb6a&amp;id=2000&amp;scale=4</href>
-				</Icon>
-				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
-			</IconStyle>
-			<LabelStyle>
-			</LabelStyle>
-			<LineStyle>
-				<color>ff2dc0fb</color>
-				<width>6</width>
-			</LineStyle>
-			<PolyStyle>
-				<color>40ffffff</color>
-			</PolyStyle>
-			<BalloonStyle>
-				<gx:displayMode>card</gx:displayMode>
-			</BalloonStyle>
-		</Style>
-	</gx:CascadingStyle>
-	<gx:CascadingStyle kml:id="__managed_style_19F82F877E3206CDF851">
-		<Style>
-			<IconStyle>
-				<Icon>
-					<href>https://earth.google.com/earth/rpc/cc/icon?color=66bb6a&amp;id=2000&amp;scale=4</href>
+					<href>https://earth.google.com/earth/document/icon?color=1976d2&amp;id=2000&amp;scale=4</href>
 				</Icon>
 				<hotSpot x="64" y="128" xunits="pixels" yunits="insetPixels"/>
 			</IconStyle>
@@ -157,114 +47,254 @@
 			</BalloonStyle>
 		</Style>
 	</gx:CascadingStyle>
-	<StyleMap id="__managed_style_05016185393206CDF851">
+	<StyleMap id="__managed_style_06C1A9C846397C8FE601">
 		<Pair>
 			<key>normal</key>
-			<styleUrl>#__managed_style_19F82F877E3206CDF851</styleUrl>
+			<styleUrl>#__managed_style_10AD17EE9A397C8FE601</styleUrl>
 		</Pair>
 		<Pair>
 			<key>highlight</key>
-			<styleUrl>#__managed_style_2B69E58AA93206CDF851</styleUrl>
+			<styleUrl>#__managed_style_29FC80C88B397C8FE601</styleUrl>
 		</Pair>
 	</StyleMap>
-	<Placemark id="0CADC731853204F9EEA3">
-		<name>Khách Sạn Sun - Sea</name>
-		<gx:mid>/g/11b67txbl1</gx:mid>
-		<gx:fid>0x314a4435a50eaf5d:0xf353e685962c8413</gx:fid>
+	<Placemark id="0861443182397C8FDAD6">
+		<name>Xưởng 1976 Cafe</name>
+		<gx:mid>/g/11r9zclrcq</gx:mid>
+		<gx:fid>0x3141a18cc492e485:0xdfeb13920d226a18</gx:fid>
 		<LookAt>
-			<longitude>107.0504225</longitude>
-			<latitude>20.7255022</latitude>
+			<longitude>107.6017607</longitude>
+			<latitude>16.4563909</latitude>
 			<altitude>0</altitude>
 			<heading>0</heading>
 			<tilt>0</tilt>
 			<gx:fovy>35</gx:fovy>
-			<range>980.5036148070611</range>
+			<range>1008.285664656235</range>
 			<altitudeMode>relativeToGround</altitudeMode>
 		</LookAt>
-		<styleUrl>#__managed_style_05016185393206CDF851</styleUrl>
+		<styleUrl>#__managed_style_06C1A9C846397C8FE601</styleUrl>
 		<Point>
 			<altitudeMode>relativeToGround</altitudeMode>
-			<coordinates>107.0504225,20.7255022,0</coordinates>
+			<coordinates>107.6017607,16.4563909,0</coordinates>
 		</Point>
 	</Placemark>
-	<Placemark id="09C7BA137432062F4CDB">
-		<name>Lepont cafe</name>
-		<gx:mid>/g/11m2sslb3v</gx:mid>
-		<gx:fid>0x314a45166fc0b14d:0xec1be06dc64adf6e</gx:fid>
+	<Placemark id="01E2BF8C58397C901B10">
+		<name>Midori Sweets - Coffee &amp; Bakery</name>
+		<gx:mid>/g/11c68c7hh2</gx:mid>
+		<gx:fid>0x3141a110d7f47fe9:0xf840bd4672b23962</gx:fid>
 		<LookAt>
-			<longitude>107.0473677</longitude>
-			<latitude>20.7177281</latitude>
+			<longitude>107.6046087</longitude>
+			<latitude>16.466</latitude>
 			<altitude>0</altitude>
 			<heading>0</heading>
 			<tilt>0</tilt>
 			<gx:fovy>35</gx:fovy>
-			<range>980.5596320858028</range>
+			<range>1008.229928200069</range>
 			<altitudeMode>relativeToGround</altitudeMode>
 		</LookAt>
-		<styleUrl>#__managed_style_37CEBE5FAE3206CDF84E</styleUrl>
+		<styleUrl>#__managed_style_06C1A9C846397C8FE601</styleUrl>
 		<Point>
 			<altitudeMode>relativeToGround</altitudeMode>
-			<coordinates>107.0473677,20.7177281,0</coordinates>
+			<coordinates>107.6046087,16.466,0</coordinates>
 		</Point>
 	</Placemark>
-	<Placemark id="02BE4FF75F3206301613">
-		<name>Tsunami BBQ and Cafe</name>
-		<gx:mid>/g/11vr9zd1tz</gx:mid>
-		<gx:fid>0x314a45a2605c40e7:0x4118da889adb7cfe</gx:fid>
+	<Placemark id="0AEB38F099397C905083">
+		<name>tan.cafe</name>
+		<gx:mid>/g/11h0vts3pz</gx:mid>
+		<gx:fid>0x3141a13bd3abc6c7:0x1ee05cebf48e7cff</gx:fid>
 		<LookAt>
-			<longitude>107.0587263</longitude>
-			<latitude>20.7323466</latitude>
+			<longitude>107.5891018</longitude>
+			<latitude>16.4649814</latitude>
 			<altitude>0</altitude>
 			<heading>0</heading>
 			<tilt>0</tilt>
 			<gx:fovy>35</gx:fovy>
-			<range>980.454280454221</range>
+			<range>1008.235837941635</range>
 			<altitudeMode>relativeToGround</altitudeMode>
 		</LookAt>
-		<styleUrl>#__managed_style_6408756E743206CDF84E</styleUrl>
+		<styleUrl>#__managed_style_06C1A9C846397C8FE601</styleUrl>
 		<Point>
 			<altitudeMode>relativeToGround</altitudeMode>
-			<coordinates>107.0587263,20.7323466,0</coordinates>
+			<coordinates>107.5890824,16.464968,0</coordinates>
 		</Point>
 	</Placemark>
-	<Placemark id="0BFB61DF80320630F5E3">
-		<name>Tầng 11 - Hôtel Perle d&apos;Orient Cat Ba - MGallery</name>
-		<gx:mid>/g/11j0rv3kgh</gx:mid>
-		<gx:fid>0x314a45841b71f5e1:0x52df34f512ccce2f</gx:fid>
+	<Placemark id="0434650B2C397C90AF08">
+		<name>tan.</name>
+		<gx:mid>/g/11rqvl3vxt</gx:mid>
+		<gx:fid>0x3141a16aa76fda5d:0xe68a6b1e708047b7</gx:fid>
 		<LookAt>
-			<longitude>107.0488953</longitude>
-			<latitude>20.71544889999999</latitude>
+			<longitude>107.5816637</longitude>
+			<latitude>16.4732844</latitude>
 			<altitude>0</altitude>
 			<heading>0</heading>
 			<tilt>0</tilt>
 			<gx:fovy>35</gx:fovy>
-			<range>980.5760514568502</range>
+			<range>1008.1876551941</range>
 			<altitudeMode>relativeToGround</altitudeMode>
 		</LookAt>
-		<styleUrl>#__managed_style_37CEBE5FAE3206CDF84E</styleUrl>
+		<styleUrl>#__managed_style_06C1A9C846397C8FE601</styleUrl>
 		<Point>
 			<altitudeMode>relativeToGround</altitudeMode>
-			<coordinates>107.0488953,20.7154489,0</coordinates>
+			<coordinates>107.5816637,16.4732844,0</coordinates>
 		</Point>
 	</Placemark>
-	<Placemark id="0ADC9BB3573206319567">
-		<name>Lion Farm - Coffee &amp; Food</name>
-		<gx:mid>/g/11ptfkrd8b</gx:mid>
-		<gx:fid>0x314a43eee5f55ec3:0xf2a9538c22a56d39</gx:fid>
+	<Placemark id="001A5C3E84397C910B80">
+		<name>TAN. corner Coffee Shop</name>
+		<gx:mid>/g/11j2_vb0j7</gx:mid>
+		<gx:fid>0x3141a1cb4b3ccc2b:0xf5ac011579bc775e</gx:fid>
 		<LookAt>
-			<longitude>106.9979163</longitude>
-			<latitude>20.7701863</latitude>
+			<longitude>107.5967906</longitude>
+			<latitude>16.4610926</latitude>
 			<altitude>0</altitude>
 			<heading>0</heading>
 			<tilt>0</tilt>
 			<gx:fovy>35</gx:fovy>
-			<range>980.1812595320588</range>
+			<range>1008.258396878654</range>
 			<altitudeMode>relativeToGround</altitudeMode>
 		</LookAt>
-		<styleUrl>#__managed_style_6408756E743206CDF84E</styleUrl>
+		<styleUrl>#__managed_style_06C1A9C846397C8FE601</styleUrl>
 		<Point>
 			<altitudeMode>relativeToGround</altitudeMode>
-			<coordinates>106.9979163,20.7701863,0</coordinates>
+			<coordinates>107.5967811,16.4611012,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0079E6310E397C916000">
+		<name>Cà Phê Muối</name>
+		<gx:mid>/g/11j00s6sy9</gx:mid>
+		<gx:fid>0x3141a6cd3fdf0d39:0x40052879134d7c27</gx:fid>
+		<LookAt>
+			<longitude>107.5729239</longitude>
+			<latitude>16.4712189</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1008.199643566688</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_06C1A9C846397C8FE601</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.5728745,16.4711864,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0A5D5812F7397C9199CE">
+		<name>Cà Phê Muối cs2</name>
+		<gx:mid>/g/11t9kht0xd</gx:mid>
+		<gx:fid>0x3141a1bf6406a2a5:0xcbb692339dc5759c</gx:fid>
+		<LookAt>
+			<longitude>107.5989007</longitude>
+			<latitude>16.4627529</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1008.248766097212</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_06C1A9C846397C8FE601</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>107.5989304,16.4627511,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0599BDDA19397CBA35EF">
+		<name>The Third House</name>
+		<gx:mid>/g/11qplxf8gg</gx:mid>
+		<gx:fid>0x314219ded5de9179:0x16eb4bd8c0b2d65d</gx:fid>
+		<LookAt>
+			<longitude>108.2013939</longitude>
+			<latitude>16.0668394</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1010.519027537662</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_06C1A9C846397C8FE601</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>108.2013939,16.0668394,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="03893796AA397CBA81CC">
+		<name>MOR CÀ PHÊ</name>
+		<gx:mid>/g/11qht__j98</gx:mid>
+		<gx:fid>0x3142197df6e30f31:0xcb4f0d9472a410e8</gx:fid>
+		<LookAt>
+			<longitude>108.2070073</longitude>
+			<latitude>16.0583208</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1010.567294382814</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_06C1A9C846397C8FE601</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>108.2070073,16.0583208,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="00805E4659397CBABC34">
+		<name>Amy Paradise</name>
+		<gx:mid>/g/11x1n2fm_w</gx:mid>
+		<gx:fid>0x3142190043955b43:0x73f525260a1efeba</gx:fid>
+		<LookAt>
+			<longitude>108.232912</longitude>
+			<latitude>16.1030983</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1010.313308672347</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_06C1A9C846397C8FE601</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>108.232912,16.1030983,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="0738E11C22397CBB0120">
+		<name>Cửa Ngõ Café</name>
+		<gx:mid>/g/11pts6tdld</gx:mid>
+		<gx:fid>0x3142178fa1a85d1f:0x18359fb25ea3f7ea</gx:fid>
+		<LookAt>
+			<longitude>108.2445979</longitude>
+			<latitude>16.059578</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1010.560172560858</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_06C1A9C846397C8FE601</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>108.2445979,16.059578,0</coordinates>
+		</Point>
+	</Placemark>
+	<Placemark id="065209BB63397CBDF91C">
+		<name>Roots Plant-based Cafe - Healthy Vegan restaurant</name>
+		<gx:mid>/g/11fd4prghb</gx:mid>
+		<gx:fid>0x3142171cef03cf01:0x8bc2a190f42f983</gx:fid>
+		<LookAt>
+			<longitude>108.2478556</longitude>
+			<latitude>16.0486723</latitude>
+			<altitude>0</altitude>
+			<heading>0</heading>
+			<tilt>0</tilt>
+			<gx:fovy>35</gx:fovy>
+			<range>1010.621933717051</range>
+			<altitudeMode>relativeToGround</altitudeMode>
+		</LookAt>
+		<styleUrl>#__managed_style_06C1A9C846397C8FE601</styleUrl>
+		<Point>
+			<altitudeMode>relativeToGround</altitudeMode>
+			<coordinates>108.2478556,16.0486723,0</coordinates>
 		</Point>
 	</Placemark>
 </Document>

@@ -17,7 +17,6 @@ class TravelMap {
         this.markerCount = 0;
         this.kmlStyles = {}; // Store parsed KML styles
         this.kmlFiles = {
-            'all': 'data/kml/Map.kml',
             'breakfast': 'data/kml/Breakfast.kml',
             'lunch-dinner': 'data/kml/LunchDinner.kml',
             'snack-night': 'data/kml/Junk.kml',
@@ -217,7 +216,6 @@ class TravelMap {
         const categoryElement = document.getElementById('activeCategory');
         if (categoryElement) {
             const categoryNames = {
-                'all': 'All Locations',
                 'breakfast': 'Breakfast',
                 'lunch-dinner': 'Lunch & Dinner',
                 'snack-night': 'Snack & Night',
@@ -846,20 +844,14 @@ class TravelMap {
 
     // Helper method to extract color information from KML style
     getIconColorFromStyle(styleUrl) {
-        // Map Google Earth colors to our category styles
+        // Map Google Earth colors to our category styles (from actual KML files)
         const colorMap = {
+            'fbc02d': 'breakfast',     // Yellow - breakfast
             'd32f2f': 'lunch-dinner',  // Red - lunch/dinner
-            'dd4b39': 'lunch-dinner',  // Alternative red
-            '66bb6a': 'breakfast',     // Green - breakfast  
-            '4caf50': 'breakfast',     // Alternative green
-            'ff9800': 'coffee',        // Orange - coffee
-            'ff8f00': 'coffee',        // Alternative orange
-            '9c27b0': 'snack-night',   // Purple - snack/night
-            '8e24aa': 'snack-night',   // Alternative purple
-            '2196f3': 'tour',          // Blue - tour
-            '1976d2': 'tour',          // Alternative blue
-            'ff5722': 'fuel',          // Deep orange - fuel
-            'f4511e': 'fuel'           // Alternative deep orange
+            'ab47bc': 'snack-night',   // Purple - snack/night (Junk)
+            '1976d2': 'coffee',        // Blue - coffee (Cafe)
+            '388e3c': 'tour',          // Green - tour (Touring)
+            'f57c00': 'fuel'           // Orange - fuel
         };
         
         if (styleUrl) {
