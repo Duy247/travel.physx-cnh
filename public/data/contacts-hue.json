@@ -43,8 +43,12 @@
     ],
     "emergency": [
         {
-            "name": "Công an thành phố",
-            "phone": "0234.3822166 - 069.4149204"
+            "name": "Công an thành phố 1",
+            "phone": "02343822166"
+        },
+        {
+            "name": "Công an thành phố 2",
+            "phone": "0694149204"
         },
         {
             "name": "Cấp cứu",
