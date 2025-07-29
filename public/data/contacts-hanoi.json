@@ -1,55 +1,38 @@
 {
-  "hotels": [
-    {
-      "name": "Hanoi Emerald Hotel",
-      "address": "42 Hang Bong, Hoan Kiem, Hanoi",
-      "phone": "02432323232"
-    },
-    {
-      "name": "Sofitel Legend Metropole Hanoi",
-      "address": "15 Ngo Quyen, Hoan Kiem, Hanoi",
-      "phone": "02438266919"
-    }
-  ],
-  "friends": [
-    {
-      "name": "Minh",
-      "phone": "0912345678"
-    },
-    {
-      "name": "Linh",
-      "phone": "0987654321"
-    }
-  ],
-  "restaurants": [
-    {
-      "name": "Cha Ca La Vong",
-      "address": "14 Cha Ca, Hoan Kiem, Hanoi",
-      "phone": "02438254169"
-    },
-    {
-      "name": "Quan An Ngon",
-      "address": "18 Phan Boi Chau, Hoan Kiem, Hanoi",
-      "phone": "02439428162"
-    },
-    {
-      "name": "Bun Cha Huong Lien",
-      "address": "24 Le Van Huu, Hai Ba Trung, Hanoi",
-      "phone": "02438621248"
-    }
-  ],
-  "emergency": [
-    {
-      "name": "Hanoi International SOS Clinic",
-      "phone": "02439340666"
-    },
-    {
-      "name": "Hanoi French Hospital",
-      "phone": "02435771100"
-    },
-    {
-      "name": "Hanoi Police",
-      "phone": "113"
-    }
-  ]
+    "hotels": [
+    ],
+    "friends": [
+        {
+            "name": "Duy",
+            "phone": "0393718247"
+        },
+        {
+            "name": "Trang",
+            "phone": "0389441863"
+        },
+        {
+            "name": "Phương Anh",
+            "phone": "0327623577"
+        },
+        {
+            "name": "Hà",
+            "phone": "0989984776"
+        },
+        {
+            "name": "Trà",
+            "phone": "0976058754"
+        },
+        {
+            "name": "Việt Anh",
+            "phone": "0349112082"
+        },
+        {
+            "name": "Duyên",
+            "phone": "0965610198"
+        }
+    ],
+    "restaurants": [
+    ],
+    "emergency": [
+    ]
 }

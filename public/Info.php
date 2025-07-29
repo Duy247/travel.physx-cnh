@@ -12,7 +12,6 @@ $cache_bust = time();
 
 // Define available locations and their display names
 $locations = [
-    'catba' => 'Cát Bà',
     'hanoi' => 'Hà Nội',
     'hue' => 'Huế',
     'danang' => 'Đà Nẵng',

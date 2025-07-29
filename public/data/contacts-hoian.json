@@ -1,51 +1,38 @@
 {
-  "hotels": [
-    {
-      "name": "Anantara Hoi An Resort",
-      "address": "1 Pham Hong Thai, Hoi An",
-      "phone": "0235391888"
-    },
-    {
-      "name": "Four Seasons Resort The Nam Hai",
-      "address": "Block Ha My Dong B, Dien Duong Ward, Hoi An",
-      "phone": "0235394000"
-    }
-  ],
-  "friends": [
-    {
-      "name": "Thu",
-      "phone": "0905111222"
-    },
-    {
-      "name": "Lan",
-      "phone": "0935333444"
-    }
-  ],
-  "restaurants": [
-    {
-      "name": "Morning Glory",
-      "address": "106 Nguyen Thai Hoc, Hoi An",
-      "phone": "0235224151"
-    },
-    {
-      "name": "Miss Ly Cafe",
-      "address": "22 Nguyen Hue, Hoi An",
-      "phone": "0235386188"
-    },
-    {
-      "name": "Mango Mango",
-      "address": "45 Nguyen Phuc Chu, Hoi An",
-      "phone": "0235396222"
-    }
-  ],
-  "emergency": [
-    {
-      "name": "Hoi An Medical Center",
-      "phone": "0235386116"
-    },
-    {
-      "name": "Hoi An Police",
-      "phone": "113"
-    }
-  ]
+    "hotels": [
+    ],
+    "friends": [
+        {
+            "name": "Duy",
+            "phone": "0393718247"
+        },
+        {
+            "name": "Trang",
+            "phone": "0389441863"
+        },
+        {
+            "name": "Phương Anh",
+            "phone": "0327623577"
+        },
+        {
+            "name": "Hà",
+            "phone": "0989984776"
+        },
+        {
+            "name": "Trà",
+            "phone": "0976058754"
+        },
+        {
+            "name": "Việt Anh",
+            "phone": "0349112082"
+        },
+        {
+            "name": "Duyên",
+            "phone": "0965610198"
+        }
+    ],
+    "restaurants": [
+    ],
+    "emergency": [
+    ]
 }
