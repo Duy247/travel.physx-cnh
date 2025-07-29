@@ -1249,14 +1249,20 @@ $cache_bust = time();
             // Filter by date range
             if (dateFrom) {
                 filteredExpenses = filteredExpenses.filter(exp => {
-                    const expenseDate = new Date(exp.date).toISOString().split('T')[0];
+                    // Adjust to GMT+7
+                    const expenseDateObj = new Date(exp.date);
+                    expenseDateObj.setHours(expenseDateObj.getHours() + 7);
+                    const expenseDate = expenseDateObj.toISOString().split('T')[0];
                     return expenseDate >= dateFrom;
                 });
             }
             
             if (dateTo) {
                 filteredExpenses = filteredExpenses.filter(exp => {
-                    const expenseDate = new Date(exp.date).toISOString().split('T')[0];
+                    // Adjust to GMT+7
+                    const expenseDateObj = new Date(exp.date);
+                    expenseDateObj.setHours(expenseDateObj.getHours() + 7);
+                    const expenseDate = expenseDateObj.toISOString().split('T')[0];
                     return expenseDate <= dateTo;
                 });
             }
@@ -1290,14 +1296,18 @@ $cache_bust = time();
                             <span class="expense-payer">${expense.payer}</span>
                             <br>
                             <span style="margin-left: 0.5rem; font-size: 0.75rem;">
-                                ${new Date(expense.date).toLocaleDateString('en-GB', {
-                                    day: '2-digit',
-                                    month: '2-digit',
-                                    year: 'numeric'
-                                })} ${new Date(expense.date).toLocaleTimeString('vi-VN', {
-                                    hour: '2-digit',
-                                    minute: '2-digit'
-                                })}
+                                ${(() => {
+                                    const d = new Date(expense.date);
+                                    d.setHours(d.getHours() + 7);
+                                    return d.toLocaleDateString('en-GB', {
+                                        day: '2-digit',
+                                        month: '2-digit',
+                                        year: 'numeric'
+                                    }) + ' ' + d.toLocaleTimeString('vi-VN', {
+                                        hour: '2-digit',
+                                        minute: '2-digit'
+                                    });
+                                })()}
                             </span>
                         </div>
                         <div class="expense-actions">
