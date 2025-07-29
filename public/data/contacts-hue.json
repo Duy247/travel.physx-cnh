@@ -1,5 +1,13 @@
 {
     "hotels": [
+      {
+        "name": "Le Robinet Villa (Zalo)",
+        "phone": "0975539266"
+      },
+      {
+        "name": "Le Robinet Villa (Whatsapp)",
+        "phone": "0931945757"
+      }
     ],
     "friends": [
         {
@@ -34,5 +42,29 @@
     "restaurants": [
     ],
     "emergency": [
+        {
+            "name": "Công an thành phố",
+            "phone": "0234.3822166 - 069.4149204"
+        },
+        {
+            "name": "Cấp cứu",
+            "phone": "115"
+        },
+        {
+            "name": "Cứu hỏa",
+            "phone": "114"
+        },
+        {
+            "name": "Cảnh sát cơ động",
+            "phone": "113"
+        },
+        {
+            "name": "Trung tâm hỗ trợ 24/24 khách du lịch Huế",
+            "phone": "02343828288"
+        },
+        {
+            "name": "Trung tâm hỗ trợ 24/24 khách du lịch Huế 2",
+            "phone": "02343501111"
+        }
     ]
 }

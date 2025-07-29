@@ -34,5 +34,29 @@
     "restaurants": [
     ],
     "emergency": [
+        {
+            "name": "Trung tâm hỗ trợ du khách Quảng Nam",     
+            "phone": "0235 3666 333"
+        },
+        {
+            "name": "Công an thành phố Hội An",
+            "phone": "02353861204"
+        },
+        {
+            "name": "Bệnh viện Đa khoa Hội An",
+            "phone": "02353861364"
+        },
+        {
+            "name": "Bệnh viện Đa khoa Sài Gòn - Hội An (Đa khoa Thái Bình Dương cũ)",
+            "phone": "02353921656"
+        },
+        {
+            "name": "Đội Cảnh sát PCCC & CNCH Bắc Quảng Nam",
+            "phone": "02353922172"
+        },
+        {
+            "name": "Tổng đài Dịch vụ Công 1022 Quảng Nam",
+            "phone": "02351022"
+        }
     ]
 }

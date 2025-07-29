@@ -34,5 +34,17 @@
     "restaurants": [
     ],
     "emergency": [
+      {
+        "name": "Nhà xe Nhật Tuấn (di động)",
+        "phone": "0946888306"
+      },
+      {
+        "name": "Nhà xe Nhật Tuấn (bàn)",
+        "phone": "02485859292"
+      },
+      {
+        "name": "Bến xe Yên Nghĩa",
+        "phone": "0936275966"
+      }
     ]
 }

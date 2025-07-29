@@ -1,5 +1,9 @@
 {
     "hotels": [
+        {
+          "name" : "Le Indochina Hotel",
+          "phone" : "0911488819"
+        }
     ],
     "friends": [
         {
@@ -34,5 +38,21 @@
     "restaurants": [
     ],
     "emergency": [
+        {
+            "name": "Công an thành phố",
+            "phone": "05113822300"
+        },
+        {
+            "name": "Công an thành phố 2",
+            "phone": "05113113"
+        },
+        {
+            "name": "Cấp cứu",
+            "phone": "05113114"
+        },
+        {
+            "name": "Trung tâm tư vấn hỗ trợ du khách của thành phố Đà Nẵng",
+            "phone": "05113550111"
+        }
     ]
 }
