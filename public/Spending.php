@@ -987,7 +987,7 @@ $cache_bust = time();
                         <input type="text" id="content" class="form-input" placeholder="Nội dung chi tiêu" required>
                     </div>
                     <div class="form-group">
-                        <input type="number" id="amount" class="form-input" placeholder="Số tiền (VND)" required min="0" step="1000">
+                        <input type="number" id="amount" class="form-input" placeholder="Số tiền (VND)" required step="1">
                         <div id="formatted-amount" class="formatted-amount"></div>
                     </div>
                     <div class="form-group">
@@ -1030,7 +1030,7 @@ $cache_bust = time();
                         <input type="text" id="edit-content" class="form-input" placeholder="Nội dung chi tiêu" required>
                     </div>
                     <div class="form-group">
-                        <input type="number" id="edit-amount" class="form-input" placeholder="Số tiền (VND)" required min="0" step="1000">
+                        <input type="number" id="edit-amount" class="form-input" placeholder="Số tiền (VND)" required step="1">
                         <div id="edit-formatted-amount" class="formatted-amount"></div>
                     </div>
                     <div class="form-group">

@@ -32,6 +32,11 @@
                 "id": "pa3",
                 "name": "S\u00e1ch",
                 "packed": false
+            },
+            {
+                "id": "ph1753803004759",
+                "name": "Gi\u1ea5y \u0103n",
+                "packed": false
             }
         ],
         "Trang": [
@@ -53,36 +58,91 @@
         ],
         "Duy": [
             {
-                "id": "duy1",
-                "name": "Laptop",
-                "packed": true
-            },
-            {
-                "id": "duy2",
-                "name": "C\u00e1p HDMI",
+                "id": "du1753802884365",
+                "name": "\u0110\u00e8n pin",
                 "packed": false
             },
             {
-                "id": "duy3",
-                "name": "Tai nghe kh\u1eed ti\u1ebfng \u1ed3n",
-                "packed": true
+                "id": "du1753802891730",
+                "name": "S\u1ea1c d\u1ef1 ph\u00f2ng",
+                "packed": false
+            },
+            {
+                "id": "du1753802897611",
+                "name": "D\u00e2y s\u1ea1c",
+                "packed": false
+            },
+            {
+                "id": "du1753802909711",
+                "name": "C\u1ee7 s\u1ea1c",
+                "packed": false
+            },
+            {
+                "id": "du1753802916272",
+                "name": "D\u00e2y s\u1ea1c garmin",
+                "packed": false
+            },
+            {
+                "id": "du1753803011809",
+                "name": "\u0110\u1ed3ng h\u1ed3 garmin",
+                "packed": false
+            },
+            {
+                "id": "du1753802957898",
+                "name": "V\u00ed",
+                "packed": false
+            },
+            {
+                "id": "du1753802963723",
+                "name": "Ch\u00eca kho\u00e1 nh\u00e0",
+                "packed": false
+            },
+            {
+                "id": "du1753802968129",
+                "name": "\u0110i\u1ec7n tho\u1ea1i",
+                "packed": false
+            },
+            {
+                "id": "du1753803024416",
+                "name": "Vali v\u00e0 qu\u1ea7n \u00e1o",
+                "packed": false
+            },
+            {
+                "id": "du1753803031256",
+                "name": "T\u1ea5t \u0111i n\u01b0\u1edbc",
+                "packed": false
+            },
+            {
+                "id": "du1753803039398",
+                "name": "M\u00f3c treo qu\u1ea7n \u00e1o",
+                "packed": false
+            },
+            {
+                "id": "du1753803054602",
+                "name": "Google TV v\u00e0 \u0111i\u1ec1u khi\u1ec3n",
+                "packed": false
             }
         ],
         "Vi\u1ec7t Anh": [
             {
-                "id": "va1",
-                "name": "Nintendo Switch",
+                "id": "vi1753803152349",
+                "name": "Qu\u1ea7n \u00e1o (6 b\u1ed9)",
                 "packed": false
             },
             {
-                "id": "va2",
-                "name": "Gi\u00e0y \u0111i b\u1ed9",
-                "packed": true
+                "id": "vi1753803167889",
+                "name": "T\u0103m n\u01b0\u1edbc",
+                "packed": false
             },
             {
-                "id": "va3",
-                "name": "B\u00ecnh n\u01b0\u1edbc",
-                "packed": true
+                "id": "vi1753803229161",
+                "name": "Enchanteur",
+                "packed": false
+            },
+            {
+                "id": "vi1753803264929",
+                "name": "Zip \u0111\u00e1nh r\u0103ng",
+                "packed": false
             }
         ],
         "Nam": [
