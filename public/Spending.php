@@ -1503,7 +1503,7 @@ $cache_bust = time();
             // Calculate how much each person should pay or receive (excluding 'balance')
             const balances = {};
             for (const payer of uniquePayers) {
-                balances[payer] = payerAmounts[payer] - trueAverageAmount;
+                balances[payer] = payerAmounts[payer] - averageAmount;
             }
 
             // Create transactions to balance everyone out
