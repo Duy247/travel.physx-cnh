@@ -1,7 +1,7 @@
 [
     {
         "id": "exp_6888e03e16a095.51743290",
-        "content": "Khởi đầu",
+        "content": "Kh\u1edfi \u0111\u1ea7u",
         "amount": 0,
         "payer": "Trang",
         "date": "2025-07-29 13:52:46",
@@ -9,55 +9,56 @@
     },
     {
         "id": "exp_6888e045719e80.36022955",
-        "content": "Khởi đầu",
+        "content": "Kh\u1edfi \u0111\u1ea7u",
         "amount": 0,
-        "payer": "Phương Anh",
+        "payer": "Ph\u01b0\u01a1ng Anh",
         "date": "2025-07-29 13:52:53",
         "created_at": 1753800773
     },
     {
         "id": "exp_6888e04da34950.78490376",
-        "content": "Khởi đầu",
+        "content": "Kh\u1edfi \u0111\u1ea7u",
         "amount": 0,
-        "payer": "Việt Anh",
+        "payer": "Vi\u1ec7t Anh",
         "date": "2025-07-29 13:53:01",
         "created_at": 1753800781
     },
     {
         "id": "exp_6888e053a56b55.34220846",
-        "content": "Khởi đầu",
+        "content": "Kh\u1edfi \u0111\u1ea7u",
         "amount": 0,
-        "payer": "Trà",
+        "payer": "Tr\u00e0",
         "date": "2025-07-29 13:53:07",
         "created_at": 1753800787
     },
     {
         "id": "exp_6888e0598a2f98.92579281",
-        "content": "Khởi đầu",
+        "content": "Kh\u1edfi \u0111\u1ea7u",
         "amount": 0,
-        "payer": "Duyên",
+        "payer": "Vi\u1ec7t Anh 2 (Duy\u00ean)",
         "date": "2025-07-29 13:53:13",
-        "created_at": 1753800793
+        "created_at": 1753800793,
+        "updated_at": 1753804919
     },
     {
         "id": "exp_6888dfad948312.78547572",
-        "content": "Cọc nhà Huế",
+        "content": "C\u1ecdc nh\u00e0 Hu\u1ebf",
         "amount": 1041000,
-        "payer": "Hà",
+        "payer": "H\u00e0",
         "date": "2025-07-29 14:50:21",
         "created_at": 1753800621
     },
     {
         "id": "exp_6888dfe047f421.61879161",
-        "content": "Vé tàu Huế ĐN",
+        "content": "V\u00e9 t\u00e0u Hu\u1ebf \u0110N",
         "amount": 1470000,
-        "payer": "Hà",
+        "payer": "H\u00e0",
         "date": "2025-07-29 14:51:12",
         "created_at": 1753800672
     },
     {
         "id": "exp_6888dfe7dff575.97820820",
-        "content": "Snack chiều đi",
+        "content": "Snack chi\u1ec1u \u0111i",
         "amount": 318000,
         "payer": "Duy",
         "date": "2025-07-29 14:51:19",
@@ -65,10 +66,442 @@
     },
     {
         "id": "exp_6888e0084543a0.17630894",
-        "content": "Cọc xe HN - Huế",
+        "content": "C\u1ecdc xe HN - Hu\u1ebf",
         "amount": 500000,
-        "payer": "Hà",
+        "payer": "H\u00e0",
         "date": "2025-07-29 14:51:52",
         "created_at": 1753800712
+    },
+    {
+        "id": "exp_6888ecbe0ebe61.46700264",
+        "content": "Chuy\u1ec3n qu\u1ef9 cho Trang (VAnh + Duy\u00ean)",
+        "amount": 5000000,
+        "payer": "Vi\u1ec7t Anh",
+        "date": "2025-07-29 15:46:06",
+        "created_at": 1753803966,
+        "updated_at": 1753803988
+    },
+    {
+        "id": "exp_6888ece4df90f1.76904142",
+        "content": "Chuy\u1ec3n qu\u1ef9 cho Trang",
+        "amount": 2500000,
+        "payer": "Tr\u00e0",
+        "date": "2025-07-29 15:46:44",
+        "created_at": 1753804004
+    },
+    {
+        "id": "exp_6888eced7cef53.98644296",
+        "content": "Chuy\u1ec3n qu\u1ef9 cho Trang",
+        "amount": 2500000,
+        "payer": "Duy",
+        "date": "2025-07-29 15:46:53",
+        "created_at": 1753804013
+    },
+    {
+        "id": "exp_6888ed0e1413c9.52979500",
+        "content": "Nh\u1eadn ti\u1ec1n qu\u1ef9",
+        "amount": -15000000,
+        "payer": "Trang",
+        "date": "2025-07-29 15:47:26",
+        "created_at": 1753804046,
+        "updated_at": 1753805919
+    },
+    {
+        "id": "exp_6888edd340ca74.51448498",
+        "content": "Chuy\u1ec3n qu\u1ef9 cho Trang",
+        "amount": 2500000,
+        "payer": "Trang",
+        "date": "2025-07-29 15:50:43",
+        "created_at": 1753804243
+    },
+    {
+        "id": "exp_6888f457dff7d5.53790680",
+        "content": "Chuy\u1ec3n qu\u1ef9 cho Trang",
+        "amount": 2500000,
+        "payer": "Ph\u01b0\u01a1ng Anh",
+        "date": "2025-07-29 16:18:31",
+        "created_at": 1753805911
+    },
+    {
+        "id": "exp_688aad47ded5d1.17813807",
+        "content": "Xe gi\u01b0\u1eddng n\u1eb1m chi\u1ec1u \u0111i (6 ng\u01b0\u1eddi tr\u1eeb H\u00e0)",
+        "amount": 2500000,
+        "payer": "Trang",
+        "date": "2025-07-30 23:39:51",
+        "created_at": 1753918791,
+        "updated_at": 1754216544
+    },
+    {
+        "id": "exp_688aad71bd8198.19340432",
+        "content": "Xanh SM",
+        "amount": 47000,
+        "payer": "Duy",
+        "date": "2025-07-30 23:40:33",
+        "created_at": 1753918833
+    },
+    {
+        "id": "exp_688aad79e947d2.03812294",
+        "content": "Xanh SM",
+        "amount": 47000,
+        "payer": "Vi\u1ec7t Anh 2 (Duy\u00ean)",
+        "date": "2025-07-30 23:40:41",
+        "created_at": 1753918841,
+        "updated_at": 1753925175
+    },
+    {
+        "id": "exp_688ac6314a90b3.50799399",
+        "content": "N\u01b0\u1edbc 5 chai",
+        "amount": 50000,
+        "payer": "Trang",
+        "date": "2025-07-31 01:26:09",
+        "created_at": 1753925169
+    },
+    {
+        "id": "exp_688ac64ce91797.82957663",
+        "content": "\u0102n s\u00e1ng Hu\u1ebf",
+        "amount": 220000,
+        "payer": "Trang",
+        "date": "2025-07-31 01:26:36",
+        "created_at": 1753925196
+    },
+    {
+        "id": "exp_688b17f5ee2913.82031333",
+        "content": "Ti\u1ec1n n\u01b0\u1edbc \u1edf N\u1ed9i",
+        "amount": 120000,
+        "payer": "Vi\u1ec7t Anh",
+        "date": "2025-07-31 07:15:01",
+        "created_at": 1753946101
+    },
+    {
+        "id": "exp_688b18eed6d883.67319590",
+        "content": "X\u0103ng",
+        "amount": 80000,
+        "payer": "H\u00e0",
+        "date": "2025-07-31 07:19:10",
+        "created_at": 1753946350
+    },
+    {
+        "id": "exp_688b18fe054270.28770201",
+        "content": "Taxi",
+        "amount": 40000,
+        "payer": "H\u00e0",
+        "date": "2025-07-31 07:19:26",
+        "created_at": 1753946366
+    },
+    {
+        "id": "exp_688b19117a7ba0.77076715",
+        "content": "Xanh sm",
+        "amount": 56000,
+        "payer": "Vi\u1ec7t Anh 2 (Duy\u00ean)",
+        "date": "2025-07-31 07:19:45",
+        "created_at": 1753946385
+    },
+    {
+        "id": "exp_688b26a6860bb4.16826013",
+        "content": "\u1ea2nh Win Studio",
+        "amount": 4300000,
+        "payer": "Trang",
+        "date": "2025-07-31 08:17:42",
+        "created_at": 1753949862
+    },
+    {
+        "id": "exp_688b71580bb580.93943652",
+        "content": "Du thuy\u1ec1n s\u00f4ng H\u01b0\u01a1ng",
+        "amount": 700000,
+        "payer": "H\u00e0",
+        "date": "2025-07-31 13:36:24",
+        "created_at": 1753968984
+    },
+    {
+        "id": "exp_688b7179ab2316.79219843",
+        "content": "B\u00e1nh b\u1ed9t l\u1ecdc, b\u00e1nh n\u1eadm, b\u00e8o",
+        "amount": 385000,
+        "payer": "H\u00e0",
+        "date": "2025-07-31 13:36:57",
+        "created_at": 1753969017
+    },
+    {
+        "id": "exp_688b71864a1b29.02856311",
+        "content": "Ch\u00e8",
+        "amount": 230000,
+        "payer": "Tr\u00e0",
+        "date": "2025-07-31 13:37:10",
+        "created_at": 1753969030
+    },
+    {
+        "id": "exp_688b7198408ba0.18048914",
+        "content": "Xanh SM",
+        "amount": 41000,
+        "payer": "Duy",
+        "date": "2025-07-31 13:37:28",
+        "created_at": 1753969048
+    },
+    {
+        "id": "exp_688b7217b97ac0.90576375",
+        "content": "Xanh SM",
+        "amount": 54000,
+        "payer": "Ph\u01b0\u01a1ng Anh",
+        "date": "2025-07-31 13:39:35",
+        "created_at": 1753969175
+    },
+    {
+        "id": "exp_688b825ac977b3.74129411",
+        "content": "\u0102n t\u1ed1i Hu\u1ebf",
+        "amount": 685000,
+        "payer": "Trang",
+        "date": "2025-07-31 14:48:58",
+        "created_at": 1753973338
+    },
+    {
+        "id": "exp_688b88bfc7f719.79674784",
+        "content": "Bia",
+        "amount": 380000,
+        "payer": "Trang",
+        "date": "2025-07-31 15:16:15",
+        "created_at": 1753974975
+    },
+    {
+        "id": "exp_688bfa0f170092.38727211",
+        "content": "Ti\u1ec1n ph\u00f2ng Hu\u1ebf + thu\u00ea xe",
+        "amount": 1642000,
+        "payer": "H\u00e0",
+        "date": "2025-07-31 23:19:43",
+        "created_at": 1754003983
+    },
+    {
+        "id": "exp_688c04eb67ed22.31623821",
+        "content": "Xanh SM s\u00e1ng 01\/08",
+        "amount": 26000,
+        "payer": "Duy",
+        "date": "2025-08-01 00:06:03",
+        "created_at": 1754006763
+    },
+    {
+        "id": "exp_688c09804862b5.55518657",
+        "content": "Xe xanh t\u1eeb qu\u00e1n \u0103n s\u00e1ng v\u1ec1",
+        "amount": 36000,
+        "payer": "Trang",
+        "date": "2025-08-01 00:25:36",
+        "created_at": 1754007936,
+        "updated_at": 1754007955
+    },
+    {
+        "id": "exp_688c4adb330610.38765259",
+        "content": "\u0102n tr\u01b0a \u0110N",
+        "amount": 455000,
+        "payer": "Trang",
+        "date": "2025-08-01 05:04:27",
+        "created_at": 1754024667
+    },
+    {
+        "id": "exp_688c52a4e6f3a8.90814205",
+        "content": "Kem b\u01a1",
+        "amount": 212000,
+        "payer": "Trang",
+        "date": "2025-08-01 05:37:40",
+        "created_at": 1754026660
+    },
+    {
+        "id": "exp_688c592619f5d6.10291273",
+        "content": "Kh\u00e1ch s\u1ea1n \u0110N",
+        "amount": 4230000,
+        "payer": "Trang",
+        "date": "2025-08-01 06:05:26",
+        "created_at": 1754028326
+    },
+    {
+        "id": "exp_688cf8354d0079.71729564",
+        "content": "\u0102n h\u1ea3i s\u1ea3n t\u1ed1i",
+        "amount": 3919000,
+        "payer": "Trang",
+        "date": "2025-08-01 17:24:05",
+        "created_at": 1754069045
+    },
+    {
+        "id": "exp_688cf8517f9c07.13793433",
+        "content": "N\u01b0\u1edbc u\u1ed1ng",
+        "amount": 36000,
+        "payer": "Duy",
+        "date": "2025-08-01 17:24:33",
+        "created_at": 1754069073
+    },
+    {
+        "id": "exp_688cf892d55378.09329946",
+        "content": "Kem \u0111\u00e1nh r\u0103ng + b\u00e0n ch\u1ea3i + d\u1ea7u x\u1ea3",
+        "amount": 150000,
+        "payer": "Duy",
+        "date": "2025-08-01 17:25:38",
+        "created_at": 1754069138
+    },
+    {
+        "id": "exp_688d6eb31b5a96.61314807",
+        "content": "\u0102n s\u00e1ng 2\/8",
+        "amount": 250000,
+        "payer": "Vi\u1ec7t Anh",
+        "date": "2025-08-02 01:49:39",
+        "created_at": 1754099379
+    },
+    {
+        "id": "exp_688d86082648a9.77299962",
+        "content": "Xe kh\u00e1ch c\u1ee7a H\u00e0 + PA",
+        "amount": 1700000,
+        "payer": "H\u00e0",
+        "date": "2025-08-02 03:29:12",
+        "created_at": 1754105352,
+        "updated_at": 1754105366
+    },
+    {
+        "id": "exp_688db07399ed44.48197364",
+        "content": "\u0102n tr\u01b0a C\u00f9 Lao",
+        "amount": 670000,
+        "payer": "Trang",
+        "date": "2025-08-02 06:30:11",
+        "created_at": 1754116211
+    },
+    {
+        "id": "exp_688e1763a396b9.56093136",
+        "content": "\u0102n t\u1ed1i HA",
+        "amount": 545000,
+        "payer": "Trang",
+        "date": "2025-08-02 13:49:23",
+        "created_at": 1754142563
+    },
+    {
+        "id": "exp_688e1ba66f4010.95482008",
+        "content": "Thuy\u1ec1n H\u1ed9i An",
+        "amount": 350000,
+        "payer": "Vi\u1ec7t Anh",
+        "date": "2025-08-02 14:07:34",
+        "created_at": 1754143654
+    },
+    {
+        "id": "exp_688eda4f22fd53.42255688",
+        "content": "Ti\u1ec1n thu\u00ea xe m\u00e1y",
+        "amount": 960000,
+        "payer": "Trang",
+        "date": "2025-08-03 03:41:03",
+        "created_at": 1754192463
+    },
+    {
+        "id": "exp_688ee058c8a986.10842154",
+        "content": "Taxi \u0111i ch\u1ee3 c\u1ed3n",
+        "amount": 71000,
+        "payer": "Vi\u1ec7t Anh",
+        "date": "2025-08-03 04:06:48",
+        "created_at": 1754194008
+    },
+    {
+        "id": "exp_688ee76ddb6c33.17358990",
+        "content": "\u0102n ch\u1ee3 C\u1ed3n",
+        "amount": 455000,
+        "payer": "Trang",
+        "date": "2025-08-03 04:37:01",
+        "created_at": 1754195821
+    },
+    {
+        "id": "exp_688f0df3d455a8.67870241",
+        "content": "Gi\u1eb7t \u0111\u1ed3 l\u1ea7n 1",
+        "amount": 232000,
+        "payer": "Ph\u01b0\u01a1ng Anh",
+        "date": "2025-08-03 07:21:23",
+        "created_at": 1754205683
+    },
+    {
+        "id": "exp_688f0e0c5e43d9.34939038",
+        "content": "Thu\u00ea gh\u1ebf \u0111\u1ec3 \u0111\u1ed3 b\u00e3i bi\u1ec3n",
+        "amount": 40000,
+        "payer": "Ph\u01b0\u01a1ng Anh",
+        "date": "2025-08-03 07:21:48",
+        "created_at": 1754205708
+    },
+    {
+        "id": "exp_688f0e250c3583.11017533",
+        "content": "B\u00e1nh m\u00ec sau l\u00fac t\u1eafm bi\u1ec3n",
+        "amount": 340000,
+        "payer": "Ph\u01b0\u01a1ng Anh",
+        "date": "2025-08-03 07:22:13",
+        "created_at": 1754205733
+    },
+    {
+        "id": "exp_688f0e3c90dc98.36499290",
+        "content": "Gi\u1eb7t \u0111\u1ed3 l\u1ea7n 2",
+        "amount": 110000,
+        "payer": "Ph\u01b0\u01a1ng Anh",
+        "date": "2025-08-03 07:22:36",
+        "created_at": 1754205756
+    },
+    {
+        "id": "exp_688f3683d483b4.01632987",
+        "content": "\u0102n s\u00e1ng M\u00ec qu\u1ea3ng Dung 200k (4 ng\u01b0\u1eddi \u0103n) chi ti\u00eau \u0111\u1eb7c bi\u1ec7t",
+        "amount": 200000,
+        "payer": "Vi\u1ec7t Anh",
+        "date": "2025-08-03 10:14:27",
+        "created_at": 1754216067,
+        "updated_at": 1754216763
+    },
+    {
+        "id": "exp_688f3945e2cf84.18080192",
+        "content": "C\u00e2n b\u1eb1ng kh\u00f4ng \u0103n s\u00e1ng m\u1ef3 qu\u1ea3ng Dung",
+        "amount": 50000,
+        "payer": "H\u00e0",
+        "date": "2025-08-03 10:26:13",
+        "created_at": 1754216773,
+        "updated_at": 1754228545,
+        "tag": "balance"
+    },
+    {
+        "id": "exp_688f395c480b30.53916842",
+        "content": "C\u00e2n b\u1eb1ng kh\u00f4ng \u0103n s\u00e1ng m\u1ef3 qu\u1ea3ng Dung",
+        "amount": 50000,
+        "payer": "Ph\u01b0\u01a1ng Anh",
+        "date": "2025-08-03 10:26:36",
+        "created_at": 1754216796,
+        "updated_at": 1754228543,
+        "tag": "balance"
+    },
+    {
+        "id": "exp_688f39625effb4.34607433",
+        "content": "C\u00e2n b\u1eb1ng kh\u00f4ng \u0103n s\u00e1ng m\u1ef3 qu\u1ea3ng Dung",
+        "amount": 50000,
+        "payer": "Tr\u00e0",
+        "date": "2025-08-03 10:26:42",
+        "created_at": 1754216802,
+        "updated_at": 1754228541,
+        "tag": "balance"
+    },
+    {
+        "id": "exp_688f4263890147.98468041",
+        "content": "C\u00e2n b\u1eb1ng ti\u1ec1n xe b\u00fayt",
+        "amount": 500000,
+        "payer": "H\u00e0",
+        "date": "2025-08-03 11:05:07",
+        "created_at": 1754219107,
+        "updated_at": 1754228537,
+        "tag": "balance"
+    },
+    {
+        "id": "exp_688f4c480c02c7.92410950",
+        "content": "Taxi homestay - Ga Hu\u1ebf",
+        "amount": 32000,
+        "payer": "Tr\u00e0",
+        "date": "2025-08-03 11:47:20",
+        "created_at": 1754221640
+    },
+    {
+        "id": "exp_688f4cfc35c0d0.00598304",
+        "content": "Taxi Ga \u0110\u00e0 N\u1eb5ng - kh\u00e1ch s\u1ea1n",
+        "amount": 87000,
+        "payer": "Tr\u00e0",
+        "date": "2025-08-03 11:50:20",
+        "created_at": 1754221820
+    },
+    {
+        "id": "exp_688f4d306b6f51.23316207",
+        "content": "Taxi ch\u1ee3 \u0110\u00e0 N\u1eb5ng",
+        "amount": 35000,
+        "payer": "Tr\u00e0",
+        "date": "2025-08-03 11:51:12",
+        "created_at": 1754221872,
+        "updated_at": 1754222555
     }
 ]

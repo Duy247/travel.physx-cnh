@@ -248,6 +248,9 @@ function processCreateExpense($data) {
         'date' => date('Y-m-d H:i:s'),
         'created_at' => time()
     ];
+    if (isset($data['tag'])) {
+        $expense['tag'] = $data['tag'];
+    }
     
     $expenses = readExpenses();
     $expenses[] = $expense;
@@ -271,6 +274,11 @@ function processUpdateExpense($data) {
             $expenses[$i]['amount'] = floatval($data['amount']);
             $expenses[$i]['payer'] = trim($data['payer']);
             $expenses[$i]['updated_at'] = time();
+            if (isset($data['tag'])) {
+                $expenses[$i]['tag'] = $data['tag'];
+            } else {
+                unset($expenses[$i]['tag']);
+            }
             $found = true;
             break;
         }

@@ -1,112 +1,127 @@
 [
     {
-        "id": "expop_686beab0663006.21741314",
-        "action": "delete_expense",
+        "id": "expop_688f65faae0598.30976286",
+        "action": "update_expense",
         "data": {
-            "id": "exp_68653e3868e1b6.85408123"
+            "id": "exp_688f4263890147.98468041",
+            "content": "C\u00e2n b\u1eb1ng ti\u1ec1n xe b\u00fayt",
+            "amount": 500000,
+            "payer": "H\u00e0",
+            "tag": "balance"
         },
-        "timestamp": 1751902896,
+        "timestamp": 1754228218,
         "status": "completed",
-        "processed_at": 1751902896
+        "processed_at": 1754228218
     },
     {
-        "id": "expop_686beab54d90a8.24577346",
-        "action": "delete_expense",
+        "id": "expop_688f660b8b8965.23696035",
+        "action": "update_expense",
         "data": {
-            "id": "exp_68653e26f25a67.73076289"
+            "id": "exp_688f4263890147.98468041",
+            "content": "C\u00e2n b\u1eb1ng ti\u1ec1n xe b\u00fayt",
+            "amount": 500000,
+            "payer": "H\u00e0",
+            "tag": "balance"
         },
-        "timestamp": 1751902901,
+        "timestamp": 1754228235,
         "status": "completed",
-        "processed_at": 1751902901
+        "processed_at": 1754228235
     },
     {
-        "id": "expop_686beab78aaf18.46733621",
-        "action": "delete_expense",
+        "id": "expop_688f662fc107f6.17518748",
+        "action": "update_expense",
         "data": {
-            "id": "exp_68653a82e5bc02.05300766"
+            "id": "exp_688f39625effb4.34607433",
+            "content": "C\u00e2n b\u1eb1ng kh\u00f4ng \u0103n s\u00e1ng m\u1ef3 qu\u1ea3ng Dung",
+            "amount": 50000,
+            "payer": "Tr\u00e0",
+            "tag": "balance"
         },
-        "timestamp": 1751902903,
+        "timestamp": 1754228271,
         "status": "completed",
-        "processed_at": 1751902903
+        "processed_at": 1754228271
     },
     {
-        "id": "expop_686beaba1e4fd9.02795949",
-        "action": "delete_expense",
+        "id": "expop_688f6714804a28.99804029",
+        "action": "update_expense",
         "data": {
-            "id": "exp_68653a766902d4.49005693"
+            "id": "exp_688f4263890147.98468041",
+            "content": "C\u00e2n b\u1eb1ng ti\u1ec1n xe b\u00fayt",
+            "amount": 500000,
+            "payer": "H\u00e0",
+            "tag": "balance"
         },
-        "timestamp": 1751902906,
+        "timestamp": 1754228500,
         "status": "completed",
-        "processed_at": 1751902906
+        "processed_at": 1754228500
     },
     {
-        "id": "expop_686beabc9c32a3.91537975",
-        "action": "delete_expense",
+        "id": "expop_688f673612b2a0.59533682",
+        "action": "update_expense",
         "data": {
-            "id": "exp_68653a6027e051.10466425"
-        },
-        "timestamp": 1751902908,
-        "status": "completed",
-        "processed_at": 1751902908
-    },
-    {
-        "id": "expop_686beac83e5455.08420670",
-        "action": "create_expense",
-        "data": {
-            "content": "Xe",
-            "amount": 900000,
+            "id": "exp_688f4263890147.98468041",
+            "content": "C\u00e2n b\u1eb1ng ti\u1ec1n xe b\u00fayt",
+            "amount": 500000,
             "payer": "H\u00e0"
         },
-        "timestamp": 1751902920,
+        "timestamp": 1754228534,
         "status": "completed",
-        "processed_at": 1751902920
+        "processed_at": 1754228534
     },
     {
-        "id": "expop_686bead39295f5.27881610",
-        "action": "create_expense",
+        "id": "expop_688f6739c5fb75.62710270",
+        "action": "update_expense",
         "data": {
-            "content": "M\u1ed1c",
-            "amount": 0,
-            "payer": "Duy"
+            "id": "exp_688f4263890147.98468041",
+            "content": "C\u00e2n b\u1eb1ng ti\u1ec1n xe b\u00fayt",
+            "amount": 500000,
+            "payer": "H\u00e0",
+            "tag": "balance"
         },
-        "timestamp": 1751902931,
+        "timestamp": 1754228537,
         "status": "completed",
-        "processed_at": 1751902931
+        "processed_at": 1754228537
     },
     {
-        "id": "expop_686beade6d6952.53072260",
-        "action": "create_expense",
+        "id": "expop_688f673d627af0.84103766",
+        "action": "update_expense",
         "data": {
-            "content": "G\u00e0",
-            "amount": 70000,
-            "payer": "Duy"
+            "id": "exp_688f39625effb4.34607433",
+            "content": "C\u00e2n b\u1eb1ng kh\u00f4ng \u0103n s\u00e1ng m\u1ef3 qu\u1ea3ng Dung",
+            "amount": 50000,
+            "payer": "Tr\u00e0",
+            "tag": "balance"
         },
-        "timestamp": 1751902942,
+        "timestamp": 1754228541,
         "status": "completed",
-        "processed_at": 1751902942
+        "processed_at": 1754228541
     },
     {
-        "id": "expop_686beaf4458498.06394641",
-        "action": "create_expense",
+        "id": "expop_688f673f87bf50.15673926",
+        "action": "update_expense",
         "data": {
-            "content": "M\u1ed1c",
-            "amount": 0,
-            "payer": "Trang"
+            "id": "exp_688f395c480b30.53916842",
+            "content": "C\u00e2n b\u1eb1ng kh\u00f4ng \u0103n s\u00e1ng m\u1ef3 qu\u1ea3ng Dung",
+            "amount": 50000,
+            "payer": "Ph\u01b0\u01a1ng Anh",
+            "tag": "balance"
         },
-        "timestamp": 1751902964,
+        "timestamp": 1754228543,
         "status": "completed",
-        "processed_at": 1751902964
+        "processed_at": 1754228543
     },
     {
-        "id": "expop_686beb026a83c8.15070854",
-        "action": "create_expense",
+        "id": "expop_688f67419c8389.67501738",
+        "action": "update_expense",
         "data": {
-            "content": "C\u01a1m",
-            "amount": 30000,
-            "payer": "Trang"
+            "id": "exp_688f3945e2cf84.18080192",
+            "content": "C\u00e2n b\u1eb1ng kh\u00f4ng \u0103n s\u00e1ng m\u1ef3 qu\u1ea3ng Dung",
+            "amount": 50000,
+            "payer": "H\u00e0",
+            "tag": "balance"
         },
-        "timestamp": 1751902978,
+        "timestamp": 1754228545,
         "status": "completed",
-        "processed_at": 1751902978
+        "processed_at": 1754228545
     }
 ]

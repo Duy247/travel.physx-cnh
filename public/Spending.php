@@ -1010,6 +1010,11 @@ $cache_bust = time();
                         </select>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label style="display:flex;align-items:center;gap:0.5rem;">
+                        <input type="checkbox" id="balance-tag" style="width:1.2em;height:1.2em;"> <span>Đánh dấu là chi tiêu cân bằng (không tính vào thống kê)</span>
+                    </label>
+                </div>
                 <div class="modal-actions">
                     <button type="button" class="btn-secondary" id="cancel-add">Hủy</button>
                     <button type="submit" class="btn-primary" id="add-expense-btn">
@@ -1051,6 +1056,11 @@ $cache_bust = time();
                             <?php endforeach; ?>
                         </select>
                     </div>
+                </div>
+                <div class="form-group">
+                    <label style="display:flex;align-items:center;gap:0.5rem;">
+                        <input type="checkbox" id="edit-balance-tag" style="width:1.2em;height:1.2em;"> <span>Đánh dấu là chi tiêu cân bằng (không tính vào thống kê)</span>
+                    </label>
                 </div>
                 <div class="modal-actions">
                     <button type="button" class="btn-secondary" id="cancel-edit">Hủy</button>
@@ -1358,17 +1368,21 @@ $cache_bust = time();
         }
 
         function generateSummaryHTML(expensesToSummarize) {
+            // Exclude 'balance' expenses from summary
             const payerSums = {};
             let totalAmount = 0;
-            
+            let trueTotalAmount = 0;
+
             expensesToSummarize.forEach(expense => {
                 const amount = parseFloat(expense.amount);
                 totalAmount += amount;
-                
-                if (payerSums[expense.payer]) {
-                    payerSums[expense.payer] += amount;
-                } else {
-                    payerSums[expense.payer] = amount;
+                if (!expense.tag || expense.tag !== 'balance') {
+                    trueTotalAmount += amount;
+                    if (payerSums[expense.payer]) {
+                        payerSums[expense.payer] += amount;
+                    } else {
+                        payerSums[expense.payer] = amount;
+                    }
                 }
             });
 
@@ -1385,15 +1399,15 @@ $cache_bust = time();
             const sortedPayers = Object.entries(payerSums).sort(([,a], [,b]) => b - a);
 
             let summaryHTML = '';
-            
-            // Add total summary
+
+            // Add total summary (true total, excluding 'balance')
             if (sortedPayers.length > 1) {
                 summaryHTML += `
                     <div class="summary-item" style="background: rgba(99, 102, 241, 0.1); border-color: rgba(99, 102, 241, 0.3);">
                         <div class="summary-payer" style="color: #8b5cf6; font-weight: 600;">
-                            <i class="fas fa-calculator"></i> Tổng Cộng
+                            <i class="fas fa-calculator"></i> Tổng Cộng (loại trừ cân bằng)
                         </div>
-                        <div class="summary-amount" style="color: #8b5cf6;">${formatCurrency(totalAmount)}</div>
+                        <div class="summary-amount" style="color: #8b5cf6;">${formatCurrency(trueTotalAmount)}</div>
                     </div>
                 `;
             }
@@ -1404,7 +1418,7 @@ $cache_bust = time();
                     <div class="summary-payer">
                         <i class="fas fa-user"></i> ${payer}
                         <span style="font-size: 0.8rem; opacity: 0.7; margin-left: 0.5rem;">
-                            (${((amount / totalAmount) * 100).toFixed(1)}%)
+                            (${((amount / trueTotalAmount) * 100).toFixed(1)}%)
                         </span>
                     </div>
                     <div class="summary-amount">${formatCurrency(amount)}</div>
@@ -1462,15 +1476,18 @@ $cache_bust = time();
             // Calculate the total amount spent by each person
             const payerAmounts = {};
             let totalAmount = 0;
+            let trueTotalAmount = 0;
 
             expensesToBalance.forEach(expense => {
                 const amount = parseFloat(expense.amount);
                 totalAmount += amount;
-
-                if (payerAmounts[expense.payer]) {
-                    payerAmounts[expense.payer] += amount;
-                } else {
-                    payerAmounts[expense.payer] = amount;
+                if (!expense.tag || expense.tag !== 'balance') {
+                    trueTotalAmount += amount;
+                    if (payerAmounts[expense.payer]) {
+                        payerAmounts[expense.payer] += amount;
+                    } else {
+                        payerAmounts[expense.payer] = amount;
+                    }
                 }
             });
 
@@ -1478,43 +1495,45 @@ $cache_bust = time();
             const uniquePayers = Object.keys(payerAmounts);
             const peopleCount = uniquePayers.length;
 
-            // Calculate the average amount per person
+            // Calculate the average amount per person (all expenses)
             const averageAmount = totalAmount / peopleCount;
+            // Calculate the true average amount per person (excluding 'balance')
+            const trueAverageAmount = trueTotalAmount / peopleCount;
 
-            // Calculate how much each person should pay or receive
+            // Calculate how much each person should pay or receive (excluding 'balance')
             const balances = {};
             for (const payer of uniquePayers) {
-                balances[payer] = payerAmounts[payer] - averageAmount;
+                balances[payer] = payerAmounts[payer] - trueAverageAmount;
             }
 
             // Create transactions to balance everyone out
             const transactions = [];
             const debtors = Object.keys(balances).filter(person => balances[person] < 0);
             const creditors = Object.keys(balances).filter(person => balances[person] > 0);
-            
+
             // For simplicity, we'll pair debtors with creditors
             while (debtors.length > 0 && creditors.length > 0) {
                 const debtor = debtors[0];
                 const creditor = creditors[0];
-                
+
                 const debtAmount = Math.abs(balances[debtor]);
                 const creditAmount = balances[creditor];
-                
+
                 const transferAmount = Math.min(debtAmount, creditAmount);
-                
+
                 transactions.push({
                     from: debtor,
                     to: creditor,
                     amount: Math.round(transferAmount) // Round to nearest integer
                 });
-                
+
                 balances[debtor] += transferAmount;
                 balances[creditor] -= transferAmount;
-                
+
                 if (Math.abs(balances[debtor]) < 1) { // Small threshold to handle floating point errors
                     debtors.shift();
                 }
-                
+
                 if (Math.abs(balances[creditor]) < 1) {
                     creditors.shift();
                 }
@@ -1527,12 +1546,12 @@ $cache_bust = time();
                         <span><i class="fas fa-calculator"></i> Thông Tin Cân Bằng</span>
                     </div>
                     <div class="balance-average">
-                        <span>Chi tiêu trung bình: ${formatCurrency(Math.round(averageAmount))}</span>
+                        <span>Chi tiêu trung bình (tất cả): ${formatCurrency(Math.round(averageAmount))}</span><br>
+                        <span>Chi tiêu trung bình (loại trừ cân bằng): ${formatCurrency(Math.round(trueAverageAmount))}</span>
                     </div>
                     <div style="margin-bottom: 1rem;">
             `;
 
-            // Show each person's contribution and difference from average
             balanceHTML += `
                     </div>
                     <div class="balance-header">
@@ -1553,7 +1572,7 @@ $cache_bust = time();
                         balanceHTML += `
                             <div class="balance-transaction">
                                 <span class="transaction-payer">${transaction.from}</span>
-                                <span><i class="fas fa-arrow-right"></i></span>
+                                <span>→</span>
                                 <span class="transaction-receiver">${transaction.to}</span>
                                 <span class="transaction-amount">${formatCurrency(transaction.amount)}</span>
                             </div>
@@ -1586,7 +1605,7 @@ $cache_bust = time();
             document.getElementById('edit-content').value = expense.content;
             document.getElementById('edit-amount').value = expense.amount;
             document.getElementById('edit-payer').value = expense.payer;
-            
+            document.getElementById('edit-balance-tag').checked = expense.tag === 'balance';
             updateFormattedAmount('edit-amount', 'edit-formatted-amount');
             document.getElementById('edit-modal').style.display = 'flex';
         }
@@ -1695,16 +1714,16 @@ $cache_bust = time();
             // Add expense form
             document.getElementById('expense-form').addEventListener('submit', async function(e) {
                 e.preventDefault();
-                
                 const addBtn = document.getElementById('add-expense-btn');
                 setLoading(addBtn, true);
-
                 const expenseData = {
                     content: document.getElementById('content').value.trim(),
                     amount: parseFloat(document.getElementById('amount').value),
                     payer: document.getElementById('payer').value
                 };
-
+                if (document.getElementById('balance-tag').checked) {
+                    expenseData.tag = 'balance';
+                }
                 await addExpense(expenseData);
                 setLoading(addBtn, false);
             });
@@ -1712,18 +1731,17 @@ $cache_bust = time();
             // Edit expense form
             document.getElementById('edit-expense-form').addEventListener('submit', async function(e) {
                 e.preventDefault();
-                
                 if (!currentEditId) return;
-                
                 const saveBtn = document.getElementById('save-edit');
                 setLoading(saveBtn, true);
-
                 const expenseData = {
                     content: document.getElementById('edit-content').value.trim(),
                     amount: parseFloat(document.getElementById('edit-amount').value),
                     payer: document.getElementById('edit-payer').value
                 };
-
+                if (document.getElementById('edit-balance-tag').checked) {
+                    expenseData.tag = 'balance';
+                }
                 await updateExpense(currentEditId, expenseData);
                 setLoading(saveBtn, false);
             });
