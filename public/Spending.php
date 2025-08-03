@@ -1481,7 +1481,9 @@ $cache_bust = time();
             expensesToBalance.forEach(expense => {
                 const amount = parseFloat(expense.amount);
                 totalAmount += amount;
-                trueTotalAmount += amount;
+                if (!expense.tag || expense.tag !== 'balance') {
+                    trueTotalAmount += amount;
+                }
                 if (payerAmounts[expense.payer]) {
                     payerAmounts[expense.payer] += amount;
                 } else {
